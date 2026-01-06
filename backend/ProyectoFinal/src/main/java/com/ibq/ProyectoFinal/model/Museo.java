@@ -8,9 +8,10 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "museos")
 public class Museo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "El nombre del museo es obligatorio")

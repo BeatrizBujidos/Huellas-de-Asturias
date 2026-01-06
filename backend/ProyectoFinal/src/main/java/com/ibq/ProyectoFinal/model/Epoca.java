@@ -1,10 +1,7 @@
 package com.ibq.ProyectoFinal.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,9 +9,10 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "epocas")
 public class Epoca {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
@@ -23,10 +21,10 @@ public class Epoca {
     private String descripcion;
 
     @NotNull
-    @Past(message = "La fecha de inicio debe ser anterior a la fecha actual")
-    private LocalDate fecha_inicio;
-    @Past(message = "La fecha de fin debe ser anterior a la fecha actual")
-    private LocalDate fecha_fin;
+    @Min(value = 0, message = "La fecha de inicio debe ser un año válido")
+    private Integer fecha_inicio;
+    @Min(value = 0, message = "La fecha de fin debe ser un año válido")
+    private Integer fecha_fin;
 
     private String caracteristicas;
 
@@ -38,9 +36,9 @@ public class Epoca {
 
     @AssertTrue(message = "La fecha de fin debe ser posterior a la de inicio")
     public boolean isFechaFinValida() {
-        if (fecha_fin == null || fecha_inicio == null) {
-            return true;
+        if (fecha_inicio == null || fecha_fin == null) {
+            return true; // O false, dependiendo de tu lógica
         }
-        return fecha_fin.isAfter(fecha_inicio);
+        return fecha_fin > fecha_inicio;
     }
 }

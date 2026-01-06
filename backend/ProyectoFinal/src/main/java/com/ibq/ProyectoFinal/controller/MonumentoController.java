@@ -1,8 +1,6 @@
 package com.ibq.ProyectoFinal.controller;
 
-import com.ibq.ProyectoFinal.dto.ArtistaDTO;
 import com.ibq.ProyectoFinal.dto.MonumentoDTO;
-import com.ibq.ProyectoFinal.model.Artista;
 import com.ibq.ProyectoFinal.model.Monumento;
 import com.ibq.ProyectoFinal.service.MonumentoService;
 import jakarta.validation.Valid;

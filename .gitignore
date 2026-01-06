@@ -1,0 +1,36 @@
+# Backend (Spring Boot)
+backend/target/
+backend/.settings/
+backend/.project
+backend/.classpath
+backend/.factorypath
+backend/*.iml
+backend/*.ipr
+backend/*.iws
+backend/.gradle/
+backend/gradlew.bat
+backend/.idea/
+
+# Frontend (Angular)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+frontend/coverage/
+frontend/.npm/
+frontend/.cache/
+
+# Database
+database/*.log
+
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -33,7 +33,6 @@ public class ArtistaService {
     private ArtistaDTO mapToRequestDTO(Artista artista){
         return ArtistaDTO.builder()
                 .nombre(artista.getNombre())
-                .apellidos(artista.getApellidos())
                 .fecha_nacimiento(artista.getFecha_nacimiento())
                 .fecha_muerte(artista.getFecha_muerte())
                 .lugar_nacimiento(artista.getLugar_nacimiento())
@@ -69,9 +68,6 @@ public class ArtistaService {
 
         if (Objects.nonNull(artista.getNombre()) && !artista.getNombre().isEmpty()){
             artistaDB.setNombre(artista.getNombre());
-        }
-        if (Objects.nonNull(artista.getApellidos()) && !artista.getApellidos().isEmpty()){
-            artistaDB.setApellidos(artista.getApellidos());
         }
         if (Objects.nonNull(artista.getFecha_nacimiento())){
             artistaDB.setFecha_nacimiento(artista.getFecha_nacimiento());

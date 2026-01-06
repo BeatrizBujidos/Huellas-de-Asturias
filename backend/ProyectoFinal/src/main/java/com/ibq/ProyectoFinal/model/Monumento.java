@@ -3,13 +3,12 @@ package com.ibq.ProyectoFinal.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 @Entity
+@Table(name = "monumentos")
 public class Monumento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -17,7 +16,7 @@ public class Monumento {
     private Epoca epoca;
 
     private String nombre;
-    private LocalDate fecha_construccion;
+    private String fecha_construccion;
     private String descripcion;
     private Double latitud;
     private Double longitud;

@@ -7,9 +7,10 @@ import java.time.LocalDate;
 
 @Data
 @Entity
+@Table(name = "obras")
 public class Obra {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -25,7 +26,7 @@ public class Obra {
     private Epoca epoca;
 
     private String titulo;
-    private LocalDate fecha_creacion;
+    private int fecha_creacion;
     private String tecnica;
     private String descripcion;
     private String dimensiones;

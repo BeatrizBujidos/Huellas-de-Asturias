@@ -1,0 +1,37 @@
+# Configuración automática para archivos de texto
+* text=auto
+
+# Especificar explícitamente archivos de texto (extensión específica)
+*.java text
+*.xml text
+*.json text
+*.js text
+*.ts text
+*.html text
+*.css text
+*.md text
+*.txt text
+*.properties text
+*.yml text
+*.yaml text
+*.sql text
+
+# Archivos que deben tener LF (scripts Unix)
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Archivos que deben tener CRLF (scripts Windows)
+*.cmd text eol=crlf
+*.bat text eol=crlf
+mvnw.cmd text eol=crlf
+
+# Archivos binarios (NO normalizar)
+*.jpg binary
+*.png binary
+*.gif binary
+*.pdf binary
+*.jar binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.class binary

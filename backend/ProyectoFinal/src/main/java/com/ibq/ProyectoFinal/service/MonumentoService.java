@@ -1,9 +1,6 @@
 package com.ibq.ProyectoFinal.service;
 
-import com.ibq.ProyectoFinal.dto.ArtistaDTO;
-import com.ibq.ProyectoFinal.dto.EpocaDTO;
 import com.ibq.ProyectoFinal.dto.MonumentoDTO;
-import com.ibq.ProyectoFinal.model.Artista;
 import com.ibq.ProyectoFinal.model.Monumento;
 import com.ibq.ProyectoFinal.repository.MonumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +61,7 @@ public class MonumentoService {
         if (Objects.nonNull(monumento.getNombre()) && !monumento.getNombre().isEmpty()){
             monumentoDB.setNombre(monumento.getNombre());
         }
-        if (Objects.nonNull(monumento.getFecha_construccion())){
+        if (Objects.nonNull(monumento.getFecha_construccion()) && !monumento.getFecha_construccion().isEmpty()){
             monumentoDB.setFecha_construccion(monumento.getFecha_construccion());
         }
         if (Objects.nonNull(monumento.getDescripcion()) && (!monumento.getDescripcion().isEmpty())){
