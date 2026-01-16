@@ -1,9 +1,11 @@
 package com.ibq.ProyectoFinal.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,11 +26,15 @@ public class Obra {
     @ManyToOne
     @JoinColumn(name = "id_epoca", referencedColumnName = "id")
     private Epoca epoca;
-
+    @NotBlank(message = "El título es obligatorio")
     private String titulo;
     private int fecha_creacion;
     private String tecnica;
     private String descripcion;
     private String dimensiones;
-    private String imagen;
+
+    @Transient
+    private String imagenPrincipal;
+    @Transient
+    private List<String> imagenes = new ArrayList<>();
 }
