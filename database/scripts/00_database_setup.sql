@@ -1,7 +1,6 @@
 -- ============================================
 -- Script: 00_database_setup.sql
 -- Descripción: Creación de la base de datos
--- Fecha: $(date)
 -- ============================================
 
 -- Eliminar base de datos si existe (para desarrollo)

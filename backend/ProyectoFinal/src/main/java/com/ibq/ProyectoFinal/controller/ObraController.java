@@ -35,26 +35,26 @@ public class ObraController {
     }
     //Operaciones READ
     //Buscar obras por título
-    @GetMapping("/obras/{titulo}")
+    @GetMapping("/obras/titulo/{titulo}")
     public Obra buscarObrasPorTitulo(@PathVariable String titulo){
         return obraService.findByTitulo(titulo);
     }//Listar obras por artista
-    @GetMapping("/obras/{artista}")
+    @GetMapping("/obras/artista/{artistaId}")
     public List<ObraDTO> buscarObrasPorArtista(@PathVariable Long artistaId){
         return obraService.findByArtistaId(artistaId);
     }
     //Listar obras por técnica
-    @GetMapping("/obras/{tecnica}")
+    @GetMapping("/obras/tecnica/{tecnica}")
     public List<ObraDTO> buscarObrasPorTecnica(@PathVariable String tecnica){
         return obraService.findByTecnica(tecnica);
     }
     //Listar obras por época
-    @GetMapping("/obras/{epoca}")
+    @GetMapping("/obras/epoca/{epocaId}")
     public List<ObraDTO> buscarObrasPorEpoca(@PathVariable Long epocaId){
         return obraService.findByEpocaId(epocaId);
     }
     //Listar obras por museo
-    @GetMapping("/obras/{museo}")
+    @GetMapping("/obras/museo/{museoId}")
     public List<ObraDTO> buscarObrasPorMuseo(@PathVariable Long idMuseo){
         return obraService.findByMuseoId(idMuseo);
     }
