@@ -1,52 +1,64 @@
 package com.ibq.ProyectoFinal.controller;
 
 import com.ibq.ProyectoFinal.dto.ArtistaDTO;
-import com.ibq.ProyectoFinal.model.Artista;
 import com.ibq.ProyectoFinal.service.ArtistaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
+
 public class ArtistaController {
     private final ArtistaService artistaService;
     @Autowired
     public ArtistaController (ArtistaService artistaService){
         this.artistaService = artistaService;
     }
-//Operación CREATE
+// ========== OPERACIÓN CREATE ==========
     @PostMapping("/artistas")
-    public Artista saveArtista(@Valid @RequestBody Artista artista){
-        return artistaService.saveArtista(artista);
+    public ResponseEntity<ArtistaDTO> saveArtista(@Valid @RequestBody ArtistaDTO artistaDTO) {
+        ArtistaDTO savedArtista = artistaService.saveArtista(artistaDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedArtista);
     }
-//Operación UPDATE
-    @PutMapping("/artistas/{id}")
-    public Artista updateArtista(@RequestBody Artista artista,
-                            @PathVariable("id") Long idArtista){
-        return artistaService.updateArtista(artista, idArtista);
-    }
-//Operaciones READ
+
+    // ========== OPERACIONES READ ==========
+    //Buscar artistas por nombre y apellidos
     @GetMapping("/artistas/nombreYapellidos")
-    public ArtistaDTO findArtistaByNombreAndApellidos(@RequestParam String nombre,
-                                                      @RequestParam String apellidos){
-        return artistaService.findByNombreAndApellidos(nombre, apellidos);
+    public ResponseEntity<ArtistaDTO> findArtistaByNombreAndApellidos(
+            @RequestParam String nombre,
+            @RequestParam String apellidos) {
+        ArtistaDTO artista = artistaService.findByNombreAndApellidos(nombre, apellidos);
+        return ResponseEntity.ok(artista);
     }
-//Listado de artistas por estilo
+    //Buscar artistas por estilo
     @GetMapping("/artistas/estilo")
-    public List<ArtistaDTO> findArtistaByEstilo(@RequestParam String estilo){
-        return artistaService.findByEstilo(estilo);
+    public ResponseEntity<List<ArtistaDTO>> findArtistaByEstilo(@RequestParam String estilo) {
+        List<ArtistaDTO> artistas = artistaService.findByEstilo(estilo);
+        return ResponseEntity.ok(artistas);
     }
-    //Operación DELETE
+
+    // ========== OPERACIÓN UPDATE ==========
+    @PutMapping("/artistas/{id}")
+    public ResponseEntity<ArtistaDTO> updateArtista(
+            @RequestBody ArtistaDTO artistaDTO,
+            @PathVariable("id") Long idArtista) {
+        ArtistaDTO updatedArtista = artistaService.updateArtista(artistaDTO, idArtista);
+        return ResponseEntity.ok(updatedArtista);
+    }
+
+    // ========== OPERACIÓN DELETE ==========
     @DeleteMapping("/artistas/{id}")
-    public ResponseEntity<Void>deleteArtistaId(@PathVariable Long idArtista){
-        try{
+    public ResponseEntity<Void> deleteArtistaId(@PathVariable("id") Long idArtista) {
+        try {
             artistaService.deleteArtistaById(idArtista);
-            return ResponseEntity.noContent().build();//204 eliminación exitosa
-        } catch (RuntimeException e){
-            return ResponseEntity.notFound().build();//404 artista no encontrado
+            return ResponseEntity.noContent().build(); // 204
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build(); // 404
         }
     }
 }

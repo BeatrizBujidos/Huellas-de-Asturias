@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,69 +18,110 @@ public class MonumentoService {
     public MonumentoService (MonumentoRepository monumentoRepository){
         this.monumentoRepository = monumentoRepository;
     }
-//Operación CREATE
-    @Transactional
-    public Monumento saveMonumento(Monumento monumento){
-        return monumentoRepository.save(monumento);
-    }
-//Operaciones READ
-//mapToRequestDTO
-    private MonumentoDTO mapToRequestDTO(Monumento monumento){
-        return MonumentoDTO.builder()
+// ========== MAPPERS ==========
+    // mapToDTO
+    private MonumentoDTO mapToDTO(Monumento monumento) {
+        MonumentoDTO.MonumentoDTOBuilder builder = MonumentoDTO.builder()
                 .nombre(monumento.getNombre())
                 .descripcion(monumento.getDescripcion())
-                .fecha_construccion(monumento.getFecha_construccion())
-                .build();
+                .fechaConstruccion(monumento.getFechaConstruccion())
+                .latitud(monumento.getLatitud())
+                .longitud(monumento.getLongitud());
+
+        // Añadir información de la época si existe
+        if (monumento.getEpoca() != null) {
+            builder.epocaId(monumento.getEpoca().getId())
+                    .epocaNombre(monumento.getEpoca().getNombre());
+        }
+
+        return builder.build();
     }
 
-//Listar monumentos
+    //DTO → Entity
+    private Monumento mapToEntity(MonumentoDTO dto) {
+        Monumento monumento = new Monumento();
+
+        monumento.setNombre(dto.getNombre());
+        monumento.setDescripcion(dto.getDescripcion());
+        monumento.setFechaConstruccion(dto.getFechaConstruccion());
+        monumento.setLatitud(dto.getLatitud());
+        monumento.setLongitud(dto.getLongitud());
+        return monumento;
+    }
+
+    // ========== OPERACIÓN CREATE ==========
+    @Transactional
+    public MonumentoDTO saveMonumento(MonumentoDTO monumentoDTO) {
+        Monumento monumento = mapToEntity(monumentoDTO);
+        Monumento savedMonumento = monumentoRepository.save(monumento);
+        return mapToDTO(savedMonumento);
+    }
+
+    // ========== OPERACIONES READ ==========
     @Transactional(readOnly = true)
-    public List<MonumentoDTO> listarMonumentos(){
+    public List<MonumentoDTO> listarMonumentos() {
         return monumentoRepository.findAll()
                 .stream()
-                .map(this::mapToRequestDTO)
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-//Buscar monumento por epoca
-    @Transactional(readOnly = true)
-    public List<MonumentoDTO> findByEpocaId(Long idEpoca){
-        return monumentoRepository.findByEpocaId(idEpoca).stream()
-                .map(this::mapToRequestDTO)
-                .collect(Collectors.toList());
-    }
-//Operación UPDATE
-    @Transactional
-    public Monumento updateMonumento(Monumento monumento, Long idMonumento){
-        Optional<Monumento> monumentoOptional = monumentoRepository.findById(idMonumento);
-        if(!monumentoOptional.isPresent()){
-            return null;
-        }
-        Monumento monumentoDB = monumentoOptional.get();
 
-        if (Objects.nonNull(monumento.getNombre()) && !monumento.getNombre().isEmpty()){
-            monumentoDB.setNombre(monumento.getNombre());
-        }
-        if (Objects.nonNull(monumento.getFecha_construccion()) && !monumento.getFecha_construccion().isEmpty()){
-            monumentoDB.setFecha_construccion(monumento.getFecha_construccion());
-        }
-        if (Objects.nonNull(monumento.getDescripcion()) && (!monumento.getDescripcion().isEmpty())){
-            monumentoDB.setDescripcion(monumento.getDescripcion());
-        }
-        if (Objects.nonNull(monumento.getLatitud())){
-            monumentoDB.setLatitud(monumento.getLatitud());
-        }
-        if (Objects.nonNull(monumento.getLongitud())){
-            monumentoDB.setLongitud(monumento.getLongitud());
-        }
-        if (Objects.nonNull(monumento.getImagen()) && !monumento.getImagen().isEmpty()){
-            monumentoDB.setImagen(monumento.getImagen());
-        }
-        return monumentoRepository.save(monumentoDB);
+    @Transactional(readOnly = true)
+    public List<MonumentoDTO> findByEpocaId(Long idEpoca) {
+        return monumentoRepository.findByEpocaId(idEpoca)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
-//Operación DELETE
+
+    @Transactional(readOnly = true)
+    public MonumentoDTO findByNombre(String nombre) {
+        Monumento monumento = monumentoRepository.findByNombre(nombre)
+                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con nombre: " + nombre));
+        return mapToDTO(monumento);
+    }
+    //Buscar monumentos en un área geográfica (para el mapa interactivo)
+    @Transactional(readOnly = true)
+    public List<MonumentoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
+        return monumentoRepository.findByLatitudBetweenAndLongitudBetween(latMin, latMax, lonMin, lonMax)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+
+    // ========== OPERACIÓN UPDATE ==========
     @Transactional
-    public void deleteMonumentoById(Long idMonumento){
+    public MonumentoDTO updateMonumento(MonumentoDTO monumentoDTO, Long idMonumento) {
+        Monumento monumentoDB = monumentoRepository.findById(idMonumento)
+                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con ID: " + idMonumento));
+
+        // Actualizar solo campos no nulos
+        if (Objects.nonNull(monumentoDTO.getNombre()) && !monumentoDTO.getNombre().isEmpty()) {
+            monumentoDB.setNombre(monumentoDTO.getNombre());
+        }
+        if (Objects.nonNull(monumentoDTO.getFechaConstruccion()) && !monumentoDTO.getFechaConstruccion().isEmpty()) {
+            monumentoDB.setFechaConstruccion(monumentoDTO.getFechaConstruccion());
+        }
+        if (Objects.nonNull(monumentoDTO.getDescripcion()) && !monumentoDTO.getDescripcion().isEmpty()) {
+            monumentoDB.setDescripcion(monumentoDTO.getDescripcion());
+        }
+        if (Objects.nonNull(monumentoDTO.getLatitud())) {
+            monumentoDB.setLatitud(monumentoDTO.getLatitud());
+        }
+        if (Objects.nonNull(monumentoDTO.getLongitud())) {
+            monumentoDB.setLongitud(monumentoDTO.getLongitud());
+        }
+
+        Monumento updatedMonumento = monumentoRepository.save(monumentoDB);
+        return mapToDTO(updatedMonumento);
+    }
+
+    // ========== OPERACIÓN DELETE ==========
+    @Transactional
+    public void deleteMonumentoById(Long idMonumento) {
+        if (!monumentoRepository.existsById(idMonumento)) {
+            throw new RuntimeException("Monumento no encontrado con ID: " + idMonumento);
+        }
         monumentoRepository.deleteById(idMonumento);
     }
-
 }

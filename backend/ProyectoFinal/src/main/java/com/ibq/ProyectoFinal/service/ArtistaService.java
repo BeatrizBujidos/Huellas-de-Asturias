@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,85 +22,116 @@ public class ArtistaService {
         this.artistaRepository = artistaRepository;
         this.obraRepository = obraRepository;
     }
-//Operación CREATE
-    @Transactional
-    public Artista saveArtista(Artista artista){
-        return artistaRepository.save(artista);
-    }
-//Operaciones READ
-//mapToRequestDTO
-    private ArtistaDTO mapToRequestDTO(Artista artista){
-        return ArtistaDTO.builder()
-                .nombre(artista.getNombre())
-                .fecha_nacimiento(artista.getFecha_nacimiento())
-                .fecha_muerte(artista.getFecha_muerte())
-                .lugar_nacimiento(artista.getLugar_nacimiento())
-                .build();
-    }
-//Buscar artista por nombre y apellidos
-    @Transactional(readOnly = true)
-    public ArtistaDTO findByNombreAndApellidos(String nombre, String apellidos){
-        Artista artista = artistaRepository.findByNombreAndApellidos(nombre, apellidos);
+    // ========== MAPPERS ==========
+
+    //mapToDTO
+    private ArtistaDTO mapToDTO(Artista artista) {
         return ArtistaDTO.builder()
                 .nombre(artista.getNombre())
                 .apellidos(artista.getApellidos())
-                .fecha_nacimiento(artista.getFecha_nacimiento())
-                .fecha_muerte(artista.getFecha_muerte())
-                .lugar_nacimiento(artista.getLugar_nacimiento())
+                .fechaNacimiento(artista.getFechaNacimiento())
+                .fechaMuerte(artista.getFechaMuerte())
+                .lugarNacimiento(artista.getLugarNacimiento())
+                .biografia(artista.getBiografia())
+                .estilo(artista.getEstilo())
+                .imagen(artista.getImagen())
                 .build();
     }
-//Listar artistas por estilo
+
+    //DTO → Entity
+    private Artista mapToEntity(ArtistaDTO dto) {
+        Artista artista = new Artista();
+
+        artista.setNombre(dto.getNombre());
+        artista.setApellidos(dto.getApellidos());
+        artista.setFechaNacimiento(dto.getFechaNacimiento());
+        artista.setFechaMuerte(dto.getFechaMuerte());
+        artista.setLugarNacimiento(dto.getLugarNacimiento());
+        artista.setBiografia(dto.getBiografia());
+        artista.setEstilo(dto.getEstilo());
+        artista.setImagen(dto.getImagen());
+        return artista;
+    }
+
+    // ========== OPERACIÓN CREATE ==========
+    @Transactional
+    public ArtistaDTO saveArtista(ArtistaDTO artistaDTO) {
+        Artista artista = mapToEntity(artistaDTO);
+        Artista savedArtista = artistaRepository.save(artista);
+        return mapToDTO(savedArtista);
+    }
+
+    // ========== OPERACIONES READ ==========
     @Transactional(readOnly = true)
-    public List<ArtistaDTO> findByEstilo(String estilo){
-        return artistaRepository.findByEstilo(estilo).stream()
-                .map(this::mapToRequestDTO)
+    public ArtistaDTO findByNombreAndApellidos(String nombre, String apellidos) {
+        Artista artista = artistaRepository.findByNombreAndApellidos(nombre, apellidos)
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con nombre: " + nombre + " " + apellidos));
+        return mapToDTO(artista);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArtistaDTO> findByEstilo(String estilo) {
+        return artistaRepository.findByEstilo(estilo)
+                .stream()
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-//Operación UPDATE
-    @Transactional
-    public Artista updateArtista(Artista artista, Long idArtista){
-        Optional<Artista> artistaOptional = artistaRepository.findById(idArtista);
-        if(!artistaOptional.isPresent()){
-            return null;
-        }
-        Artista artistaDB = artistaOptional.get();
 
-        if (Objects.nonNull(artista.getNombre()) && !artista.getNombre().isEmpty()){
-            artistaDB.setNombre(artista.getNombre());
-        }
-        if (Objects.nonNull(artista.getFecha_nacimiento())){
-            artistaDB.setFecha_nacimiento(artista.getFecha_nacimiento());
-        }
-        if (Objects.nonNull(artista.getFecha_muerte())){
-            artistaDB.setFecha_muerte(artista.getFecha_muerte());
-        }
-        if (Objects.nonNull(artista.getLugar_nacimiento()) && !artista.getLugar_nacimiento().isEmpty()){
-            artistaDB.setLugar_nacimiento(artista.getLugar_nacimiento());
-        }
-        if (Objects.nonNull(artista.getBiografia()) && !artista.getBiografia().isEmpty()){
-            artistaDB.setBiografia(artista.getBiografia());
-        }
-        if (Objects.nonNull(artista.getEstilo()) && !artista.getEstilo().isEmpty()){
-            artistaDB.setEstilo(artista.getEstilo());
-        }
-        if (Objects.nonNull(artista.getImagen()) && !artista.getImagen().isEmpty()){
-            artistaDB.setImagen(artista.getImagen());
-        }
-        return artistaRepository.save(artistaDB);
+    @Transactional(readOnly = true)
+    public List<ArtistaDTO> findByLugarNacimiento(String lugarNacimiento) {
+        return artistaRepository.findByLugarNacimiento(lugarNacimiento)
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
     }
-//Operación DELETE
+
+    // ========== OPERACIÓN UPDATE ==========
     @Transactional
-    public void deleteArtistaById(Long idArtista){
-        Optional<Artista> artistaOptional = artistaRepository.findById(idArtista);
-        if (!artistaOptional.isPresent()){
-            throw new RuntimeException("El artista no existe");
+    public ArtistaDTO updateArtista(ArtistaDTO artistaDTO, Long idArtista) {
+        Artista artistaDB = artistaRepository.findById(idArtista)
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con ID: " + idArtista));
+        // Actualizar solo campos no nulos
+        if (Objects.nonNull(artistaDTO.getNombre()) && !artistaDTO.getNombre().isEmpty()) {
+            artistaDB.setNombre(artistaDTO.getNombre());
         }
-        //Verificar si el artista tiene obras
-        if(obraRepository.existsByArtistaId(idArtista)){
-            //Eliminar obras del artista
+        if (Objects.nonNull(artistaDTO.getApellidos()) && !artistaDTO.getApellidos().isEmpty()) {
+            artistaDB.setApellidos(artistaDTO.getApellidos());
+        }
+        if (Objects.nonNull(artistaDTO.getFechaNacimiento())) {
+            artistaDB.setFechaNacimiento(artistaDTO.getFechaNacimiento());
+        }
+        if (Objects.nonNull(artistaDTO.getFechaMuerte())) {
+            artistaDB.setFechaMuerte(artistaDTO.getFechaMuerte());
+        }
+        if (Objects.nonNull(artistaDTO.getLugarNacimiento()) && !artistaDTO.getLugarNacimiento().isEmpty()) {
+            artistaDB.setLugarNacimiento(artistaDTO.getLugarNacimiento());
+        }
+        if (Objects.nonNull(artistaDTO.getBiografia()) && !artistaDTO.getBiografia().isEmpty()) {
+            artistaDB.setBiografia(artistaDTO.getBiografia());
+        }
+        if (Objects.nonNull(artistaDTO.getEstilo()) && !artistaDTO.getEstilo().isEmpty()) {
+            artistaDB.setEstilo(artistaDTO.getEstilo());
+        }
+        if (Objects.nonNull(artistaDTO.getImagen()) && !artistaDTO.getImagen().isEmpty()) {
+            artistaDB.setImagen(artistaDTO.getImagen());
+        }
+
+        Artista updatedArtista = artistaRepository.save(artistaDB);
+        return mapToDTO(updatedArtista);
+    }
+
+    // ========== OPERACIÓN DELETE ==========
+    @Transactional
+    public void deleteArtistaById(Long idArtista) {
+        Artista artista = artistaRepository.findById(idArtista)
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con ID: " + idArtista));
+
+        // Verificar si el artista tiene obras
+        if (obraRepository.existsByArtistaId(idArtista)) {
+            // Eliminar obras del artista
             obraRepository.deleteByArtistaId(idArtista);
         }
-        //Eliminar artista
+        // Eliminar artista
         artistaRepository.deleteById(idArtista);
     }
 }

@@ -28,7 +28,7 @@ public class Obra {
     private Epoca epoca;
     @NotBlank(message = "El título es obligatorio")
     private String titulo;
-    private int fecha_creacion;
+    private Integer fechaCreacion;
     private String tecnica;
     private String descripcion;
     private String dimensiones;

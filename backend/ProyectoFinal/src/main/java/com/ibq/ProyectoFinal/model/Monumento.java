@@ -20,7 +20,7 @@ public class Monumento {
     private Epoca epoca;
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
-    private String fecha_construccion;
+    private String fechaConstruccion;
     private String descripcion;
     private Double latitud;
     private Double longitud;

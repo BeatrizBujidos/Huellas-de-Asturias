@@ -3,14 +3,21 @@ package com.ibq.ProyectoFinal.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Builder
 @Data
 public class ObraDTO {
+
     private String titulo;
-    private LocalDate fecha_creacion;
+    private Integer fechaCreacion;
+    private String tecnica;
     private String descripcion;
     private String dimensiones;
-    private String imagen;
+
+    private Long artistaId;
+    private Long museoId;
+    private Long epocaId;
+
+    private String artistaNombre;
+    private String museoNombre;
+    private String epocaNombre;
 }

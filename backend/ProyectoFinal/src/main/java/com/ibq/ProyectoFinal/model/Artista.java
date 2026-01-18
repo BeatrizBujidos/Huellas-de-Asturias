@@ -26,11 +26,11 @@ public class Artista {
 
     @NotNull
     @Past(message = "La fecha de nacimiento debe ser anterior a la fecha actual")
-    private LocalDate fecha_nacimiento;
+    private LocalDate fechaNacimiento;
     @Past(message = "La fecha de muerte debe ser anterior a la fecha actual")
-    private LocalDate fecha_muerte;
+    private LocalDate fechaMuerte;
 
-    private String lugar_nacimiento;
+    private String lugarNacimiento;
     private String biografia;
     private String estilo;
     private String imagen;
@@ -40,9 +40,9 @@ public class Artista {
 
     @AssertTrue(message = "La fecha de muerte debe ser posterior a la de nacimiento")
     public boolean isFechaMuerteValida() {
-        if (fecha_muerte == null || fecha_nacimiento == null) {
+        if (fechaMuerte == null || fechaNacimiento == null) {
             return true;
         }
-        return fecha_muerte.isAfter(fecha_nacimiento);
+        return fechaMuerte.isAfter(fechaNacimiento);
     }
 }

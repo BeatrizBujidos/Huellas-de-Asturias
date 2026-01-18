@@ -1,48 +1,64 @@
 package com.ibq.ProyectoFinal.controller;
 
-import com.ibq.ProyectoFinal.dto.ArtistaDTO;
 import com.ibq.ProyectoFinal.dto.EpocaDTO;
-import com.ibq.ProyectoFinal.model.Artista;
-import com.ibq.ProyectoFinal.model.Epoca;
 import com.ibq.ProyectoFinal.service.EpocaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class EpocaController {
+
     private final EpocaService epocaService;
+
     @Autowired
-    public EpocaController (EpocaService epocaService){
+    public EpocaController(EpocaService epocaService) {
         this.epocaService = epocaService;
     }
-//Operación CREATE
+
+    // ========== OPERACIÓN CREATE ==========
     @PostMapping("/epocas")
-    public Epoca saveEpoca(@Valid @RequestBody Epoca epoca){
-        return epocaService.saveEpoca(epoca);
+    public ResponseEntity<EpocaDTO> saveEpoca(@Valid @RequestBody EpocaDTO epocaDTO) {
+        EpocaDTO savedEpoca = epocaService.saveEpoca(epocaDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEpoca);
     }
-//Operación UPDATE
-    @PutMapping("/epocas/{id}")
-    public Epoca updateEpoca(@RequestBody Epoca epoca,
-                                 @PathVariable("id") Long idEpoca){
-        return epocaService.updateEpoca(epoca, idEpoca);
-    }
-//Operación DELETE
-    @DeleteMapping("/epocas/{id}")
-    public String deleteEpoca(@PathVariable("id") Long idEpoca){
-        epocaService.deleteEpocaById(idEpoca);
-        return "Época eliminada correctamente";
-    }
-//Operaciones READ
+
+    // ========== OPERACIONES READ ==========
+    //Buscar epocas por nombre
     @GetMapping("/epocas/nombre")
-    public EpocaDTO findEpocaByNombre(@RequestParam String nombre){
-        return epocaService.findByNombre(nombre);
+    public ResponseEntity<EpocaDTO> findEpocaByNombre(@RequestParam String nombre) {
+        EpocaDTO epoca = epocaService.findByNombre(nombre);
+        return ResponseEntity.ok(epoca);
     }
-//Listado de épocas
+    //Listar epocas
     @GetMapping("/epocas/listado")
-    public List<EpocaDTO> listarEpocas(){
-        return epocaService.listarEpocas();
+    public ResponseEntity<List<EpocaDTO>> listarEpocas() {
+        List<EpocaDTO> epocas = epocaService.listarEpocas();
+        return ResponseEntity.ok(epocas);
+    }
+
+    // ========== OPERACIÓN UPDATE ==========
+    @PutMapping("/epocas/{id}")
+    public ResponseEntity<EpocaDTO> updateEpoca(
+            @RequestBody EpocaDTO epocaDTO,
+            @PathVariable("id") Long idEpoca) {
+        EpocaDTO updatedEpoca = epocaService.updateEpoca(epocaDTO, idEpoca);
+        return ResponseEntity.ok(updatedEpoca);
+    }
+
+    // ========== OPERACIÓN DELETE ==========
+    @DeleteMapping("/epocas/{id}")
+    public ResponseEntity<String> deleteEpoca(@PathVariable("id") Long idEpoca) {
+        try {
+            epocaService.deleteEpocaById(idEpoca);
+            return ResponseEntity.ok("Época eliminada correctamente");
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

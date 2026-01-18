@@ -8,9 +8,13 @@ import java.time.LocalDate;
 @Builder
 @Data
 public class ArtistaDTO {
+
     private String nombre;
     private String apellidos;
-    private LocalDate fecha_nacimiento;
-    private LocalDate fecha_muerte;
-    private String lugar_nacimiento;
+    private LocalDate fechaNacimiento;
+    private LocalDate fechaMuerte;
+    private String lugarNacimiento;
+    private String biografia;
+    private String estilo;
+    private String imagen;
 }

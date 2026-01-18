@@ -21,9 +21,9 @@ public class Epoca {
 
     @NotNull
     @Min(value = 0, message = "La fecha de inicio debe ser un año válido")
-    private Integer fecha_inicio;
+    private Integer fechaInicio;
     @Min(value = 0, message = "La fecha de fin debe ser un año válido")
-    private Integer fecha_fin;
+    private Integer fechaFin;
 
     private String caracteristicas;
 
@@ -35,9 +35,9 @@ public class Epoca {
 
     @AssertTrue(message = "La fecha de fin debe ser posterior a la de inicio")
     public boolean isFechaFinValida() {
-        if (fecha_inicio == null || fecha_fin == null) {
-            return true; // O false, dependiendo de tu lógica
+        if (fechaInicio == null || fechaFin == null) {
+            return true;
         }
-        return fecha_fin > fecha_inicio;
+        return fechaFin > fechaInicio;
     }
 }
