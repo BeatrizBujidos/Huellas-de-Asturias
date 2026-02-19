@@ -11,11 +11,23 @@ import java.util.Optional;
 public interface ObraRepository extends JpaRepository<Obra, Long> {
 
     List<Obra> findByArtistaId(Long idArtista);
+
     List<Obra> findByMuseoId(Long idMuseo);
+
     List<Obra> findByEpocaId(Long idEpoca);
+
     List<Obra> findByTecnica(String tecnica);
+
     Optional<Obra> findByTitulo(String titulo);
+
     boolean existsByArtistaId(Long idArtista);
+
     void deleteByArtistaId(Long idArtista);
+
+    List<Obra> findByArtista_Nombre(String nombreArtista);
+
+    List<Obra> findByMuseo_Nombre(String nombreMuseo);
+
+    List<Obra> findByEpoca_Nombre(String nombreEpoca);
 
 }

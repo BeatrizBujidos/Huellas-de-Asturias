@@ -16,36 +16,29 @@ public class ObraService {
     private final ObraRepository obraRepository;
 
     @Autowired
-    public ObraService (ObraRepository obraRepository){
+    public ObraService(ObraRepository obraRepository) {
         this.obraRepository = obraRepository;
     }
+
     // ========== MAPPERS ==========
     // mapToDTO
     private ObraDTO mapToDTO(Obra obra) {
-        ObraDTO.ObraDTOBuilder builder = ObraDTO.builder()
-                .titulo(obra.getTitulo())
-                .fechaCreacion(obra.getFechaCreacion())
-                .tecnica(obra.getTecnica())
-                .descripcion(obra.getDescripcion())
-                .dimensiones(obra.getDimensiones());
+        ObraDTO.ObraDTOBuilder builder = ObraDTO.builder().titulo(obra.getTitulo()).fechaCreacion(obra.getFechaCreacion()).tecnica(obra.getTecnica()).descripcion(obra.getDescripcion()).dimensiones(obra.getDimensiones());
         // Añadir información del artista si existe
         if (obra.getArtista() != null) {
-            builder.artistaId(obra.getArtista().getId())
-                    .artistaNombre(obra.getArtista().getNombre() + " " +
-                            (obra.getArtista().getApellidos() != null ? obra.getArtista().getApellidos() : ""));
+            builder.artistaId(obra.getArtista().getId()).artistaNombre(obra.getArtista().getNombre() + " " + (obra.getArtista().getApellidos() != null ? obra.getArtista().getApellidos() : ""));
         }
         // Añadir información del museo si existe
         if (obra.getMuseo() != null) {
-            builder.museoId(obra.getMuseo().getId())
-                    .museoNombre(obra.getMuseo().getNombre());
+            builder.museoId(obra.getMuseo().getId()).museoNombre(obra.getMuseo().getNombre());
         }
         // Añadir información de la época si existe
         if (obra.getEpoca() != null) {
-            builder.epocaId(obra.getEpoca().getId())
-                    .epocaNombre(obra.getEpoca().getNombre());
+            builder.epocaId(obra.getEpoca().getId()).epocaNombre(obra.getEpoca().getNombre());
         }
         return builder.build();
     }
+
     //DTO → Entity
     private Obra mapToEntity(ObraDTO dto) {
         Obra obra = new Obra();
@@ -69,48 +62,49 @@ public class ObraService {
     // ========== OPERACIONES READ ==========
     @Transactional(readOnly = true)
     public ObraDTO findByTitulo(String titulo) {
-        Obra obra = obraRepository.findByTitulo(titulo)
-                .orElseThrow(() -> new RuntimeException("Obra no encontrada con título: " + titulo));
+        Obra obra = obraRepository.findByTitulo(titulo).orElseThrow(() -> new RuntimeException("Obra no encontrada con título: " + titulo));
         return mapToDTO(obra);
     }
 
     @Transactional(readOnly = true)
     public List<ObraDTO> findByArtistaId(Long idArtista) {
-        return obraRepository.findByArtistaId(idArtista)
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
+        return obraRepository.findByArtistaId(idArtista).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ObraDTO> findByMuseoId(Long idMuseo) {
-        return obraRepository.findByMuseoId(idMuseo)
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
+        return obraRepository.findByMuseoId(idMuseo).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ObraDTO> findByEpocaId(Long idEpoca) {
-        return obraRepository.findByEpocaId(idEpoca)
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
+        return obraRepository.findByEpocaId(idEpoca).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ObraDTO> findByTecnica(String tecnica) {
-        return obraRepository.findByTecnica(tecnica)
-                .stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
+        return obraRepository.findByTecnica(tecnica).stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ObraDTO> findByArtistaNombre(String nombreArtista) {
+        return obraRepository.findByArtista_Nombre(nombreArtista).stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ObraDTO> findByMuseoNombre(String nombreMuseo) {
+        return obraRepository.findByMuseo_Nombre(nombreMuseo).stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ObraDTO> findByEpocaNombre(String nombreEpoca) {
+        return obraRepository.findByEpoca_Nombre(nombreEpoca).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
     // ========== OPERACIÓN UPDATE ==========
     @Transactional
     public ObraDTO updateObra(ObraDTO obraDTO, Long idObra) {
-        Obra obraDB = obraRepository.findById(idObra)
-                .orElseThrow(() -> new RuntimeException("Obra no encontrada con ID: " + idObra));
+        Obra obraDB = obraRepository.findById(idObra).orElseThrow(() -> new RuntimeException("Obra no encontrada con ID: " + idObra));
 
         // Actualizar solo campos no nulos
         if (Objects.nonNull(obraDTO.getTitulo()) && !obraDTO.getTitulo().isEmpty()) {

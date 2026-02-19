@@ -27,6 +27,7 @@ public class ObraController {
         ObraDTO savedObra = obraService.saveObra(obraDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedObra);
     }
+
     // ========== OPERACIONES READ ==========
     //Buscar obras por titulo
     @GetMapping("/obras/titulo/{titulo}")
@@ -34,36 +35,38 @@ public class ObraController {
         ObraDTO obra = obraService.findByTitulo(titulo);
         return ResponseEntity.ok(obra);
     }
-    //Buscar obras por artista
-    @GetMapping("/obras/artista/{artistaId}")
-    public ResponseEntity<List<ObraDTO>> buscarObrasPorArtista(@PathVariable Long artistaId) {
-        List<ObraDTO> obras = obraService.findByArtistaId(artistaId);
-        return ResponseEntity.ok(obras);
-    }
+
     //Buscar obras por técnica
     @GetMapping("/obras/tecnica/{tecnica}")
     public ResponseEntity<List<ObraDTO>> buscarObrasPorTecnica(@PathVariable String tecnica) {
         List<ObraDTO> obras = obraService.findByTecnica(tecnica);
         return ResponseEntity.ok(obras);
     }
-    //Buscar obras por epoca
-    @GetMapping("/obras/epoca/{epocaId}")
-    public ResponseEntity<List<ObraDTO>> buscarObrasPorEpoca(@PathVariable Long epocaId) {
-        List<ObraDTO> obras = obraService.findByEpocaId(epocaId);
+
+    // Buscar obras por nombre de ARTISTA
+    @GetMapping("/obras/artista/nombre/{nombreArtista}")
+    public ResponseEntity<List<ObraDTO>> buscarObrasPorArtistaNombre(@PathVariable String nombreArtista) {
+        List<ObraDTO> obras = obraService.findByArtistaNombre(nombreArtista);
         return ResponseEntity.ok(obras);
     }
-    //Buscar obras por museo
-    @GetMapping("/obras/museo/{museoId}")
-    public ResponseEntity<List<ObraDTO>> buscarObrasPorMuseo(@PathVariable Long museoId) {
-        List<ObraDTO> obras = obraService.findByMuseoId(museoId);
+
+    // Buscar obras por nombre de MUSEO
+    @GetMapping("/obras/museo/nombre/{nombreMuseo}")
+    public ResponseEntity<List<ObraDTO>> buscarObrasPorMuseoNombre(@PathVariable String nombreMuseo) {
+        List<ObraDTO> obras = obraService.findByMuseoNombre(nombreMuseo);
+        return ResponseEntity.ok(obras);
+    }
+
+    // Buscar obras por nombre de ÉPOCA
+    @GetMapping("/obras/epoca/nombre/{nombreEpoca}")
+    public ResponseEntity<List<ObraDTO>> buscarObrasPorEpocaNombre(@PathVariable String nombreEpoca) {
+        List<ObraDTO> obras = obraService.findByEpocaNombre(nombreEpoca);
         return ResponseEntity.ok(obras);
     }
 
     // ========== OPERACIÓN UPDATE ==========
     @PutMapping("/obras/{id}")
-    public ResponseEntity<ObraDTO> updateObra(
-            @RequestBody ObraDTO obraDTO,
-            @PathVariable("id") Long idObra) {
+    public ResponseEntity<ObraDTO> updateObra(@RequestBody ObraDTO obraDTO, @PathVariable("id") Long idObra) {
         ObraDTO updatedObra = obraService.updateObra(obraDTO, idObra);
         return ResponseEntity.ok(updatedObra);
     }
