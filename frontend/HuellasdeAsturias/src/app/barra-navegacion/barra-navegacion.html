@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="navbar-brand" routerLink="/">Huellas de Asturias</a>
+  
+  <button 
+    class="navbar-toggler" 
+    type="button" 
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="!isNavbarCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/artistas" routerLinkActive="active" (click)="toggleMenu()">Artistas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">Obras</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/monumentos" routerLinkActive="active" (click)="toggleMenu()">Mapa</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+.navbar {
+    margin-top: 10px;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #28a745 !important;
+}

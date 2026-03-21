@@ -1,0 +1,49 @@
+.artistas-section {
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
+
+.artistas-section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.artista-card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.artista-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.artista-image {
+  width: 250px;
+  height: 300px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: cover;
+}
+
+.artista-card h4 {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.artista-card p {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+}

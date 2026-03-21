@@ -1,0 +1,26 @@
+<article id="artistas" class="artistas-section">
+  <div class="container">
+    <h2>¿Quién es quién?</h2>
+    
+    <div class="row">
+      @for (artista of artistas; track artista.id) {
+        <div class="col-md-6">
+          <div class="artista-card" [routerLink]="['/artistas', artista.id]">
+            <img 
+              [src]="artista.imagen" 
+              [alt]="artista.nombre"
+              class="artista-image">
+            <h4>{{ artista.nombre }}</h4>
+            <p>{{ artista.descripcion }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-success btn-lg" routerLink="/artistas">
+        Ver todos los artistas →
+      </button>
+    </div>
+  </div>
+</article>
