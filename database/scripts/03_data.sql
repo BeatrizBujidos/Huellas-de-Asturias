@@ -64,7 +64,6 @@ INSERT INTO museos (id, nombre, direccion, ciudad, latitud, longitud, horario, w
 -- ============================================
 
 INSERT INTO monumentos (id, id_epoca, nombre, fecha_construccion, descripcion, latitud, longitud) VALUES
-
 (1, 1, 'San Tirso', 'Siglo IX', 'Fundada por Alfonso II "El Casto" como parte del complejo episcopal ovetense. Aunque sufrió múltiples reformas a lo largo de los siglos (la fachada actual es barroca), conserva de su origen prerrománico el testero de la capilla mayor con su emblemática ventana trigeminada de arcos de medio punto y columnas con capiteles de tradición visigoda. Esta ventana tripartita se ha convertido en uno de los iconos visuales del arte asturiano.', 43.3627, -5.8436),
 (2, 1, 'Cámara Santa', 'Siglo IX', 'Capilla palatina de dos pisos integrada en la Catedral de Oviedo. El nivel superior (San Miguel) custodia las reliquias del Arca Santa y las cruces de la Victoria y los Ángeles, símbolos de Asturias. El espacio inferior (Santa Leocadia) presenta bóveda de cañón. Destaca el apostolado románico añadido posteriormente en sus columnas, siendo uno de los conjuntos escultóricos más importantes del siglo XII en España. Originalmente formaba parte del complejo palatino de Alfonso II.', 43.3625, -5.8431),
 (3, 1, 'San Julián de los Prados', '812-842', 'Conocida popularmente como Santullano, es la iglesia más grande y antigua del periodo asturiano. Mandada construir por Alfonso II, destaca por su gran amplitud, su planta basilical con transepto elevado y, sobre todo, por su excepcional ciclo de pinturas murales anicónicas con motivos geométricos y arquitectónicos que cubrían originalmente todos sus muros interiores. Este programa pictórico, único en Europa occidental de su tiempo, evidencia la continuidad con la tradición pictórica romana tardía.', 43.3670, -5.8368),
@@ -76,12 +75,13 @@ INSERT INTO monumentos (id, id_epoca, nombre, fecha_construccion, descripcion, l
 (9, 3, 'Foncalada', 'Siglo IX', 'Única construcción civil de utilidad pública del prerrománico asturiano que se conserva in situ. Se trata de una fuente de agua potable protegida por un templete de piedra con arco de medio punto. En el frontón luce la Cruz de la Victoria junto con su inscripción. Aunque tradicionalmente se atribuye al reinado de Alfonso III, estudios recientes apuntan a que su construcción pudo realizarse bajo Alfonso II, sin descartar por completo la hipótesis de un origen romano. Es un testimonio excepcional de la ingeniería hidráulica altomedieval.', 43.3653, -5.8455),
 (10, 3, 'Santo Adriano de Tuñón', '891', 'Iglesia de estructura sencilla y planta basilical de tres naves, mandada construir por Alfonso III y su esposa Jimena como parte de un monasterio. Conserva importantes restos de pinturas murales originales en la cabecera con motivos geométricos y vegetales. Es un testimonio fundamental de la expansión del reino asturiano hacia los valles interiores de la cordillera Cantábrica y del patrocinio regio en la repoblación de territorios.', 43.2925, -5.9814),
 (11, 3, 'San Salvador de Valdediós', '893', 'Denominada popularmente "El Conventín", representa el apogeo del periodo alfonsino. Situada en un entorno natural exuberante del valle de Boides, forma parte de un monasterio más amplio. Destaca por su pórtico lateral abierto (único en el prerrománico asturiano) y por mantener un equilibrio perfecto entre la influencia asturiana tradicional y los nuevos elementos mozárabes introducidos por artesanos procedentes de Al-Ándalus, anunciando el arte románico.', 43.4375, -5.4686),
-(12, 3, 'San Salvador de Priesca', '921', 'Consagrada en el siglo X, sigue fielmente los esquemas arquitectónicos de Santullano aunque en una época más tardía. Conserva una notable parte de su decoración pictórica original en los muros interiores y arcos triunfales, con influencias mozárabes. Sirve de eslabón de transición entre el estilo asturiano puro y el primer románico que empezaba a gestarse en el resto de Europa, manteniendo la tradición local mientras incorpora novedades del nuevo estilo por venir.', 43.4897),
+(12, 3, 'San Salvador de Priesca', '921', 'Consagrada en el siglo X, sigue fielmente los esquemas arquitectónicos de Santullano aunque en una época más tardía. Conserva una notable parte de su decoración pictórica original en los muros interiores y arcos triunfales, con influencias mozárabes. Sirve de eslabón de transición entre el estilo asturiano puro y el primer románico que empezaba a gestarse en el resto de Europa, manteniendo la tradición local mientras incorpora novedades del nuevo estilo por venir.', 43.4897, -5.2897),
 (13, 3, 'Santiago de Gobiendes', 'c. 921', 'Situada cerca de la costa oriental asturiana (Colunga), esta iglesia de considerables dimensiones destaca por la elegancia de sus proporciones y la calidad de su fábrica de sillarejo. Fue profundamente reformada en el siglo XVIII (añadiéndose una espadaña barroca), pero las restauraciones modernas han permitido recuperar su esencia prerrománica, especialmente visible en la cabecera tripartita y los capiteles decorados con motivos vegetales y geométricos.', 43.4731, -5.2289);
 
 -- ============================================
 -- 5. Insertar Obras
 -- ============================================
+
 INSERT INTO obras (id_artista, id_museo, id_epoca, titulo, fecha_creacion, tecnica, descripcion, dimensiones) VALUES
 
 -- JULIA ALCAYDE
@@ -296,17 +296,17 @@ INSERT INTO imagenes (url, tipo_entidad, id_entidad, es_principal, orden) VALUES
 ('/assets/imagenes/obras/Navascues-vampiros.jpg', 'OBRA', 37, true, 1),
 ('/assets/imagenes/obras/Navascues-piloto.jpg', 'OBRA', 38, true, 1),
 -- Mariano Moré
-('/assets/imagenes/obras/More-ninoCuenca.jpg', 'OBRA', 39, true),
-('/assets/imagenes/obras/More-minerosAsturianos.jpg', 'OBRA', 40, true),
-('/assets/imagenes/obras/More-cartel.jpg', 'OBRA', 41, true),
-('/assets/imagenes/obras/More-costaCantabrica.jpg', 'OBRA', 42, true),
-('/assets/imagenes/obras/More-pescadorasDeLastres.jpg', 'OBRA', 43, true),
+('/assets/imagenes/obras/More-ninoCuenca.jpg', 'OBRA', 39, true, 1),
+('/assets/imagenes/obras/More-minerosAsturianos.jpg', 'OBRA', 40, true, 1),
+('/assets/imagenes/obras/More-cartel.jpg', 'OBRA', 41, true, 1),
+('/assets/imagenes/obras/More-costaCantabrica.jpg', 'OBRA', 42, true, 1),
+('/assets/imagenes/obras/More-pescadorasDeLastres.jpg', 'OBRA', 43, true, 1),
 -- Pelayo Ortega
-('/assets/imagenes/obras/PelayoOrtega-tallerNocturno.jpg', 'OBRA', 44, true),
-('/assets/imagenes/obras/PelayoOrtega-queLePartaUnRayo.jpg', 'OBRA', 45, true),
-('/assets/imagenes/obras/PelayoOrtega-NY.jpg', 'OBRA', 46, true),
-('/assets/imagenes/obras/PelayoOrtega-elAleph.jpg', 'OBRA', 47, true),
-('/assets/imagenes/obras/PelayoOrtega-dedalo.jpg', 'OBRA', 48, true);
+('/assets/imagenes/obras/PelayoOrtega-tallerNocturno.jpg', 'OBRA', 44, true, 1),
+('/assets/imagenes/obras/PelayoOrtega-queLePartaUnRayo.jpg', 'OBRA', 45, true, 1),
+('/assets/imagenes/obras/PelayoOrtega-NY.jpg', 'OBRA', 46, true, 1),
+('/assets/imagenes/obras/PelayoOrtega-elAleph.jpg', 'OBRA', 47, true, 1),
+('/assets/imagenes/obras/PelayoOrtega-dedalo.jpg', 'OBRA', 48, true, 1);
 
 -- ============================================
 -- Mensaje final

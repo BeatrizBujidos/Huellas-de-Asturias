@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS monumentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_epoca INT NOT NULL,
     nombre VARCHAR(255) NOT NULL,
-    fecha_construccion INT,
+    fecha_construccion VARCHAR(100),
     descripcion TEXT,
     latitud DECIMAL(18,8),
     longitud DECIMAL(11,8),
@@ -95,19 +95,18 @@ CREATE TABLE IF NOT EXISTS imagenes (
 COMMENT = 'Tabla de imágenes';
 
 -- Índices para mejorar el rendimiento
-CREATE INDEX idx_obra_artista ON obra(id_artista);
-CREATE INDEX idx_obra_museo ON obra(id_museo);
-CREATE INDEX idx_obra_epoca ON obra(id_epoca);
-CREATE INDEX idx_monumento_epoca ON monumento(id_epoca);
-CREATE INDEX idx_artista_nombre ON artista(nombre);
-CREATE INDEX idx_museo_ciudad ON museo(ciudad);
-CREATE INDEX idx_epoca_nombre ON epoca(nombre);
+CREATE INDEX idx_obra_artista ON obras(id_artista);
+CREATE INDEX idx_obra_museo ON obras(id_museo);
+CREATE INDEX idx_obra_epoca ON obras(id_epoca);
+CREATE INDEX idx_monumento_epoca ON monumentos(id_epoca);
+CREATE INDEX idx_artista_nombre ON artistas(nombre);
+CREATE INDEX idx_museo_ciudad ON museos(ciudad);
+CREATE INDEX idx_epoca_nombre ON epocas(nombre);
 CREATE INDEX idx_imagen_entidad on imagenes(tipo_entidad, id_entidad);
 
 -- Índices adicionales para búsquedas frecuentes
-CREATE INDEX idx_artista_estilo ON artista(estilo);
-CREATE INDEX idx_monumento_tipo ON monumento(tipo);
-CREATE INDEX idx_obra_titulo ON obra(titulo);
+CREATE INDEX idx_artista_estilo ON artistas(estilo);
+CREATE INDEX idx_obra_titulo ON obras(titulo);
 
 -- Mensaje de confirmación
 SELECT 'Tablas creadas exitosamente.' AS Mensaje;
