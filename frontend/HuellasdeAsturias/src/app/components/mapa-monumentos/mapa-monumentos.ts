@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-mapa-monumentos',
   imports: [],
   templateUrl: './mapa-monumentos.html',
-  styleUrl: './mapa-monumentos.css',
+  styleUrl: './mapa-monumentos.css'
 })
 export class MapaMonumentos {
 

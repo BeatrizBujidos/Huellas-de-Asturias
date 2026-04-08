@@ -19,7 +19,8 @@ public class ArtistaController {
     public ArtistaController (ArtistaService artistaService){
         this.artistaService = artistaService;
     }
-// ========== OPERACIÓN CREATE ==========
+
+    // ========== OPERACIÓN CREATE ==========
     @PostMapping("/artistas")
     public ResponseEntity<ArtistaDTO> saveArtista(@Valid @RequestBody ArtistaDTO artistaDTO) {
         ArtistaDTO savedArtista = artistaService.saveArtista(artistaDTO);
@@ -27,6 +28,12 @@ public class ArtistaController {
     }
 
     // ========== OPERACIONES READ ==========
+    //Obtener todos los artistas
+    @GetMapping("/artistas")
+    public ResponseEntity<List<ArtistaDTO>> getAllArtistas(){
+        List<ArtistaDTO> artistas = artistaService.getAllArtistas();
+        return ResponseEntity.ok(artistas);
+    }
     //Buscar artistas por nombre y apellidos
     @GetMapping("/artistas/nombreYapellidos")
     public ResponseEntity<ArtistaDTO> findArtistaByNombreAndApellidos(

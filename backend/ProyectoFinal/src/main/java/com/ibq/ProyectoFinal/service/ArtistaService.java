@@ -63,6 +63,13 @@ public class ArtistaService {
 
     // ========== OPERACIONES READ ==========
     @Transactional(readOnly = true)
+    public List<ArtistaDTO> getAllArtistas(){
+        return artistaRepository.findAll()
+                .stream()
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+    }
+    @Transactional(readOnly = true)
     public ArtistaDTO findByNombreAndApellidos(String nombre, String apellidos) {
         Artista artista = artistaRepository.findByNombreAndApellidos(nombre, apellidos)
                 .orElseThrow(() -> new RuntimeException("Artista no encontrado con nombre: " + nombre + " " + apellidos));

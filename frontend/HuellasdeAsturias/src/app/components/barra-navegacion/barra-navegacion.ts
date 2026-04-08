@@ -6,8 +6,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-barra-navegacion',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './barra-navegacion.html',
-  styleUrl: './barra-navegacion.css',
+  templateUrl: './barra-navegacion.html',  
+  styleUrl: './barra-navegacion.css'
 })
 export class BarraNavegacion {
   isNavbarCollapsed = true;
