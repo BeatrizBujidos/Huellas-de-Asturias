@@ -22,11 +22,10 @@ public class ArtistaService {
         this.artistaRepository = artistaRepository;
         this.obraRepository = obraRepository;
     }
-    // ========== MAPPERS ==========
-
     //mapToDTO
     private ArtistaDTO mapToDTO(Artista artista) {
         return ArtistaDTO.builder()
+                .id(artista.getId())
                 .nombre(artista.getNombre())
                 .apellidos(artista.getApellidos())
                 .fechaNacimiento(artista.getFechaNacimiento())
@@ -37,11 +36,11 @@ public class ArtistaService {
                 .imagen(artista.getImagen())
                 .build();
     }
-
     //DTO → Entity
     private Artista mapToEntity(ArtistaDTO dto) {
         Artista artista = new Artista();
 
+        artista.setId(dto.getId());
         artista.setNombre(dto.getNombre());
         artista.setApellidos(dto.getApellidos());
         artista.setFechaNacimiento(dto.getFechaNacimiento());
@@ -52,16 +51,20 @@ public class ArtistaService {
         artista.setImagen(dto.getImagen());
         return artista;
     }
-
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @Transactional
     public ArtistaDTO saveArtista(ArtistaDTO artistaDTO) {
         Artista artista = mapToEntity(artistaDTO);
         Artista savedArtista = artistaRepository.save(artista);
         return mapToDTO(savedArtista);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    @Transactional(readOnly = true)
+    public ArtistaDTO findById(Long id){
+        Artista artista = artistaRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Artista no encontrado"));
+        return mapToDTO(artista);
+    }
     @Transactional(readOnly = true)
     public List<ArtistaDTO> getAllArtistas(){
         return artistaRepository.findAll()
@@ -72,10 +75,9 @@ public class ArtistaService {
     @Transactional(readOnly = true)
     public ArtistaDTO findByNombreAndApellidos(String nombre, String apellidos) {
         Artista artista = artistaRepository.findByNombreAndApellidos(nombre, apellidos)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con nombre: " + nombre + " " + apellidos));
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el nombre: " + nombre + " " + apellidos));
         return mapToDTO(artista);
     }
-
     @Transactional(readOnly = true)
     public List<ArtistaDTO> findByEstilo(String estilo) {
         return artistaRepository.findByEstilo(estilo)
@@ -83,7 +85,6 @@ public class ArtistaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
     @Transactional(readOnly = true)
     public List<ArtistaDTO> findByLugarNacimiento(String lugarNacimiento) {
         return artistaRepository.findByLugarNacimiento(lugarNacimiento)
@@ -91,12 +92,11 @@ public class ArtistaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @Transactional
     public ArtistaDTO updateArtista(ArtistaDTO artistaDTO, Long idArtista) {
         Artista artistaDB = artistaRepository.findById(idArtista)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con ID: " + idArtista));
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el ID: " + idArtista));
         // Actualizar solo campos no nulos
         if (Objects.nonNull(artistaDTO.getNombre()) && !artistaDTO.getNombre().isEmpty()) {
             artistaDB.setNombre(artistaDTO.getNombre());
@@ -126,12 +126,11 @@ public class ArtistaService {
         Artista updatedArtista = artistaRepository.save(artistaDB);
         return mapToDTO(updatedArtista);
     }
-
-    // ========== OPERACIÓN DELETE ==========
+    // Operación DELETE
     @Transactional
     public void deleteArtistaById(Long idArtista) {
         Artista artista = artistaRepository.findById(idArtista)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con ID: " + idArtista));
+                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el ID: " + idArtista));
 
         // Verificar si el artista tiene obras
         if (obraRepository.existsByArtistaId(idArtista)) {

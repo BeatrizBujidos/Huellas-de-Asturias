@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class ObraDTO {
 
+    private Long id;
     private String titulo;
     private Integer fechaCreacion;
     private String tecnica;

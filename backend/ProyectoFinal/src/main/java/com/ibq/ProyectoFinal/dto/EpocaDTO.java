@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class EpocaDTO {
 
+    private Long id;
     private String nombre;
     private String descripcion;
     private Integer fechaInicio;

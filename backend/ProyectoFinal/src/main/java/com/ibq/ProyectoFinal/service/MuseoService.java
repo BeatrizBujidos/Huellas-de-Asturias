@@ -18,11 +18,11 @@ public class MuseoService {
     public MuseoService (MuseoRepository museoRepository){
         this.museoRepository = museoRepository;
     }
-// ========== MAPPERS ==========
 
     // mapToDTO
     private MuseoDTO mapToDTO(Museo museo) {
         return MuseoDTO.builder()
+                .id(museo.getId())
                 .nombre(museo.getNombre())
                 .direccion(museo.getDireccion())
                 .ciudad(museo.getCiudad())
@@ -33,11 +33,11 @@ public class MuseoService {
                 .imagen(museo.getImagen())
                 .build();
     }
-
     //DTO → Entity
     private Museo mapToEntity(MuseoDTO dto) {
         Museo museo = new Museo();
 
+        museo.setId(dto.getId());
         museo.setNombre(dto.getNombre());
         museo.setDireccion(dto.getDireccion());
         museo.setCiudad(dto.getCiudad());
@@ -48,16 +48,20 @@ public class MuseoService {
         museo.setImagen(dto.getImagen());
         return museo;
     }
-
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @Transactional
     public MuseoDTO saveMuseo(MuseoDTO museoDTO) {
         Museo museo = mapToEntity(museoDTO);
         Museo savedMuseo = museoRepository.save(museo);
         return mapToDTO(savedMuseo);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    @Transactional(readOnly = true)
+    public MuseoDTO findById(Long id){
+        Museo museo = museoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el id: " + id));
+        return mapToDTO(museo);
+    }
     @Transactional(readOnly = true)
     public List<MuseoDTO> listarMuseos() {
         return museoRepository.findAll()
@@ -65,7 +69,6 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
     @Transactional(readOnly = true)
     public List<MuseoDTO> findByCiudad(String ciudad) {
         return museoRepository.findByCiudad(ciudad)
@@ -73,14 +76,12 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
     @Transactional(readOnly = true)
     public MuseoDTO findByNombre(String nombre) {
         Museo museo = museoRepository.findByNombre(nombre)
-                .orElseThrow(() -> new RuntimeException("Museo no encontrado con nombre: " + nombre));
+                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el nombre: " + nombre));
         return mapToDTO(museo);
     }
-
     //Buscar museos en un área geográfica (para el mapa interactivo)
     @Transactional(readOnly = true)
     public List<MuseoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
@@ -89,12 +90,11 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @Transactional
     public MuseoDTO updateMuseo(MuseoDTO museoDTO, Long idMuseo) {
         Museo museoDB = museoRepository.findById(idMuseo)
-                .orElseThrow(() -> new RuntimeException("Museo no encontrado con ID: " + idMuseo));
+                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el ID: " + idMuseo));
 
         // Actualizar solo campos no nulos
         if (Objects.nonNull(museoDTO.getNombre()) && !museoDTO.getNombre().isEmpty()) {
@@ -125,12 +125,11 @@ public class MuseoService {
         Museo updatedMuseo = museoRepository.save(museoDB);
         return mapToDTO(updatedMuseo);
     }
-
-    // ========== OPERACIÓN DELETE ==========
+    // Operación DELETE
     @Transactional
     public void deleteMuseoById(Long idMuseo) {
         if (!museoRepository.existsById(idMuseo)) {
-            throw new RuntimeException("Museo no encontrado con ID: " + idMuseo);
+            throw new RuntimeException("Museo no encontrado con el ID: " + idMuseo);
         }
         museoRepository.deleteById(idMuseo);
     }

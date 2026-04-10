@@ -22,14 +22,19 @@ public class ImagenController {
         this.imagenService = imagenService;
     }
 
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @PostMapping("/imagenes")
     public ResponseEntity<ImagenDTO> saveImagen(@Valid @RequestBody ImagenDTO imagenDTO) {
         ImagenDTO savedImagen = imagenService.saveImagen(imagenDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedImagen);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    //Buscar imagen por id
+    @GetMapping("/imagenes/{id}")
+    public ResponseEntity<ImagenDTO> findById(@PathVariable Long id){
+        ImagenDTO imagen = imagenService.findById(id);
+        return ResponseEntity.ok(imagen);
+    }
     //Buscar imagen por URL
     @GetMapping("/imagenes/url")
     public ResponseEntity<ImagenDTO> getImagenByUrl(@RequestParam String url) {
@@ -37,7 +42,6 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
     //Buscar todas las imágenes de una entidad
     @GetMapping("/imagenes/entidad/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<List<ImagenDTO>> getImagenesByEntidad(
@@ -46,7 +50,6 @@ public class ImagenController {
         List<ImagenDTO> imagenes = imagenService.findByEntidad(tipoEntidad, idEntidad);
         return ResponseEntity.ok(imagenes);
     }
-
     //Obtener imagen principal de una entidad
     @GetMapping("/imagenes/principal/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<ImagenDTO> getImagenPrincipal(
@@ -56,8 +59,7 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @PutMapping("/imagenes/{id}")
     public ResponseEntity<ImagenDTO> updateImagen(
             @RequestBody ImagenDTO imagenDTO,
@@ -68,8 +70,7 @@ public class ImagenController {
         }
         return ResponseEntity.ok(updatedImagen);
     }
-
-    // ========== OPERACIONES DELETE ==========
+    // Operaciones DELETE
     //Eliminar imagen por ID
     @DeleteMapping("/imagenes/{id}")
     public ResponseEntity<Void> deleteImagen(@PathVariable("id") Long idImagen) {

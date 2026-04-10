@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 public class MonumentoDTO {
 
+    private Long id;
     private String nombre;
     private String fechaConstruccion;
     private String descripcion;

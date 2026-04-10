@@ -21,14 +21,19 @@ public class MonumentoController {
         this.monumentoService = monumentoService;
     }
 
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @PostMapping("/monumentos")
     public ResponseEntity<MonumentoDTO> saveMonumento(@Valid @RequestBody MonumentoDTO monumentoDTO) {
         MonumentoDTO savedMonumento = monumentoService.saveMonumento(monumentoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMonumento);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    //Buscar monumentos por id
+    @GetMapping("/monumentos/{id}")
+    public ResponseEntity<MonumentoDTO> findById(@PathVariable Long id){
+        MonumentoDTO monumento = monumentoService.findById(id);
+        return ResponseEntity.ok(monumento);
+    }
     //Buscar monumentos por epoca
     @GetMapping("/monumentos/epoca/{idEpoca}")
     public ResponseEntity<List<MonumentoDTO>> findMonumentoByEpoca(@PathVariable Long idEpoca) {
@@ -41,8 +46,7 @@ public class MonumentoController {
         List<MonumentoDTO> monumentos = monumentoService.listarMonumentos();
         return ResponseEntity.ok(monumentos);
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @PutMapping("/monumentos/{id}")
     public ResponseEntity<MonumentoDTO> updateMonumento(
             @RequestBody MonumentoDTO monumentoDTO,
@@ -50,8 +54,7 @@ public class MonumentoController {
         MonumentoDTO updatedMonumento = monumentoService.updateMonumento(monumentoDTO, idMonumento);
         return ResponseEntity.ok(updatedMonumento);
     }
-
-    // ========== OPERACIÓN DELETE ==========
+    // Operación DELETE
     @DeleteMapping("/monumentos/{id}")
     public ResponseEntity<String> deleteMonumento(@PathVariable("id") Long idMonumento) {
         try {

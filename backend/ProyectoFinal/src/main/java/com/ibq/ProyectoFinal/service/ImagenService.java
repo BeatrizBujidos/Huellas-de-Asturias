@@ -20,11 +20,11 @@ public class ImagenService {
     public ImagenService (ImagenRepository imagenRepository){
         this.imagenRepository = imagenRepository;
     }
-    // ========== MAPPERS ==========
 
     // mapToDTO
     private ImagenDTO mapToDTO(Imagen imagen) {
         return ImagenDTO.builder()
+                .id(imagen.getId())
                 .url(imagen.getUrl())
                 .tipoEntidad(imagen.getTipoEntidad().name())
                 .idEntidad(imagen.getIdEntidad())
@@ -32,11 +32,11 @@ public class ImagenService {
                 .orden(imagen.getOrden())
                 .build();
     }
-
     //DTO → Entity
     private Imagen mapToEntity(ImagenDTO dto) {
         Imagen imagen = new Imagen();
 
+        imagen.setId(dto.getId());
         imagen.setUrl(dto.getUrl());
         imagen.setTipoEntidad(Imagen.TipoEntidad.valueOf(dto.getTipoEntidad().toUpperCase()));
         imagen.setIdEntidad(dto.getIdEntidad());
@@ -44,22 +44,25 @@ public class ImagenService {
         imagen.setOrden(dto.getOrden() != null ? dto.getOrden() : 1);
         return imagen;
     }
-
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @Transactional
     public ImagenDTO saveImagen(ImagenDTO imagenDTO) {
         Imagen imagen = mapToEntity(imagenDTO);
         Imagen savedImagen = imagenRepository.save(imagen);
         return mapToDTO(savedImagen);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    @Transactional(readOnly = true)
+    public ImagenDTO findById(Long id){
+        Imagen imagen = imagenRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Imagen no encontrada"));
+        return mapToDTO(imagen);
+    }
     @Transactional(readOnly = true)
     public Optional<ImagenDTO> findByUrl(String url) {
         return imagenRepository.findByUrl(url)
                 .map(this::mapToDTO);
     }
-
     @Transactional(readOnly = true)
     public List<ImagenDTO> findByEntidad(String tipoEntidad, Long idEntidad) {
         Imagen.TipoEntidad tipo = Imagen.TipoEntidad.valueOf(tipoEntidad.toUpperCase());
@@ -68,14 +71,12 @@ public class ImagenService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
     @Transactional(readOnly = true)
     public Optional<ImagenDTO> findImagenPrincipal(String tipoEntidad, Long idEntidad) {
         Imagen.TipoEntidad tipo = Imagen.TipoEntidad.valueOf(tipoEntidad.toUpperCase());
         return imagenRepository.findByTipoEntidadAndIdEntidadAndEsPrincipalTrue(tipo, idEntidad)
                 .map(this::mapToDTO);
     }
-
     @Transactional(readOnly = true)
     public List<String> findUrlsByEntidad(String tipoEntidad, Long idEntidad) {
         return findByEntidad(tipoEntidad, idEntidad)
@@ -83,14 +84,12 @@ public class ImagenService {
                 .map(ImagenDTO::getUrl)
                 .collect(Collectors.toList());
     }
-
     @Transactional(readOnly = true)
     public Optional<String> findUrlImagenPrincipal(String tipoEntidad, Long idEntidad) {
         return findImagenPrincipal(tipoEntidad, idEntidad)
                 .map(ImagenDTO::getUrl);
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @Transactional
     public ImagenDTO updateImagen(ImagenDTO imagenDTO, Long idImagen) {
         Imagen imagenDB = imagenRepository.findById(idImagen)
@@ -116,7 +115,6 @@ public class ImagenService {
         Imagen updatedImagen = imagenRepository.save(imagenDB);
         return mapToDTO(updatedImagen);
     }
-
     @Transactional
     public void setImagenPrincipal(Long idImagen, String tipoEntidad, Long idEntidad) {
         Imagen.TipoEntidad tipo = Imagen.TipoEntidad.valueOf(tipoEntidad.toUpperCase());
@@ -132,16 +130,14 @@ public class ImagenService {
             imagenRepository.save(imagen);
         });
     }
-
-    // ========== OPERACIONES DELETE ==========
+    // Operaciones DELETE
     @Transactional
     public void deleteImagenById(Long id) {
         if (!imagenRepository.existsById(id)) {
-            throw new RuntimeException("Imagen no encontrada con ID: " + id);
+            throw new RuntimeException("Imagen no encontrada con el ID: " + id);
         }
         imagenRepository.deleteById(id);
     }
-
     @Transactional
     public void deleteAllImagenesByEntidad(String tipoEntidad, Long idEntidad) {
         Imagen.TipoEntidad tipo = Imagen.TipoEntidad.valueOf(tipoEntidad.toUpperCase());

@@ -9,5 +9,5 @@ import { BarraNavegacion } from "./components/barra-navegacion/barra-navegacion"
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('huellas-de-asturias');
+  protected readonly title = signal('Huellas de Asturias');
 }

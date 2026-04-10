@@ -21,14 +21,19 @@ public class EpocaController {
         this.epocaService = epocaService;
     }
 
-    // ========== OPERACIÓN CREATE ==========
+    // Operación CREATE
     @PostMapping("/epocas")
     public ResponseEntity<EpocaDTO> saveEpoca(@Valid @RequestBody EpocaDTO epocaDTO) {
         EpocaDTO savedEpoca = epocaService.saveEpoca(epocaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEpoca);
     }
-
-    // ========== OPERACIONES READ ==========
+    // Operaciones READ
+    //Buscar epocas por id
+    @GetMapping("/epocas/{id}")
+    public ResponseEntity<EpocaDTO> findById(@PathVariable Long id){
+        EpocaDTO epoca = epocaService.findById(id);
+        return ResponseEntity.ok(epoca);
+    }
     //Buscar epocas por nombre
     @GetMapping("/epocas/nombre")
     public ResponseEntity<EpocaDTO> findEpocaByNombre(@RequestParam String nombre) {
@@ -41,8 +46,7 @@ public class EpocaController {
         List<EpocaDTO> epocas = epocaService.listarEpocas();
         return ResponseEntity.ok(epocas);
     }
-
-    // ========== OPERACIÓN UPDATE ==========
+    // Operación UPDATE
     @PutMapping("/epocas/{id}")
     public ResponseEntity<EpocaDTO> updateEpoca(
             @RequestBody EpocaDTO epocaDTO,
@@ -50,8 +54,7 @@ public class EpocaController {
         EpocaDTO updatedEpoca = epocaService.updateEpoca(epocaDTO, idEpoca);
         return ResponseEntity.ok(updatedEpoca);
     }
-
-    // ========== OPERACIÓN DELETE ==========
+    // Operación DELETE
     @DeleteMapping("/epocas/{id}")
     public ResponseEntity<String> deleteEpoca(@PathVariable("id") Long idEpoca) {
         try {

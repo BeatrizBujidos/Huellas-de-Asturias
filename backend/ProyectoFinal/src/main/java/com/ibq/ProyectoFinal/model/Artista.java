@@ -1,7 +1,6 @@
 package com.ibq.ProyectoFinal.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -37,12 +36,4 @@ public class Artista {
 
     @OneToMany(mappedBy = "artista")
     private List<Obra> obras;
-
-    @AssertTrue(message = "La fecha de muerte debe ser posterior a la de nacimiento")
-    public boolean isFechaMuerteValida() {
-        if (fechaMuerte == null || fechaNacimiento == null) {
-            return true;
-        }
-        return fechaMuerte.isAfter(fechaNacimiento);
-    }
 }

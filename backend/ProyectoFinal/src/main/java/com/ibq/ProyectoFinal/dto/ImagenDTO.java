@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class ImagenDTO {
 
+    private Long id;
     private String url;
     private String tipoEntidad;
     private Long idEntidad;
