@@ -1,0 +1,116 @@
+<main class="container-xl py-5">
+
+    <!-- CABECERA -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
+        <div>
+            <h1 class="display-5 fw-bold mb-2">Mapa del Prerrománico</h1>
+            <p class="text-muted fs-5 mb-0">Explora las joyas del arte asturiano.</p>
+        </div>
+        <button class="btn btn-outline-secondary d-flex align-items-center gap-2 rounded-3">
+            <span class="material-icons text-primary">tune</span>
+            Filtrar por Época
+        </button>
+    </div>
+
+    <!-- MAPA (placeholder con marcadores) -->
+    <div class="mapa-contenedor rounded-4 overflow-hidden shadow position-relative mb-5">
+        <img src="assets/imagenes/monumentos/Naranco_01.jpg" alt="Vista de Asturias" class="mapa-fondo"
+            onerror="this.src=''" />
+        <div class="mapa-gradiente position-absolute inset-0"></div>
+
+        <!-- Marcadores dinámicos según monumentos cargados -->
+        @for (m of monumentos; track m.id; let i = $index) {
+        <button class="mapa-marcador position-absolute btn p-0 border-0"
+            [class.mapa-marcador-activo]="monumentoSeleccionado?.id === m.id" [style.left.%]="40 + (i * 7)"
+            [style.top.%]="45 + (i % 3) * 10" (click)="seleccionarMonumento(m)" [title]="m.nombre">
+            <span class="material-icons text-primary mapa-pin">place</span>
+            <span class="mapa-tooltip">{{ m.nombre }}</span>
+        </button>
+        }
+    </div>
+    <!-- DETALLE DEL MONUMENTO SELECCIONADO -->
+    @if (monumentoSeleccionado) {
+    <div class="row g-5 align-items-start">
+        <!-- Galería de imágenes -->
+        <div class="col-12 col-lg-5">
+            <div class="overflow-hidden rounded-4 shadow mb-3 mapa-galeria-principal">
+                <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_01.jpg'"
+                    [alt]="monumentoSeleccionado.nombre" class="w-100 h-100 object-fit-cover"
+                    onerror="this.src='assets/imagenes/monumentos/Naranco_01.jpg'" />
+            </div>
+            <div class="row g-2">
+                <div class="col-4">
+                    <div class="rounded-3 overflow-hidden mapa-miniatura">
+                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_02.jpg'"
+                            [alt]="monumentoSeleccionado.nombre"
+                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
+                            onerror="this.src='assets/imagenes/monumentos/Naranco_02.jpg'" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="rounded-3 overflow-hidden mapa-miniatura">
+                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_03.jpg'"
+                            [alt]="monumentoSeleccionado.nombre"
+                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
+                            onerror="this.src='assets/imagenes/monumentos/Naranco_03.jpg'" />
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="rounded-3 overflow-hidden mapa-miniatura">
+                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_04.jpg'"
+                            [alt]="monumentoSeleccionado.nombre"
+                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
+                            onerror="this.src='assets/imagenes/monumentos/Naranco_04.jpg'" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Información del monumento -->
+        <div class="col-12 col-lg-7">
+            <div class="card border rounded-4 shadow-sm p-4 p-md-5">
+                <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="display-6 fw-bold mb-2">{{ monumentoSeleccionado.nombre }}</h2>
+                        @if (monumentoSeleccionado.fechaConstruccion) {
+                        <span class="badge rounded-pill ficha-badge fs-6 fw-normal px-3 py-2">
+                            Prerrománico · s. IX
+                        </span>
+                        }
+                    </div>
+                    <div class="text-end">
+                        <p class="text-muted small text-uppercase fw-semibold mb-0" style="letter-spacing:.1em">
+                            Inauguración</p>
+                        <p class="fs-4 fw-bold mb-0">{{ monumentoSeleccionado.fechaConstruccion }}</p>
+                    </div>
+                </div>
+
+                @if (monumentoSeleccionado.latitud && monumentoSeleccionado.longitud) {
+                <div class="d-flex align-items-center gap-1 text-muted small mb-4">
+                    <span class="material-icons" style="font-size:1rem">location_on</span>
+                    <span>{{ monumentoSeleccionado.latitud }}, {{ monumentoSeleccionado.longitud }} — Asturias</span>
+                </div>
+                }
+
+                <h3 class="h6 fw-bold mb-3 border-bottom pb-2">Descripción</h3>
+                <p class="text-muted lh-lg">{{ monumentoSeleccionado.descripcion }}</p>
+
+                <div class="d-flex gap-3 mt-4 pt-3 border-top flex-wrap">
+                    <button class="btn btn-primary rounded-3 d-flex align-items-center gap-2">
+                        <span class="material-icons">directions</span>
+                        Cómo llegar
+                    </button>
+                    <button class="btn btn-outline-secondary rounded-3 d-flex align-items-center gap-2">
+                        <span class="material-icons">info</span>
+                        Ver más detalles
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    } @else {
+    <div class="d-flex justify-content-center align-items-center py-5">
+        <div class="spinner-border text-secondary me-3" role="status"></div>
+        <span class="text-muted fs-5">Cargando monumentos...</span>
+    </div>
+    }
+</main>

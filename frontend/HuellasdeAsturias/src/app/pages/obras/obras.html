@@ -1,0 +1,150 @@
+<main class="container-lg py-5">
+    @if (obra) {
+    <!-- CABECERA -->
+    <header class="mb-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-4">
+            <div>
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb small text-muted mb-0">
+                        <li class="breadcrumb-item"><a routerLink="/obras" class="text-decoration-none">Galería</a></li>
+                        <li class="breadcrumb-item active">Detalle de Obra</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-2">{{ obra.titulo }}</h1>
+                <div class="d-flex align-items-center gap-3 flex-wrap">
+                    <span class="fs-5 fst-italic text-muted">Artista</span>
+                    <span class="text-muted">·</span>
+                    <span class="fs-5 fw-medium">{{ obra.fechaCreacion }}</span>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary rounded-pill d-flex align-items-center gap-1">
+                    <span class="material-icons" style="font-size:1rem">share</span> Compartir
+                </button>
+                <button class="btn btn-primary rounded-pill d-flex align-items-center gap-1">
+                    <span class="material-icons" style="font-size:1rem">bookmark_border</span> Guardar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- IMAGEN PRINCIPAL -->
+    <section class="mb-4">
+        <div class="obra-img-principal overflow-hidden rounded-4 shadow position-relative">
+            <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo" class="w-100 obra-img-principal-img"
+                onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+            <div class="obra-img-overlay d-flex align-items-end p-4">
+                <button
+                    class="btn btn-light btn-sm rounded-pill d-flex align-items-center gap-1 bg-white bg-opacity-25 text-white border-white border-opacity-50">
+                    <span class="material-icons" style="font-size:1rem">zoom_in</span> Ver en alta resolución
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MINIATURAS -->
+    <section class="row row-cols-2 row-cols-md-4 g-3 mb-5">
+        <div class="col">
+            <div class="miniatura-activa overflow-hidden rounded-3">
+                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
+                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="miniatura overflow-hidden rounded-3 cursor-pointer">
+                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
+                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="miniatura overflow-hidden rounded-3 cursor-pointer">
+                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
+                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="miniatura-mas overflow-hidden rounded-3 cursor-pointer position-relative">
+                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
+                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+                <div
+                    class="miniatura-mas-overlay position-absolute inset-0 d-flex align-items-center justify-content-center">
+                    <span class="text-white fw-bold fs-5">+5 Detalles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESCRIPCIÓN Y FICHA TÉCNICA -->
+    <section class="row g-5 mb-5">
+        <div class="col-12 col-md-8">
+            <h2 class="h3 fw-bold mb-4 d-flex align-items-center gap-2">
+                <span class="barra-titulo"></span>
+                Descripción
+            </h2>
+            <p class="fs-5 lh-lg text-muted">{{ obra.descripcion }}</p>
+        </div>
+
+        <aside class="col-12 col-md-4 d-flex flex-column gap-4">
+            <!-- Ficha técnica -->
+            <div class="card border rounded-4 p-4 shadow-sm">
+                <h3 class="h6 fw-bold mb-3">Ficha Técnica</h3>
+                <dl class="mb-0">
+                    @if (obra.tecnica) {
+                    <div class="d-flex justify-content-between border-bottom py-2 small">
+                        <dt class="text-muted fw-normal">Técnica</dt>
+                        <dd class="fw-medium mb-0">{{ obra.tecnica }}</dd>
+                    </div>
+                    }
+                    @if (obra.dimensiones) {
+                    <div class="d-flex justify-content-between border-bottom py-2 small">
+                        <dt class="text-muted fw-normal">Dimensiones</dt>
+                        <dd class="fw-medium mb-0">{{ obra.dimensiones }}</dd>
+                    </div>
+                    }
+                    @if (obra.fechaCreacion) {
+                    <div class="d-flex justify-content-between py-2 small">
+                        <dt class="text-muted fw-normal">Fecha</dt>
+                        <dd class="fw-medium mb-0">{{ obra.fechaCreacion }}</dd>
+                    </div>
+                    }
+                </dl>
+            </div>
+
+            <!-- Visita -->
+            <div class="card border-primary rounded-4 p-4 ficha-visita">
+                <h3 class="h6 fw-bold mb-2">Visita la obra</h3>
+                <p class="small text-muted mb-3">Esta pieza se encuentra en la exposición permanente del museo.</p>
+                <a href="#" class="text-primary fw-bold text-decoration-none d-flex align-items-center gap-1 small">
+                    Planear visita <span class="material-icons" style="font-size:0.9rem">open_in_new</span>
+                </a>
+            </div>
+        </aside>
+    </section>
+
+    @if (obrasMismoArtista.length > 0) {
+    <section class="mt-5">
+        <h2 class="h4 fw-bold mb-4">Otras obras del autor</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+            @for (relacionada of obrasMismoArtista; track relacionada.id) {
+            <div class="col">
+                <div class="obra-relacionada cursor-pointer">
+                    <div class="overflow-hidden rounded-3 mb-2 obra-relacionada-img-wrapper">
+                        <img [src]="'assets/imagenes/obras/' + relacionada.titulo" [alt]="relacionada.titulo"
+                            class="w-100 obra-relacionada-img"
+                            onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
+                    </div>
+                    <h4 class="h6 fw-bold mb-1">{{ relacionada.titulo }}</h4>
+                    <p class="small text-muted mb-0">{{ relacionada.fechaCreacion }}</p>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+    }
+    } @else {
+    <div class="d-flex justify-content-center align-items-center py-5">
+        <div class="spinner-border text-secondary me-3" role="status"></div>
+        <span class="text-muted fs-5">Cargando obra...</span>
+    </div>
+    }
+</main>

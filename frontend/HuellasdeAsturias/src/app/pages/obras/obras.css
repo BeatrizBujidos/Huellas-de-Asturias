@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Material+Icons&display=swap');
+
+.page-obras {
+  font-family: 'Inter', sans-serif;
+}
+
+.page-obras h1,
+.page-obras h2,
+.page-obras h3,
+.page-obras h4,
+.page-obras .brand {
+  font-family: 'Playfair Display', serif;
+}
+
+.page-obras .text-primary   { color: #1a365d; }
+.page-obras .bg-primary     { background-color: #1a365d; }
+.page-obras .btn-primary    { background-color: #1a365d; border-color: #1a365d; }
+.page-obras .btn-primary:hover { background-color: #122540; border-color: #122540; }
+.page-obras .border-primary { border-color: #1a365d; }
+
+.obra-img-principal {
+  aspect-ratio: 16 / 9;
+}
+
+.obra-img-principal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.obra-img-principal:hover .obra-img-principal-img {
+  transform: scale(1.05);
+}
+
+.obra-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.obra-img-principal:hover .obra-img-overlay {
+  opacity: 1;
+}
+
+.miniatura,
+.miniatura-activa,
+.miniatura-mas {
+  aspect-ratio: 1 / 1;
+}
+
+.miniatura-activa {
+  border: 2px solid #1a365d;
+  box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.15);
+}
+
+.miniatura {
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.miniatura:hover {
+  opacity: 1;
+}
+
+.miniatura-mas img {
+  opacity: 0.5;
+  filter: blur(2px);
+}
+
+.miniatura-mas-overlay {
+  top: 0; left: 0; right: 0; bottom: 0;
+}
+
+.barra-titulo {
+  display: inline-block;
+  width: 4px;
+  height: 2rem;
+  background-color: #1a365d;
+  border-radius: 2px;
+}
+
+.ficha-visita {
+  background-color: rgba(26, 54, 93, 0.05);
+  border-color: rgba(26, 54, 93, 0.2) !important;
+}
+
+.obra-relacionada-img-wrapper {
+  aspect-ratio: 4 / 3;
+}
+
+.obra-relacionada-img {
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.obra-relacionada:hover .obra-relacionada-img {
+  transform: scale(1.1);
+}
+
+.cursor-pointer { cursor: pointer; }

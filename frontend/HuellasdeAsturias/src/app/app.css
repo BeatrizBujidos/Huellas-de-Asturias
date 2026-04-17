@@ -1,0 +1,32 @@
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.flex-grow-1 {
+  flex: 1 0 auto;
+}
+
+.bg-black {
+  background-color: #000000 !important;
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}

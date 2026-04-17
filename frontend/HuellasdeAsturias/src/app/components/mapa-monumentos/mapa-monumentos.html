@@ -1,1 +1,90 @@
-<p>mapa-monumentos works!</p>
+<section class="py-5">
+  <div class="text-center mb-5">
+    <h2 class="display-4 fw-bold font-display mb-3">Descubre el Prerrománico</h2>
+    <div class="mx-auto mb-4" style="width: 96px; height: 4px; background: var(--bs-primary); opacity: 0.25; border-radius: 2px;"></div>
+    <p class="text-muted">El arte asturiano del siglo IX declarado Patrimonio de la Humanidad</p>
+  </div>
+
+  <div class="card border-0 shadow rounded-4 overflow-hidden">
+    <div class="row g-0">
+
+      <!-- Mapa Leaflet -->
+      <div class="col-lg-8">
+        <div
+          #mapaContainer
+          id="mapa-preromanico"
+          class="mapa-leaflet"
+        ></div>
+      </div>
+
+      <!-- Panel lateral -->
+      <div class="col-lg-4 d-flex flex-column">
+        <div class="p-4 border-bottom bg-white">
+          <h5 class="fw-bold mb-1 font-display">Monumentos</h5>
+          <p class="text-muted small mb-0">Haz clic en un marcador o en la lista</p>
+        </div>
+
+        <!-- Lista de monumentos -->
+        <div class="overflow-auto flex-grow-1 lista-monumentos">
+          @for (monumento of monumentos; track monumento.id) {
+            <div
+              class="monumento-item d-flex gap-3 p-3 border-bottom align-items-center"
+              [class.monumento-activo]="monumentoSeleccionado?.id === monumento.id"
+              (click)="seleccionarMonumento(monumento)"
+            >
+              <!-- Punto de color por época -->
+              <span
+                class="epoca-dot flex-shrink-0"
+                [style.background]="epocas[monumento.idEpoca].color"
+              ></span>
+              <div class="overflow-hidden">
+                <p class="fw-semibold mb-0 text-truncate small">{{ monumento.nombre }}</p>
+                <p class="text-muted mb-0" style="font-size: 0.72rem;">
+                  <i class="bi bi-calendar3 me-1"></i>{{ monumento.fechaConstruccion }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Detalle del monumento seleccionado -->
+        @if (monumentoSeleccionado) {
+          <div class="p-4 bg-light border-top detalle-panel">
+            <div
+              class="d-flex align-items-center gap-2 mb-3 px-3 py-2 rounded-3"
+              [style.background]="epocas[monumentoSeleccionado.idEpoca].color + '18'"
+            >
+              <span
+                class="epoca-dot flex-shrink-0"
+                [style.background]="epocas[monumentoSeleccionado.idEpoca].color"
+              ></span>
+              <small
+                class="fw-semibold text-uppercase"
+                [style.color]="epocas[monumentoSeleccionado.idEpoca].color"
+              >
+                {{ epocas[monumentoSeleccionado.idEpoca].label }}
+              </small>
+            </div>
+            <h5 class="fw-bold font-display mb-1">{{ monumentoSeleccionado.nombre }}</h5>
+            <p class="text-muted small mb-3">
+              <i class="bi bi-calendar3 me-1"></i>{{ monumentoSeleccionado.fechaConstruccion }}
+            </p>
+            <p class="small text-secondary lh-lg">{{ monumentoSeleccionado.descripcion }}</p>
+            <a href="#" class="btn btn-primary btn-sm rounded-pill px-4 mt-1 w-100">
+              Ver más información <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+        }
+
+        <!-- Estado vacío -->
+        @if (!monumentoSeleccionado) {
+          <div class="p-4 text-center text-muted d-flex flex-column align-items-center justify-content-center flex-grow-0">
+            <i class="bi bi-map fs-2 mb-2 opacity-25"></i>
+            <p class="small mb-0">Selecciona un monumento para ver más detalles</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+</section>

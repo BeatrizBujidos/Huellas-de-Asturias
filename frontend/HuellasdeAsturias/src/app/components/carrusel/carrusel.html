@@ -1,50 +1,32 @@
 <article id="noticias">
   <h2 class="carousel-title">Noticias de los Museos Asturianos</h2>
-  
-  <div 
-    id="carouselNoticias" 
-    class="carousel slide carousel-container"
-    (mouseenter)="pauseCarousel()"
-    (mouseleave)="resumeCarousel()">
-    
-    <!-- Indicadores -->
-    <ol class="carousel-indicators">
-      @for (noticia of noticias; track noticia.id; let i = $index) {
-        <li 
-          [class.active]="i === currentIndex"
-          (click)="goToSlide(i)">
-        </li>
-      }
-    </ol>
 
+  <div id="carouselNoticias" class="carousel slide carousel-container" (mouseenter)="pauseCarousel()"
+    (mouseleave)="resumeCarousel()">
     <!-- Noticias -->
     <div class="carousel-inner">
       @for (noticia of noticias; track noticia.id; let i = $index) {
-        <div 
-          class="carousel-item"
-          [class.active]="i === currentIndex">
-          
-          <img [src]="noticia.imagen" [alt]="noticia.titulo">
-          
-          <div class="carousel-caption">
-            <a [href]="noticia.enlace" class="text-white" target="_blank">
-              <h5>{{ noticia.titulo }}</h5>
-              <p>{{ noticia.descripcion }}</p>
-            </a>
-          </div>
-        </div>
+      <div class="carousel-item" [class.active]="i === currentIndex">
+        <img [src]="noticia.imagen" [alt]="noticia.titulo">
+      </div>
       }
     </div>
-
     <!-- Controles -->
-    <a class="carousel-control-prev" role="button" (click)="prev()">
+    <a class="carousel-control-prev" role="button" (click)="prev()" aria-label="Anterior">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Anterior</span>
     </a>
-    
-    <a class="carousel-control-next" role="button" (click)="next()">
+
+    <a class="carousel-control-next" role="button" (click)="next()" aria-label="Siguiente">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Siguiente</span>
     </a>
+  </div>
+
+  <div class="carousel-content mt-4">
+    @if (noticias[currentIndex]) {
+    <h3 class="carousel-content-title font-display">{{ noticias[currentIndex].titulo }}</h3>
+    <p class="carousel-content-description">{{ noticias[currentIndex].descripcion }}</p>
+    <a [href]="noticias[currentIndex].enlace" class="btn btn-outline-success btn-sm mt-2" target="_blank"
+      rel="noopener">Leer más</a>
+    }
   </div>
 </article>

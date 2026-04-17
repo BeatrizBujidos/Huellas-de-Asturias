@@ -1,4 +1,5 @@
 export interface Museo {
+  
   id: number;
   nombre: string;
   direccion: string;

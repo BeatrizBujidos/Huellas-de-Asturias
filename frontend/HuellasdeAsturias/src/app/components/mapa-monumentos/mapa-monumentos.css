@@ -1,0 +1,102 @@
+:host {
+  --primary: #1a4a7a;
+  --primary-rgb: 26, 74, 122;
+}
+
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.mapa-leaflet {
+  width: 100%;
+  height: 580px;
+  min-height: 400px;
+
+  @media (max-width: 992px) {
+    height: 360px;
+  }
+}
+
+.lista-monumentos {
+  max-height: 280px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--primary-rgb), 0.3) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--primary-rgb), 0.3);
+    border-radius: 4px;
+  }
+}
+
+.monumento-item {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(var(--primary-rgb), 0.05);
+  }
+
+  &.monumento-activo {
+    background-color: rgba(var(--primary-rgb), 0.08);
+    border-left: 4px solid var(--primary) !important;
+  }
+}
+
+.detalle-panel {
+  border-top: 3px solid var(--primary) !important;
+}
+
+::ng-deep .popup-preromanico {
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .leaflet-popup-content {
+    margin: 12px;
+    min-width: 220px;
+  }
+
+  .leaflet-popup-tip {
+    background: white;
+  }
+}
+
+.epoca-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+::ng-deep .leyenda-mapa {
+  background: white;
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}

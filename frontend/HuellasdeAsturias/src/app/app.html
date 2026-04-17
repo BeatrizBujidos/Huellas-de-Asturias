@@ -1,6 +1,11 @@
-<div>
-    <app-barra-navegacion></app-barra-navegacion>
-    <div>
-        <router-outlet></router-outlet>
+<div class="d-flex flex-column min-vh-100">
+  <app-barra-navegacion></app-barra-navegacion>
+  
+  <main class="flex-grow-1">
+    <div class="container mt-4">
+      <router-outlet></router-outlet>
     </div>
+  </main>
+  
+  <app-footer></app-footer>
 </div>

@@ -37,31 +37,31 @@ export class Carrusel implements OnInit, OnDestroy {
     this.noticias = [
       {
         id: 1,
-        titulo: 'Nueva exposición en el Museo de Bellas Artes',
-        descripcion: 'Descubre "Asturias a través de los siglos", una muestra que recoge obras desde el medievo hasta la actualidad. Hasta el 15 de diciembre.',
+        titulo: 'Nueva obra de Zuloaga adquirida por el Museo de Bellas Artes de Asturias',
+        descripcion: 'El lienzo ingresó en el Museo a principios de enero de 2026 y quedará expuesto de manera permanente en la sala 18.',
         imagen: 'assets/imagenes/museos/museoBellasArtes.jpg',
-        enlace: 'https://www.museobbaa.com/'
+        enlace: 'https://www.museobbaa.com/noticia/una-nueva-obra-zuloaga-adquirida-museo-bellas-artes-asturias/'
       },
       {
         id: 2,
-        titulo: 'Noche de los museos',
-        descripcion: 'Apertura especial nocturna con visitas guiadas, conciertos y actividades para todos los públicos.',
+        titulo: 'Los conciertos del museo',
+        descripcion: 'Nueva sesión de Los Conciertos del Museo organizado por Juventudes Musicales de Gijón.',
         imagen: 'assets/imagenes/museos/museoJovellanos.jpg',
         enlace: 'https://www.gijon.es/es/directorio/museo-casa-natal-de-jovellanos'
       },
       {
         id: 3,
-        titulo: 'Exposición de Arte Contemporáneo',
-        descripcion: 'Descubre las últimas tendencias del arte contemporáneo en una exposición que reúne a artistas de toda la región.',
-        imagen: 'assets/imagenes/museos/laboral',
-        enlace: 'https://laboralcentrodearte.org/es/'
+        titulo: 'Exposición De rerum natura',
+        descripcion: 'De la naturaleza de las cosas.',
+        imagen: 'assets/imagenes/museos/laboral.jpg',
+        enlace: 'https://laboralcentrodearte.org/es/exposiciones/de-rerum-natura/'
       },
       {
         id: 4,
-        titulo: 'Reapertura del Museo de la Minería',
-        descripcion: 'Tras las obras de renovación, el museo reabre sus puertas con nuevas salas interactivas y una exposición sobre la historia minera de la región.',
-        imagen: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
-        enlace: '#'
+        titulo: 'Los findes al museo',
+        descripcion: 'Visitas guiadas abril 2026.',
+        imagen: 'assets/imagenes/museos/museoEvaristoValle.jpg',
+        enlace: 'https://evaristovalle.com/los-findes-al-museo-visitas-guiadas-abril-2026/'
       }
     ];
   }
