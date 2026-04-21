@@ -63,6 +63,12 @@ public class ObraController {
         List<ObraDTO> obras = obraService.findByEpocaNombre(nombreEpoca);
         return ResponseEntity.ok(obras);
     }
+    //Listar todas las obras
+    @GetMapping("/obras")
+    public ResponseEntity<List<ObraDTO>> listAll(){
+        List<ObraDTO> obras = obraService.listAll();
+        return ResponseEntity.ok(obras);
+    }
     // Operación UPDATE
     @PutMapping("/obras/{id}")
     public ResponseEntity<ObraDTO> updateObra(@RequestBody ObraDTO obraDTO, @PathVariable("id") Long idObra) {

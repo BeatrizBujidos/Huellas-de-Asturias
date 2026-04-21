@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 export interface Artista {
   id: number;
@@ -16,13 +18,14 @@ export interface Artista {
 @Component({
   selector: 'app-seccion-artistas',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './seccion-artistas.html',
   styleUrl:'./seccion-artistas.css',
 })
 export class SeccionArtistas {
+  private readonly router = inject(Router);
 
-private readonly artistas: Artista[] = [
+  private readonly artistas: Artista[] = [
     {
       id: 1,
       nombre: 'Julia',
@@ -172,17 +175,10 @@ private readonly artistas: Artista[] = [
   }
 
   verMasInfo(artista: Artista): void {
-    console.log('Ver más info de:', artista.nombre, artista.apellidos);
+    this.router.navigate(['/artistas', artista.id]);
   }
 
   getNombreCompleto(artista: Artista): string {
     return `${artista.nombre} ${artista.apellidos}`;
   }
-
-  getAnios(artista: Artista): string {
-    const nac = artista.fechaNacimiento.substring(0, 4);
-    const muerte = artista.fechaMuerte ? artista.fechaMuerte.substring(0, 4) : 'actualidad';
-    return `${nac} – ${muerte}`;
-  }
 }
-

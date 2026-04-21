@@ -30,4 +30,6 @@ public interface ObraRepository extends JpaRepository<Obra, Long> {
 
     List<Obra> findByEpoca_Nombre(String nombreEpoca);
 
+    List<Obra> findAll();
+
 }

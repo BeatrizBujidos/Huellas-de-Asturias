@@ -108,6 +108,12 @@ public class ObraService {
     public List<ObraDTO> findByEpocaNombre(String nombreEpoca) {
         return obraRepository.findByEpoca_Nombre(nombreEpoca).stream().map(this::mapToDTO).collect(Collectors.toList());
     }
+    @Transactional(readOnly = true)
+    public List<ObraDTO> listAll(){
+        return obraRepository.findAll()
+                .stream()
+                .map(this::mapToDTO).collect(Collectors.toList());
+    }
     // Operación UPDATE
     @Transactional
     public ObraDTO updateObra(ObraDTO obraDTO, Long idObra) {

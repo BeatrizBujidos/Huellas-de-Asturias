@@ -2,7 +2,7 @@ export interface Imagen {
   
   id: number;
   url: string;
-  tipoEntidad: 'monumento' | 'obra';
+  tipoEntidad: 'OBRA' | 'MONUMENTO';
   idEntidad: number;
   esPrincipal: boolean;
   orden: number;

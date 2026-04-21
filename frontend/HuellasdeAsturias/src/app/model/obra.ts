@@ -6,4 +6,10 @@ export interface Obra {
   tecnica?: string;
   descripcion: string;
   dimensiones?: string;
+  artistaId: number;
+  museoId?: number;
+  epocaId?: number;
+  artistaNombre?: string;
+  museoNombre?: string;
+  epocaNombre?: string;
 }
