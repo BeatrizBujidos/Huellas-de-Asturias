@@ -1,0 +1,341 @@
+:root {
+  --color-primary: #125700;
+  --color-border: #f5f5f5;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --transition-default: all 0.3s ease;
+}
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.breadcrumb-nav {
+  margin-bottom: 1rem;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 0.5rem;
+  color: #6c757d;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+  color: #6c757d;
+  transition: var(--transition-default);
+}
+
+.breadcrumb-link:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #202020;
+  font-weight: 500;
+}
+
+.meta-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.artista-nombre {
+  font-size: 1.25rem;
+  font-style: italic;
+  color: #6c757d;
+}
+
+.separador {
+  color: #6c757d;
+}
+
+.fecha-creacion {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #202020;
+}
+
+.epoca-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(26, 54, 93, 0.1);
+  color: var(--color-primary);
+  border: 1px solid rgba(26, 54, 93, 0.25);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.imagen-section {
+  margin-bottom: 2rem;
+}
+
+.obra-img-principal {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  cursor: pointer;
+}
+
+.obra-img-principal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.obra-img-principal:hover .obra-img-principal-img {
+  transform: scale(1.03);
+}
+
+.obra-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+}
+
+.obra-img-principal:hover .obra-img-overlay {
+  opacity: 1;
+}
+
+.material-icons {
+  font-size: 1rem;
+}
+
+.contenido-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.titulo-seccion {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.barra-titulo {
+  display: inline-block;
+  width: 4px;
+  height: 2rem;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.descripcion-texto {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #202020;
+  margin: 0;
+}
+
+.ficha-tecnica {
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.ficha-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.ficha-lista {
+  margin: 0;
+}
+
+.ficha-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.ficha-item.sin-borde {
+  border-bottom: none;
+}
+
+.ficha-label {
+  color: #6c757d;
+  font-weight: 400;
+  margin: 0;
+}
+
+.ficha-valor {
+  font-weight: 500;
+  margin: 0;
+  color: #202020;
+}
+
+.btn-ver-artista {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 2rem;
+  text-decoration: none;
+  background-color: transparent;
+  transition: var(--transition-default);
+  text-align: center;
+}
+
+.btn-ver-artista:hover {
+  background-color: var(--color-primary);
+  color: #f5f5f5;
+}
+
+.obras-relacionadas {
+  margin-top: 3rem;
+}
+
+.titulo-relacionadas {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.obras-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.obra-card {
+  cursor: pointer;
+}
+
+.obra-link {
+  text-decoration: none;
+}
+
+.obra-img-wrapper {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.obra-relacionada-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.obra-card:hover .obra-relacionada-img {
+  transform: scale(1.08);
+}
+
+.obra-titulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+.obra-fecha {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: #6c757d;
+  font-size: 1.125rem;
+}
+
+@media (min-width: 768px) {
+  .header-content {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  
+  .contenido-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+  
+  .obras-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 576px) {
+  .obras-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Ajuste para dispositivos muy pequeños */
+@media (max-width: 575px) {
+  .obras-grid {
+    grid-template-columns: 1fr;
+  }
+}

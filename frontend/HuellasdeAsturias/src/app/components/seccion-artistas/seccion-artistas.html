@@ -1,4 +1,4 @@
-<section class="py-5 bg-light rounded-4 px-4 px-md-5">
+<section class="artistas">
 
   <div class="text-center mb-5">
     <h2 class="display-4 fw-bold font-display mb-2">¿Quién es quién?</h2>
@@ -10,7 +10,6 @@
     <div class="col-12 col-md-6">
       <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
         <div class="row g-0 h-100">
-          <!-- Columna imagen -->
           <div class="col-12 d-flex flex-column p-3 bg-white">
             <div class="rounded-3 overflow-hidden retrato-wrapper" style="min-height: 300px;">
               <img [src]="artista.imagen" [alt]="'Retrato de ' + getNombreCompleto(artista)"
@@ -23,7 +22,7 @@
 
             <div class="text-center mt-3">
               <a [routerLink]="['/artistas', artista.id]"
-                class="btn btn-outline-primary btn-sm rounded-pill px-4 text-decoration-none">
+                class="btn btn-outline-success btn-sm rounded-pill px-4 text-decoration-none">
                 Ver más <i class="bi bi-arrow-right ms-1"></i>
               </a>
             </div>
@@ -35,7 +34,7 @@
   </div>
 
   <div class="d-flex justify-content-center align-items-center gap-4 mt-5">
-    <button class="btn btn-outline-primary rounded-circle p-0 nav-btn" [disabled]="!puedeAnterior()"
+    <button class="btn btn-outline-success rounded-circle p-0 nav-btn" [disabled]="!puedeAnterior()"
       (click)="anterior()" aria-label="Anteriores artistas">
       <i class="bi bi-chevron-left"></i>
     </button>
@@ -46,7 +45,7 @@
       }
     </div>
 
-    <button class="btn btn-outline-primary rounded-circle p-0 nav-btn" [disabled]="!puedeSiguiente()"
+    <button class="btn btn-outline-success rounded-circle p-0 nav-btn" [disabled]="!puedeSiguiente()"
       (click)="siguiente()" aria-label="Siguientes artistas">
       <i class="bi bi-chevron-right"></i>
     </button>

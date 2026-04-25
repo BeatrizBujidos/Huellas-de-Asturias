@@ -1,0 +1,124 @@
+<main class="container">
+  @if (obra(); as obra) {
+
+  <!-- CABECERA -->
+  <header class="header">
+    <div class="header-content">
+      <div>
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a routerLink="/obras" class="breadcrumb-link">Galería</a>
+            </li>
+            <li class="breadcrumb-item active">{{ obra.titulo }}</li>
+          </ol>
+        </nav>
+        <h1 class="titulo-principal">{{ obra.titulo }}</h1>
+        <div class="meta-info">
+          @if (obra.artistaNombre) {
+          <span class="artista-nombre">{{ obra.artistaNombre }}</span>
+          <span class="separador">·</span>
+          }
+          @if (obra.fechaCreacion) {
+          <span class="fecha-creacion">{{ obra.fechaCreacion }}</span>
+          }
+          @if (obra.epocaNombre) {
+          <span class="epoca-badge">
+            {{ obra.epocaNombre }}
+          </span>
+          }
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- IMAGEN PRINCIPAL -->
+  <section class="imagen-section">
+    <div class="obra-img-principal">
+      <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
+        class="obra-img-principal-img" />
+    </div>
+  </section>
+
+  <!-- DESCRIPCIÓN Y FICHA TÉCNICA -->
+  <section class="contenido-section">
+    <div class="descripcion-col">
+      <h2 class="titulo-seccion">
+        <span class="barra-titulo"></span>
+        Descripción
+      </h2>
+      <p class="descripcion-texto">{{ obra.descripcion }}</p>
+    </div>
+
+    <aside class="ficha-col">
+      <div class="ficha-tecnica">
+        <h3 class="ficha-titulo">Ficha Técnica</h3>
+        <dl class="ficha-lista">
+          @if (obra.tecnica) {
+          <div class="ficha-item">
+            <dt class="ficha-label">Técnica</dt>
+            <dd class="ficha-valor">{{ obra.tecnica }}</dd>
+          </div>
+          }
+          @if (obra.dimensiones) {
+          <div class="ficha-item">
+            <dt class="ficha-label">Dimensiones</dt>
+            <dd class="ficha-valor">{{ obra.dimensiones }}</dd>
+          </div>
+          }
+          @if (obra.fechaCreacion) {
+          <div class="ficha-item">
+            <dt class="ficha-label">Fecha</dt>
+            <dd class="ficha-valor">{{ obra.fechaCreacion }}</dd>
+          </div>
+          }
+          @if (obra.museoNombre) {
+          <div class="ficha-item">
+            <dt class="ficha-label">Museo</dt>
+            <dd class="ficha-valor">{{ obra.museoNombre }}</dd>
+          </div>
+          }
+          @if (obra.epocaNombre) {
+          <div class="ficha-item sin-borde">
+            <dt class="ficha-label">Época</dt>
+            <dd class="ficha-valor">{{ obra.epocaNombre }}</dd>
+          </div>
+          }
+        </dl>
+      </div>
+
+      @if (obra.artistaId) {
+      <a [routerLink]="['/artistas', obra.artistaId]" class="btn-ver-artista">
+        Ver artista
+      </a>
+      }
+    </aside>
+  </section>
+
+  @if (obrasMismoArtista().length > 0) {
+  <section class="obras-relacionadas">
+    <h2 class="titulo-relacionadas">Otras obras del autor</h2>
+    <div class="obras-grid">
+      @for (relacionada of obrasMismoArtista(); track relacionada.id) {
+      <div class="obra-card">
+        <a [routerLink]="['/obras', relacionada.id]" class="obra-link">
+          <div class="obra-img-wrapper">
+            <img [src]="getImagenObra(relacionada.id)" [alt]="relacionada.titulo"
+              class="obra-relacionada-img" />
+          </div>
+          <h4 class="obra-titulo">{{ relacionada.titulo }}</h4>
+          <p class="obra-fecha">{{ relacionada.fechaCreacion }}</p>
+        </a>
+      </div>
+      }
+    </div>
+  </section>
+  }
+
+  } @else {
+  <div class="loading-container">
+    <div class="spinner" role="status"></div>
+    <span class="loading-text">Cargando obra...</span>
+  </div>
+  }
+</main>

@@ -62,6 +62,27 @@ export class Carrusel implements OnInit, OnDestroy {
         descripcion: 'Visitas guiadas abril 2026.',
         imagen: 'assets/imagenes/museos/museoEvaristoValle.jpg',
         enlace: 'https://evaristovalle.com/los-findes-al-museo-visitas-guiadas-abril-2026/'
+      },
+      {
+        id: 5,
+        titulo: 'Agua',
+        descripcion: 'Exposición de Edward Burtynsky.',
+        imagen: 'assets/imagenes/museos/centroNiemeyer.jpg',
+        enlace: 'https://www.centroniemeyer.es/events/event/edward-burtynsky-agua/'
+      },
+      {
+        id: 6,
+        titulo: 'Santa María del Naranco en el siglo IX',
+        descripcion: 'Viaje inmersivo al prerrománico asturiano con realidad virtual.',
+        imagen: 'assets/imagenes/museos/centroInterpretacion.jpg',
+        enlace: 'https://www.centroprerromanicoasturiano.com/es/agenda/-/calendarsuite/event/santa-maria-de-naranco-en-el-siglo-ix-viaje-inmersivo-al-prerromanico-asturiano-con-realidad-virtual/15083475/mO9xSINzVJeP'
+      },
+      {
+        id: 7,
+        titulo: 'Alejandro Sirio. La caligrafía del dibujo',
+        descripcion: 'Hasta el 14 de junio de 2026.',
+        imagen: 'assets/imagenes/museos/museoPinole.jpg',
+        enlace: 'https://www.gijon.es/es/eventos/alejandro-sirio-la-caligrafia-del-dibujo-l-exposicion'
       }
     ];
   }

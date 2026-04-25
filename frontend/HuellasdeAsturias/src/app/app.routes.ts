@@ -10,12 +10,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/artistas/artistas').then(m => m.Artistas)
     },
     {
-        path: 'artistas/:id',  // Añade esta ruta con el parámetro
+        path: 'artistas/:id',
         loadComponent: () => import('./pages/artistas/artistas').then(m => m.Artistas)
     },
     {
         path: 'obras',
         loadComponent: () => import('./pages/obras/obras').then(m => m.Obras)
+    },
+    {
+        path: 'obras/:id',
+        loadComponent: () => import('./pages/obras/obra-detalle/obra-detalle').then(m => m.ObraDetalle)
     },
     {
         path: 'monumentos',

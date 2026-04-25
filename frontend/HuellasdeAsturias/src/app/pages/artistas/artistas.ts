@@ -1,8 +1,8 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, finalize } from 'rxjs/operators';
 import { Artista } from '../../model/artista';
 import { ArtistaService } from '../../service/artista-service';
 import { Obra } from '../../model/obra';
@@ -16,68 +16,169 @@ import { ImagenService } from '../../service/imagen-service';
   styleUrl: './artistas.css',
 })
 export class Artistas implements OnInit {
-  artista: Artista | null = null;
+  artista = signal<Artista | null>(null);
   busqueda = signal('');
+  artistasDisponibles = signal<Artista[]>([]);
+  cargandoObras = signal(false);
+  mostrarSugerencias = signal(false);
+
+  readonly artistasFiltrados = computed(() => {
+    const texto = this.busqueda().toLowerCase().trim();
+    if (!texto) return this.artistasDisponibles();
+    return this.artistasDisponibles().filter(a =>
+      a.nombre.toLowerCase().includes(texto) ||
+      a.apellidos.toLowerCase().includes(texto) ||
+      `${a.nombre} ${a.apellidos}`.toLowerCase().includes(texto)
+    );
+  });
 
   private readonly todasLasObras = signal<Obra[]>([]);
   readonly imagenesObras = signal<Map<number, string>>(new Map());
 
+  // Las obras no se filtran por busqueda cuando hay un artista seleccionado,
+  // ya que busqueda contiene el nombre del artista, no un filtro de obras.
   readonly obrasFiltradas = computed(() => {
-    const texto = this.busqueda().toLowerCase().trim();
-    if (!texto) return this.todasLasObras();
-    return this.todasLasObras().filter(o =>
-      o.titulo.toLowerCase().includes(texto) ||
-      o.tecnica?.toLowerCase().includes(texto) ||
-      o.descripcion?.toLowerCase().includes(texto)
-    );
+    return this.todasLasObras();
   });
 
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly artistaService = inject(ArtistaService);
   private readonly obraService = inject(ObraService);
   private readonly imagenService = inject(ImagenService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id')) || 1;
 
+    this.artistaService.getAll().subscribe({
+      next: (artistas) => {
+        this.artistasDisponibles.set(artistas);
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error al cargar artistas:', err),
+    });
+
+    const id = Number(this.route.snapshot.paramMap.get('id')) || 1;
+    this.cargarArtista(id);
+  }
+
+  cargarArtista(id: number): void {
+    this.todasLasObras.set([]);
+    this.imagenesObras.set(new Map());
+    this.cargandoObras.set(true);
+    this.cdr.detectChanges();
+    
     this.artistaService.getById(id).subscribe({
       next: (artista) => {
-        this.artista = artista;
+        this.artista.set(artista);
+        this.cdr.detectChanges();
+
+        this.router.navigate(['/artistas', id], { replaceUrl: true });
+
         this.cargarObrasDelArtista(artista);
       },
-      error: (err) => console.error('Error al cargar artista:', err),
+      error: (err) => {
+        console.error('Error al cargar artista:', err);
+        this.cargandoObras.set(false);
+        this.cdr.detectChanges();
+      },
     });
+  }
+
+  seleccionarArtista(artista: Artista): void {
+    this.busqueda.set(`${artista.nombre} ${artista.apellidos}`);
+    this.mostrarSugerencias.set(false);
+    this.cargarArtista(artista.id);
+  }
+
+  onBlurBusqueda(): void {
+    setTimeout(() => {
+      this.mostrarSugerencias.set(false);
+      this.cdr.detectChanges();
+    }, 200);
+  }
+
+  onFocusBusqueda(): void {
+    if (this.busqueda().length > 0) {
+      this.mostrarSugerencias.set(true);
+      this.cdr.detectChanges();
+    }
+  }
+
+  onInputBusqueda(): void {
+    this.mostrarSugerencias.set(true);
+    this.cdr.detectChanges();
   }
 
   private cargarObrasDelArtista(artista: Artista): void {
     this.obraService.getByArtistaId(artista.id).pipe(
       switchMap((obras) => {
+        console.log('Obras recibidas:', obras.length);
         this.todasLasObras.set(obras);
-        if (obras.length === 0) return of([]);
+        this.cdr.detectChanges();
+        
+        if (obras.length === 0) {
+          this.cargandoObras.set(false);
+          this.cdr.detectChanges();
+          return of([]);
+        }
+
         return forkJoin(
           obras.map(obra => this.imagenService.getUrlPrincipal('OBRA', obra.id))
         );
+      }),
+      finalize(() => {
+        this.cargandoObras.set(false);
+        this.cdr.detectChanges();
       })
     ).subscribe({
       next: (urls) => {
         const obras = this.todasLasObras();
         const nuevoMap = new Map<number, string>();
-        (urls as (string | null)[]).forEach((url, i) => {
-          if (url) nuevoMap.set(obras[i].id, url);
-        });
+        
+        if (urls && urls.length > 0) {
+          (urls as (string | null)[]).forEach((url, i) => {
+            if (url && obras[i]) {
+              nuevoMap.set(obras[i].id, url);
+            }
+          });
+        }
+        
         this.imagenesObras.set(nuevoMap);
+        console.log('Imágenes cargadas:', nuevoMap.size);
+        this.cdr.detectChanges();
       },
-      error: (err) => console.warn('Error al cargar imágenes:', err),
+      error: (err) => {
+        console.warn('Error al cargar imágenes:', err);
+        this.cargandoObras.set(false);
+        this.cdr.detectChanges();
+      },
     });
   }
 
   getImagenArtista(): string {
-    const img = this.artista?.imagen;
+    const img = this.artista()?.imagen;
     if (!img) return '';
     return img.startsWith('/') || img.startsWith('http') ? img : `assets/imagenes/artistas/${img}`;
   }
 
   getImagenObra(obraId: number): string {
     return this.imagenesObras().get(obraId) ?? '';
+  }
+
+  formatearFecha(fecha: string | null | undefined): string {
+    if (!fecha) return '';
+    const [year, month, day] = fecha.split('-');
+    return `${day}-${month}-${year}`;
+  }
+
+  getRangoFechas(): string {
+    const artistaActual = this.artista();
+    if (!artistaActual) return '';
+    const nacimiento = this.formatearFecha(artistaActual.fechaNacimiento);
+    const muerte = artistaActual.fechaMuerte 
+      ? this.formatearFecha(artistaActual.fechaMuerte) 
+      : 'Actualidad';
+    return `Nacimiento: ${nacimiento} - Muerte: ${muerte}`;
   }
 }

@@ -1,150 +1,152 @@
-<main class="container-lg py-5">
-    @if (obra) {
+<main class="page-obras">
+  <div class="container">
     <!-- CABECERA -->
-    <header class="mb-5">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-4">
-            <div>
-                <nav aria-label="breadcrumb" class="mb-3">
-                    <ol class="breadcrumb small text-muted mb-0">
-                        <li class="breadcrumb-item"><a routerLink="/obras" class="text-decoration-none">Galería</a></li>
-                        <li class="breadcrumb-item active">Detalle de Obra</li>
-                    </ol>
-                </nav>
-                <h1 class="display-4 fw-bold mb-2">{{ obra.titulo }}</h1>
-                <div class="d-flex align-items-center gap-3 flex-wrap">
-                    <span class="fs-5 fst-italic text-muted">Artista</span>
-                    <span class="text-muted">·</span>
-                    <span class="fs-5 fw-medium">{{ obra.fechaCreacion }}</span>
-                </div>
-            </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary rounded-pill d-flex align-items-center gap-1">
-                    <span class="material-icons" style="font-size:1rem">share</span> Compartir
-                </button>
-                <button class="btn btn-primary rounded-pill d-flex align-items-center gap-1">
-                    <span class="material-icons" style="font-size:1rem">bookmark_border</span> Guardar
-                </button>
-            </div>
-        </div>
+    <header class="header">
+      <h1 class="page-title">Galería de Obras</h1>
+      <p class="page-subtitle">Explora nuestra colección de arte por artista, técnica o época</p>
     </header>
-
-    <!-- IMAGEN PRINCIPAL -->
-    <section class="mb-4">
-        <div class="obra-img-principal overflow-hidden rounded-4 shadow position-relative">
-            <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo" class="w-100 obra-img-principal-img"
-                onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-            <div class="obra-img-overlay d-flex align-items-end p-4">
-                <button
-                    class="btn btn-light btn-sm rounded-pill d-flex align-items-center gap-1 bg-white bg-opacity-25 text-white border-white border-opacity-50">
-                    <span class="material-icons" style="font-size:1rem">zoom_in</span> Ver en alta resolución
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- MINIATURAS -->
-    <section class="row row-cols-2 row-cols-md-4 g-3 mb-5">
-        <div class="col">
-            <div class="miniatura-activa overflow-hidden rounded-3">
-                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
-                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-            </div>
-        </div>
-        <div class="col">
-            <div class="miniatura overflow-hidden rounded-3 cursor-pointer">
-                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
-                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-            </div>
-        </div>
-        <div class="col">
-            <div class="miniatura overflow-hidden rounded-3 cursor-pointer">
-                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
-                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-            </div>
-        </div>
-        <div class="col">
-            <div class="miniatura-mas overflow-hidden rounded-3 cursor-pointer position-relative">
-                <img [src]="'assets/imagenes/obras/' + obra.titulo" [alt]="obra.titulo"
-                    class="w-100 h-100 object-fit-cover" onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-                <div
-                    class="miniatura-mas-overlay position-absolute inset-0 d-flex align-items-center justify-content-center">
-                    <span class="text-white fw-bold fs-5">+5 Detalles</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DESCRIPCIÓN Y FICHA TÉCNICA -->
-    <section class="row g-5 mb-5">
-        <div class="col-12 col-md-8">
-            <h2 class="h3 fw-bold mb-4 d-flex align-items-center gap-2">
-                <span class="barra-titulo"></span>
-                Descripción
-            </h2>
-            <p class="fs-5 lh-lg text-muted">{{ obra.descripcion }}</p>
+    <!-- FILTROS -->
+    <section class="filters-section">
+      <div class="filters-panel">
+        <!-- Selector de tipo de filtro -->
+        <div class="filter-type-selector">
+          <button 
+            type="button"
+            class="filter-type-btn"
+            [class.filter-type-active]="tipoFiltro() === 'artista'"
+            (click)="cambiarTipoFiltro('artista')">
+            Artista
+          </button>
+          <button 
+            type="button"
+            class="filter-type-btn"
+            [class.filter-type-active]="tipoFiltro() === 'tecnica'"
+            (click)="cambiarTipoFiltro('tecnica')">
+            Técnica
+          </button>
+          <button 
+            type="button"
+            class="filter-type-btn"
+            [class.filter-type-active]="tipoFiltro() === 'epoca'"
+            (click)="cambiarTipoFiltro('epoca')">
+            Época
+          </button>
         </div>
 
-        <aside class="col-12 col-md-4 d-flex flex-column gap-4">
-            <!-- Ficha técnica -->
-            <div class="card border rounded-4 p-4 shadow-sm">
-                <h3 class="h6 fw-bold mb-3">Ficha Técnica</h3>
-                <dl class="mb-0">
-                    @if (obra.tecnica) {
-                    <div class="d-flex justify-content-between border-bottom py-2 small">
-                        <dt class="text-muted fw-normal">Técnica</dt>
-                        <dd class="fw-medium mb-0">{{ obra.tecnica }}</dd>
-                    </div>
-                    }
-                    @if (obra.dimensiones) {
-                    <div class="d-flex justify-content-between border-bottom py-2 small">
-                        <dt class="text-muted fw-normal">Dimensiones</dt>
-                        <dd class="fw-medium mb-0">{{ obra.dimensiones }}</dd>
-                    </div>
-                    }
-                    @if (obra.fechaCreacion) {
-                    <div class="d-flex justify-content-between py-2 small">
-                        <dt class="text-muted fw-normal">Fecha</dt>
-                        <dd class="fw-medium mb-0">{{ obra.fechaCreacion }}</dd>
-                    </div>
-                    }
-                </dl>
-            </div>
-
-            <!-- Visita -->
-            <div class="card border-primary rounded-4 p-4 ficha-visita">
-                <h3 class="h6 fw-bold mb-2">Visita la obra</h3>
-                <p class="small text-muted mb-3">Esta pieza se encuentra en la exposición permanente del museo.</p>
-                <a href="#" class="text-primary fw-bold text-decoration-none d-flex align-items-center gap-1 small">
-                    Planear visita <span class="material-icons" style="font-size:0.9rem">open_in_new</span>
-                </a>
-            </div>
-        </aside>
-    </section>
-
-    @if (obrasMismoArtista.length > 0) {
-    <section class="mt-5">
-        <h2 class="h4 fw-bold mb-4">Otras obras del autor</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            @for (relacionada of obrasMismoArtista; track relacionada.id) {
-            <div class="col">
-                <div class="obra-relacionada cursor-pointer">
-                    <div class="overflow-hidden rounded-3 mb-2 obra-relacionada-img-wrapper">
-                        <img [src]="'assets/imagenes/obras/' + relacionada.titulo" [alt]="relacionada.titulo"
-                            class="w-100 obra-relacionada-img"
-                            onerror="this.src='assets/imagenes/obras/placeholder.jpg'" />
-                    </div>
-                    <h4 class="h6 fw-bold mb-1">{{ relacionada.titulo }}</h4>
-                    <p class="small text-muted mb-0">{{ relacionada.fechaCreacion }}</p>
-                </div>
-            </div>
+        @if (tipoFiltro() === 'artista') {
+        <div class="filter-select-wrapper">
+          <select class="filter-select" [value]="artistaSeleccionado() || ''" (change)="seleccionarArtista($event)">
+            <option value="">Todos los artistas</option>
+            @for (artista of artistas(); track artista) {
+            <option [value]="artista">{{ artista }}</option>
             }
+          </select>
         </div>
+        }
+
+        @if (tipoFiltro() === 'tecnica') {
+        <div class="filter-select-wrapper">
+          <select class="filter-select" [value]="tecnicaSeleccionada() || ''" (change)="seleccionarTecnica($event)">
+            <option value="">Todas las técnicas</option>
+            @for (tecnica of tecnicas(); track tecnica) {
+            <option [value]="tecnica">{{ tecnica }}</option>
+            }
+          </select>
+        </div>
+        }
+
+        @if (tipoFiltro() === 'epoca') {
+        <div class="filter-select-wrapper">
+          <select class="filter-select" [value]="epocaSeleccionada() || ''" (change)="seleccionarEpocaSelect($event)">
+            <option value="">Todas las épocas</option>
+            @for (epoca of epocas(); track epoca.id) {
+            <option [value]="epoca.id">{{ epoca.nombre }}</option>
+            }
+          </select>
+        </div>
+        }
+
+        @if (getFiltroActivo()) {
+        <div class="filtro-activo">
+          <span class="filtro-activo-label">{{ getTipoFiltroLabel() }}:</span>
+          <span class="filtro-activo-valor">{{ getFiltroActivo() }}</span>
+          <button type="button" class="filtro-activo-clear" (click)="limpiarFiltroActual()">✕</button>
+        </div>
+        }
+
+        @if (tieneFiltrosActivos()) {
+        <button type="button" class="btn-clear-all" (click)="limpiarTodosFiltros()">
+         Limpiar todos los filtros
+        </button>
+        }
+      </div>
     </section>
-    }
-    } @else {
-    <div class="d-flex justify-content-center align-items-center py-5">
-        <div class="spinner-border text-secondary me-3" role="status"></div>
-        <span class="text-muted fs-5">Cargando obra...</span>
+
+    @if (cargando()) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <span class="loading-text">Cargando obras...</span>
     </div>
     }
+
+    @if (!cargando()) {
+      @if (obrasFiltradas().length > 0) {
+      <section class="obras-section">
+        <div class="results-header">
+          <p class="result-count">{{ obrasFiltradas().length }} obra(s) encontrada(s)</p>
+          <div class="result-tags">
+            @if (artistaSeleccionado()) {
+            <span class="result-tag">Artista: {{ artistaSeleccionado() }}</span>
+            }
+            @if (tecnicaSeleccionada()) {
+            <span class="result-tag">Técnica: {{ tecnicaSeleccionada() }}</span>
+            }
+            @if (epocaSeleccionada()) {
+            <span class="result-tag">Época: {{ getEpocaSeleccionadaNombre() }}</span>
+            }
+          </div>
+        </div>
+        <div class="obras-grid">
+          @for (obra of obrasFiltradas(); track obra.id) {
+          <div class="obra-card" [routerLink]="['/obras', obra.id]">
+            <div class="obra-card-image-wrapper">
+              <img
+                [src]="getImagenObra(obra.id)"
+                [alt]="obra.titulo"
+                class="obra-card-image" />
+              <div class="obra-card-overlay">
+                <span class="overlay-button">Ver detalles</span>
+              </div>
+            </div>
+            <div class="obra-card-body">
+              <h3 class="obra-card-title">{{ obra.titulo }}</h3>
+              @if (obra.artistaNombre) {
+              <p class="obra-card-artist">{{ obra.artistaNombre }}</p>
+              }
+              <div class="obra-card-badges">
+                @if (obra.fechaCreacion) {
+                <span class="badge badge-light">{{ obra.fechaCreacion }}</span>
+                }
+                @if (obra.tecnica) {
+                <span class="badge badge-light">{{ obra.tecnica }}</span>
+                }
+                @if (obra.epocaNombre) {
+                <span class="badge badge-primary">{{ obra.epocaNombre }}</span>
+                }
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </section>
+      } @else {
+      <div class="empty-state">
+        <p class="empty-message">No se encontraron obras con los filtros aplicados.</p>
+        <button type="button" class="btn-clear-filters" (click)="limpiarTodosFiltros()">
+          Limpiar filtros
+        </button>
+      </div>
+      }
+    }
+  </div>
 </main>

@@ -1,84 +1,103 @@
-<main>
-    <!-- BARRA DE BÚSQUEDA Y FILTROS -->
-    <div class="d-flex flex-column flex-sm-row justify-content-end align-items-center gap-3 mb-5">
-        <div class="input-group" style="max-width: 320px;">
-            <span class="input-group-text bg-white border-end-0">
-                <span class="material-icons text-secondary" style="font-size:1.1rem">search</span>
-            </span>
-            <input
-                [ngModel]="busqueda()"
-                (ngModelChange)="busqueda.set($event)"
-                type="text"
-                class="form-control border-start-0"
-                placeholder="Buscar obras..." />
+<main class="artistas-container">
+
+    <div class="search-filters">
+        <div class="search-wrapper">
+            <div class="search-input-group">
+                <span class="search-icon">
+                    <span class="material-icons" style="font-size:1.1rem">search</span>
+                </span>
+                <input
+                    [ngModel]="busqueda()"
+                    (ngModelChange)="busqueda.set($event)"
+                    (focus)="onFocusBusqueda()"
+                    (blur)="onBlurBusqueda()"
+                    (input)="onInputBusqueda()"
+                    type="text"
+                    class="search-input"
+                    placeholder="Buscar artista por nombre..." />
+            </div>
+
+            @if (mostrarSugerencias() && artistasFiltrados().length > 0) {
+            <div class="sugerencias-dropdown">
+                @for (artista of artistasFiltrados(); track artista.id) {
+                <div class="sugerencia-item" (mousedown)="seleccionarArtista(artista)">
+                    <div class="sugerencia-info">
+                        <span class="sugerencia-nombre">{{ artista.nombre }} {{ artista.apellidos }}</span>
+                    </div>
+                </div>
+                }
+            </div>
+            }
         </div>
-        <button class="btn btn-outline-secondary rounded-pill d-flex align-items-center gap-1">
-            <span class="material-icons" style="font-size:1.1rem">tune</span>
-            <span>Filtros</span>
-        </button>
     </div>
-    <!-- DETALLE DEL ARTISTA -->
-    @if (artista){
-    <section class="row g-5 mb-5 align-items-center">
+
+    @if (artista()) {
+    <section class="artista-detalle">
         <!-- Foto -->
-        <div class="col-12 col-md-5 col-lg-4">
-            <div class="foto-artista overflow-hidden rounded-4 shadow-lg">
+        <div class="artista-foto">
+            <div class="foto-artista">
                 <img [src]="getImagenArtista()"
-                    [alt]="'Retrato de ' + artista.nombre + ' ' + artista.apellidos"
-                    class="img-fluid w-100 h-100 object-fit-cover foto-artista-img" />
+                    [alt]="'Retrato de ' + artista()!.nombre + ' ' + artista()!.apellidos"
+                    class="foto-artista-img" />
             </div>
         </div>
-        <!-- Datos biográficos -->
-        <div class="col-12 col-md-7 col-lg-8">
-            <div class="mb-4">
-                <h1 class="display-4 fw-bold text-primary mb-1">
-                    {{ artista.nombre }} {{ artista.apellidos }}
+
+        <div class="artista-info">
+            <div class="artista-header">
+                <h1 class="artista-nombre">
+                    {{ artista()!.nombre }} {{ artista()!.apellidos }}
                 </h1>
-                <p class="fs-5 text-muted fst-italic">
-                    {{ artista.fechaNacimiento }} — {{ artista.fechaMuerte ?? 'Actualidad' }} | {{
-                    artista.lugarNacimiento }}
+                <p class="artista-fechas">
+                    {{ getRangoFechas() }} | {{ artista()!.lugarNacimiento }}
                 </p>
             </div>
-            <h2 class="h4 fw-bold border-bottom pb-2 mb-3">Biografía</h2>
-            <p class="fs-5 lh-lg">{{ artista.biografia }}</p>
-            @if(artista.estilo){
-            <p class="fs-5 lh-lg mt-3">
-                <span class="fw-semibold">Estilo: </span>{{ artista.estilo }}
-            </p>
-            }
+            <div class="artista-biografia">
+                <h2 class="biografia-titulo">Biografía</h2>
+                <p class="biografia-texto">{{ artista()!.biografia }}</p>
+                @if(artista()!.estilo) {
+                <p class="artista-estilo">
+                    <span class="estilo-label">Estilo: </span>{{ artista()!.estilo }}
+                </p>
+                }
+            </div>
         </div>
     </section>
     } @else {
-    <div class="d-flex justify-content-center align-items-center py-5">
-        <div class="spinner-border text-secondary me-3" role="status"></div>
-        <span class="text-muted fs-5">Cargando artista...</span>
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <span class="loading-text">Cargando artista...</span>
     </div>
     }
-    <!-- OBRAS DESTACADAS -->
-    @if (obrasFiltradas().length > 0) {
-    <section>
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h2 class="h3 fw-bold text-primary mb-0">Obras Destacadas</h2>
-            <a class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1"
-                routerLink="/obras">
-                Ver todas <span class="material-icons" style="font-size:1rem">arrow_forward</span>
+
+    @if (cargandoObras()) {
+    <div class="loading-obras">
+        <div class="spinner-small"></div>
+        <span>Cargando obras...</span>
+    </div>
+    }
+
+    @if (!cargandoObras() && obrasFiltradas().length > 0) {
+    <section class="obras-section">
+        <div class="obras-header">
+            <h2 class="obras-titulo">Obras Destacadas</h2>
+            <a class="ver-todas-link" routerLink="/obras">
+                Ver todas 
+                <span class="material-icons" style="font-size:1rem">arrow_forward</span>
             </a>
         </div>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-            @for (obra of obrasFiltradas(); track obra.id){
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm obra-card">
-                    <div class="overflow-hidden obra-card-img-wrapper">
-                        <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
-                            class="card-img-top obra-card-img" />
-                        <div class="obra-card-overlay d-flex align-items-center justify-content-center">
-                            <span class="btn btn-sm btn-primary rounded-pill px-3">Ver detalles</span>
-                        </div>
+        <div class="obras-grid">
+            @for (obra of obrasFiltradas(); track obra.id) {
+            <div class="obra-card">
+                <div class="obra-card-img-wrapper">
+                    <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
+                        class="obra-card-img" />
+                    <div class="obra-card-overlay">
+                        <span class="btn-ver-detalles">Ver detalles</span>
                     </div>
-                    <div class="card-body">
-                        <h3 class="card-title h6 fw-bold mb-1">{{ obra.titulo }}</h3>
-                        <p class="card-text text-muted small">{{ obra.fechaCreacion }} · {{ obra.tecnica }}</p>
-                    </div>
+                </div>
+                <div class="obra-card-body">
+                    <h3 class="obra-titulo">{{ obra.titulo }}</h3>
+                    <p class="obra-metadata">{{ obra.fechaCreacion }} · {{ obra.tecnica }}</p>
                 </div>
             </div>
             }

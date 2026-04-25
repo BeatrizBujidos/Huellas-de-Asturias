@@ -1,7 +1,3 @@
-.font-display {
-    font-family: 'Playfair Display', serif;
-}
-
 .footer-link {
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
@@ -12,13 +8,13 @@
 }
 
 .bi {
-    color: #28a745;
+    color: #125700;
     width: 2em;
     height: fit-content;
 }
 
 .footer-link:hover {
-    color: #28a745;
+    color: #125700;
 }
 
 .tracking-wide {
