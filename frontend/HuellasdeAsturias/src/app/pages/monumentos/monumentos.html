@@ -1,116 +1,160 @@
-<main class="container-xl py-5">
+<main class="monumento-detalle-container">
+
+  @if (monumento()) {
 
     <!-- CABECERA -->
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3">
-        <div>
-            <h1 class="display-5 fw-bold mb-2">Mapa del Prerrománico</h1>
-            <p class="text-muted fs-5 mb-0">Explora las joyas del arte asturiano.</p>
-        </div>
-        <button class="btn btn-outline-secondary d-flex align-items-center gap-2 rounded-3">
-            <span class="material-icons text-primary">tune</span>
-            Filtrar por Época
-        </button>
+    <div class="detalle-header">
+      <div class="detalle-epoca-badge" [style.background-color]="getColorEpoca()">
+        {{ getLabelEpoca() }}
+      </div>
+      <h1 class="detalle-nombre">{{ monumento()!.nombre }}</h1>
+      @if (monumento()!.fechaConstruccion) {
+        <p class="detalle-fecha">
+          <span class="material-icons">calendar_today</span>
+          {{ monumento()!.fechaConstruccion }}
+        </p>
+      }
     </div>
 
-    <!-- MAPA (placeholder con marcadores) -->
-    <div class="mapa-contenedor rounded-4 overflow-hidden shadow position-relative mb-5">
-        <img src="assets/imagenes/monumentos/Naranco_01.jpg" alt="Vista de Asturias" class="mapa-fondo"
-            onerror="this.src=''" />
-        <div class="mapa-gradiente position-absolute inset-0"></div>
-
-        <!-- Marcadores dinámicos según monumentos cargados -->
-        @for (m of monumentos; track m.id; let i = $index) {
-        <button class="mapa-marcador position-absolute btn p-0 border-0"
-            [class.mapa-marcador-activo]="monumentoSeleccionado?.id === m.id" [style.left.%]="40 + (i * 7)"
-            [style.top.%]="45 + (i % 3) * 10" (click)="seleccionarMonumento(m)" [title]="m.nombre">
-            <span class="material-icons text-primary mapa-pin">place</span>
-            <span class="mapa-tooltip">{{ m.nombre }}</span>
-        </button>
+    <!-- FILTROS POR ÉPOCA -->
+    <div class="epocas-nav">
+      <span class="epocas-nav-label">Explorar por época:</span>
+      <div class="epocas-nav-botones">
+        @for (epoca of epocasLista; track epoca.id) {
+          <button
+            class="btn-epoca"
+            [class.btn-epoca-activo]="epocaActiva() === epoca.id"
+            [style.--epoca-color]="epoca.color"
+            (click)="toggleEpoca(epoca.id)">
+            <span class="btn-epoca-dot" [style.background-color]="epoca.color"></span>
+            {{ epoca.label }}
+          </button>
         }
-    </div>
-    <!-- DETALLE DEL MONUMENTO SELECCIONADO -->
-    @if (monumentoSeleccionado) {
-    <div class="row g-5 align-items-start">
-        <!-- Galería de imágenes -->
-        <div class="col-12 col-lg-5">
-            <div class="overflow-hidden rounded-4 shadow mb-3 mapa-galeria-principal">
-                <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_01.jpg'"
-                    [alt]="monumentoSeleccionado.nombre" class="w-100 h-100 object-fit-cover"
-                    onerror="this.src='assets/imagenes/monumentos/Naranco_01.jpg'" />
-            </div>
-            <div class="row g-2">
-                <div class="col-4">
-                    <div class="rounded-3 overflow-hidden mapa-miniatura">
-                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_02.jpg'"
-                            [alt]="monumentoSeleccionado.nombre"
-                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
-                            onerror="this.src='assets/imagenes/monumentos/Naranco_02.jpg'" />
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="rounded-3 overflow-hidden mapa-miniatura">
-                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_03.jpg'"
-                            [alt]="monumentoSeleccionado.nombre"
-                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
-                            onerror="this.src='assets/imagenes/monumentos/Naranco_03.jpg'" />
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="rounded-3 overflow-hidden mapa-miniatura">
-                        <img [src]="'assets/imagenes/monumentos/' + monumentoSeleccionado.nombre.replace(' ', '_') + '_04.jpg'"
-                            [alt]="monumentoSeleccionado.nombre"
-                            class="w-100 h-100 object-fit-cover mapa-miniatura-hover"
-                            onerror="this.src='assets/imagenes/monumentos/Naranco_04.jpg'" />
-                    </div>
-                </div>
-            </div>
+      </div>
+
+      <!-- Lista de monumentos del época seleccionada -->
+      @if (epocaActiva() !== null && monumentosDeEpoca().length > 0) {
+        <div class="epocas-lista">
+          @for (m of monumentosDeEpoca(); track m.id) {
+            <button
+              class="epoca-monumento-item"
+              [class.epoca-monumento-activo]="monumento()!.id === m.id"
+              (click)="navegarA(m.id)">
+              {{ m.nombre }}
+            </button>
+          }
         </div>
-        <!-- Información del monumento -->
-        <div class="col-12 col-lg-7">
-            <div class="card border rounded-4 shadow-sm p-4 p-md-5">
-                <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
-                    <div>
-                        <h2 class="display-6 fw-bold mb-2">{{ monumentoSeleccionado.nombre }}</h2>
-                        @if (monumentoSeleccionado.fechaConstruccion) {
-                        <span class="badge rounded-pill ficha-badge fs-6 fw-normal px-3 py-2">
-                            Prerrománico · s. IX
-                        </span>
-                        }
-                    </div>
-                    <div class="text-end">
-                        <p class="text-muted small text-uppercase fw-semibold mb-0" style="letter-spacing:.1em">
-                            Inauguración</p>
-                        <p class="fs-4 fw-bold mb-0">{{ monumentoSeleccionado.fechaConstruccion }}</p>
-                    </div>
-                </div>
+      }
+    </div>
 
-                @if (monumentoSeleccionado.latitud && monumentoSeleccionado.longitud) {
-                <div class="d-flex align-items-center gap-1 text-muted small mb-4">
-                    <span class="material-icons" style="font-size:1rem">location_on</span>
-                    <span>{{ monumentoSeleccionado.latitud }}, {{ monumentoSeleccionado.longitud }} — Asturias</span>
-                </div>
-                }
+    <!-- CUERPO PRINCIPAL: imagen + datos -->
+    <div class="detalle-cuerpo">
 
-                <h3 class="h6 fw-bold mb-3 border-bottom pb-2">Descripción</h3>
-                <p class="text-muted lh-lg">{{ monumentoSeleccionado.descripcion }}</p>
-
-                <div class="d-flex gap-3 mt-4 pt-3 border-top flex-wrap">
-                    <button class="btn btn-primary rounded-3 d-flex align-items-center gap-2">
-                        <span class="material-icons">directions</span>
-                        Cómo llegar
-                    </button>
-                    <button class="btn btn-outline-secondary rounded-3 d-flex align-items-center gap-2">
-                        <span class="material-icons">info</span>
-                        Ver más detalles
-                    </button>
-                </div>
-            </div>
+      <!-- Imagen principal (clicable para lightbox) -->
+      <div class="detalle-imagen-wrapper" (click)="abrirLightbox(getImagenActiva())" title="Ver imagen completa">
+        <img
+          [src]="getImagenActiva()"
+          [alt]="monumento()!.nombre"
+          class="detalle-imagen-principal"
+          onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
+        <div class="detalle-imagen-zoom-hint">
+          <span class="material-icons">zoom_in</span>
         </div>
+      </div>
+
+      <!-- Datos técnicos + mapa -->
+      <div class="detalle-info">
+
+        <dl class="detalle-tabla">
+          @if (monumento()!.fechaConstruccion) {
+            <div class="detalle-fila">
+              <dt><span class="material-icons">calendar_today</span>Construcción</dt>
+              <dd>{{ monumento()!.fechaConstruccion }}</dd>
+            </div>
+          }
+          <div class="detalle-fila">
+            <dt><span class="material-icons">palette</span>Estilo</dt>
+            <dd [style.color]="getColorEpoca()">{{ getLabelEpoca() }}</dd>
+          </div>
+          <div class="detalle-fila">
+            <dt><span class="material-icons">location_on</span>Ubicación</dt>
+            <dd>{{ monumento()!.latitud }}, {{ monumento()!.longitud }}</dd>
+          </div>
+        </dl>
+
+        <p class="detalle-descripcion">{{ monumento()!.descripcion }}</p>
+
+        <div id="mapa-detalle" class="detalle-mapa"></div>
+
+      </div>
     </div>
-    } @else {
-    <div class="d-flex justify-content-center align-items-center py-5">
-        <div class="spinner-border text-secondary me-3" role="status"></div>
-        <span class="text-muted fs-5">Cargando monumentos...</span>
-    </div>
+
+    <!-- GALERÍA DE IMÁGENES -->
+    @if (cargandoImagenes()) {
+      <div class="galeria-cargando">
+        <div class="spinner"></div>
+        <span>Cargando imágenes...</span>
+      </div>
+    } @else if (imagenes().length > 0) {
+      <section class="detalle-galeria">
+        <h2 class="galeria-titulo">Galería fotográfica</h2>
+        <div class="galeria-grid">
+          @for (img of imagenes(); track img.url; let i = $index) {
+            <div
+              class="galeria-item"
+              [class.galeria-item-activo]="getImagenActiva() === img.url"
+              (click)="seleccionarImagen(img.url, i)">
+              <img
+                [src]="img.url"
+                [alt]="monumento()!.nombre"
+                class="galeria-item-img"
+                onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
+              <div class="galeria-item-zoom">
+                <span class="material-icons">zoom_in</span>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
     }
+
+  } @else {
+    <div class="detalle-no-encontrado">
+      <span class="material-icons">search_off</span>
+      <p>Monumento no encontrado.</p>
+    </div>
+  }
+
 </main>
+
+<!-- LIGHTBOX -->
+@if (lightboxAbierto()) {
+  <div class="lightbox-overlay" (click)="cerrarLightbox()">
+    <button class="lightbox-cerrar" (click)="cerrarLightbox()">
+      <span class="material-icons">close</span>
+    </button>
+
+    @if (imagenes().length > 1) {
+      <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)">
+        <span class="material-icons">chevron_left</span>
+      </button>
+    }
+
+    <div class="lightbox-contenido" (click)="$event.stopPropagation()">
+      <img
+        [src]="lightboxUrl()"
+        [alt]="monumento()?.nombre"
+        class="lightbox-img"
+        onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
+      @if (imagenes().length > 1) {
+        <p class="lightbox-contador">{{ lightboxIndice() + 1 }} / {{ imagenes().length }}</p>
+      }
+    </div>
+
+    @if (imagenes().length > 1) {
+      <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)">
+        <span class="material-icons">chevron_right</span>
+      </button>
+    }
+  </div>
+}

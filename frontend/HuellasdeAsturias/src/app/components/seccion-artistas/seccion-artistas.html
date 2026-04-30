@@ -5,15 +5,15 @@
     <p class="fs-5 fst-italic text-muted fw-light">Descúbrelo</p>
   </div>
 
-  <div class="row g-5">
+  <div class="row g-4 g-lg-5">
     @for (artista of artistasVisibles(); track artista.id) {
     <div class="col-12 col-md-6">
       <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
         <div class="row g-0 h-100">
-          <div class="col-12 d-flex flex-column p-3 bg-white">
-            <div class="rounded-3 overflow-hidden retrato-wrapper" style="min-height: 300px;">
+          <div class="col-12 d-flex flex-column p-3 p-md-4 bg-white">
+            <div class="retrato-wrapper">
               <img [src]="artista.imagen" [alt]="'Retrato de ' + getNombreCompleto(artista)"
-                class="w-100 h-100 object-fit-cover retrato-img" />
+                class="retrato-img" />
             </div>
 
             <div class="text-center mt-3">

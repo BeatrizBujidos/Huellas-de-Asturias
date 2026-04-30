@@ -1,33 +1,199 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Monumento } from '../../model/monumento';
-import { MonumentoService } from '../../service/monumento-service';
+import { Component, OnInit, OnDestroy, inject, signal, computed, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { ImagenService } from '../../service/imagen-service';
+import { Imagen } from '../../model/imagen';
+import { MONUMENTOS, EPOCAS, Monumento } from '../../components/mapa-monumentos/mapa-monumentos';
 
 @Component({
   selector: 'app-monumentos',
-  imports: [RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './monumentos.html',
   styleUrl: './monumentos.css',
 })
-export class Monumentos implements OnInit {
+export class Monumentos implements OnInit, OnDestroy {
 
-  monumentos: Monumento[] = [];
-  monumentoSeleccionado: Monumento | null = null;
-  busqueda: string = '';
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly imagenService = inject(ImagenService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly cdr = inject(ChangeDetectorRef);
 
-  constructor(private monumentoService: MonumentoService) { }
+  readonly monumento = signal<Monumento | null>(null);
+  readonly imagenes = signal<Imagen[]>([]);
+  readonly imagenActiva = signal<string | null>(null);
+  readonly cargandoImagenes = signal(true);
+
+  // Filtro épocas
+  readonly epocaActiva = signal<number | null>(null);
+  readonly epocasLista = Object.entries(EPOCAS).map(([id, info]) => ({
+    id: Number(id), ...info,
+  }));
+  readonly monumentosDeEpoca = computed(() =>
+    this.epocaActiva() === null
+      ? []
+      : MONUMENTOS.filter(m => m.idEpoca === this.epocaActiva())
+  );
+
+  // Lightbox
+  readonly lightboxAbierto = signal(false);
+  readonly lightboxIndice = signal(0);
+  readonly lightboxUrl = signal<string>('');
+
+  private mapa: any;
+  private routeSub?: Subscription;
+  private keydownListener?: (e: KeyboardEvent) => void;
+
+  constructor() {
+    // El listener de teclado se registra en el constructor (contexto de inyección)
+    // y solo se activa en el browser gracias al guard isPlatformBrowser
+    if (isPlatformBrowser(this.platformId)) {
+      this.keydownListener = (e: KeyboardEvent) => {
+        if (!this.lightboxAbierto()) return;
+        if (e.key === 'Escape') this.cerrarLightbox();
+        if (e.key === 'ArrowRight') this.navLightbox(1);
+        if (e.key === 'ArrowLeft') this.navLightbox(-1);
+      };
+      window.addEventListener('keydown', this.keydownListener);
+    }
+  }
 
   ngOnInit(): void {
-    this.monumentoService.getAll().subscribe({
-      next: (data) => {
-        this.monumentos = data;
-        if (data.length > 0) this.monumentoSeleccionado = data[0];
-      },
-      error: (error) => console.error('Error al cargar monumentos:', error)
+    // paramMap.subscribe detecta cambios de :id sin destruir el componente,
+    // lo que permite navegar entre monumentos desde el filtro de épocas.
+    // Los signals se actualizan dentro de setTimeout para evitar NG0100
+    // (ExpressionChangedAfterItHasBeenChecked) en SSR.
+    this.routeSub = this.route.paramMap.subscribe(params => {
+      const id = Number(params.get('id'));
+      const encontrado = MONUMENTOS.find(m => m.id === id) ?? null;
+
+      setTimeout(() => {
+        this.monumento.set(encontrado);
+        this.imagenActiva.set(null);
+        this.imagenes.set([]);
+        this.cargandoImagenes.set(true);
+        this.lightboxAbierto.set(false);
+        this.cdr.markForCheck();
+
+        if (encontrado) {
+          this.cargarImagenes(encontrado.id);
+          if (isPlatformBrowser(this.platformId)) {
+            setTimeout(() => this.iniciarMapa(encontrado), 0);
+          }
+        }
+      }, 0);
     });
   }
 
-  seleccionarMonumento(monumento: Monumento): void {
-    this.monumentoSeleccionado = monumento;
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
+    if (this.mapa) this.mapa.remove();
+    if (isPlatformBrowser(this.platformId) && this.keydownListener) {
+      window.removeEventListener('keydown', this.keydownListener);
+    }
+  }
+
+  private cargarImagenes(id: number): void {
+    this.imagenService.getByEntidad('MONUMENTO', id).subscribe({
+      next: (imgs) => {
+        const ordenadas = [...imgs].sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0));
+        this.imagenes.set(ordenadas);
+        this.cargandoImagenes.set(false);
+      },
+      error: () => this.cargandoImagenes.set(false),
+    });
+  }
+
+  private async iniciarMapa(monumento: Monumento): Promise<void> {
+    const leaflet = await import('leaflet');
+    const L = (leaflet as any).default ?? leaflet;
+    if (this.mapa) this.mapa.remove();
+
+    this.mapa = L.map('mapa-detalle', {
+      center: [monumento.latitud, monumento.longitud],
+      zoom: 14,
+      zoomControl: true,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(this.mapa);
+
+    const epoca = EPOCAS[monumento.idEpoca];
+    L.circleMarker([monumento.latitud, monumento.longitud], {
+      radius: 10,
+      fillColor: epoca.color,
+      color: '#fff',
+      weight: 3,
+      opacity: 1,
+      fillOpacity: 0.9,
+    }).addTo(this.mapa)
+      .bindPopup(`<strong>${monumento.nombre}</strong>`, { closeButton: false })
+      .openPopup();
+  }
+
+  // ── Épocas ─────────────────────────────────────────────────
+
+  toggleEpoca(id: number): void {
+    this.epocaActiva.set(this.epocaActiva() === id ? null : id);
+  }
+
+  navegarA(id: number): void {
+    this.router.navigate(['/monumentos', id]);
+  }
+
+  // ── Imagen activa ──────────────────────────────────────────
+
+  seleccionarImagen(url: string, indice: number): void {
+    this.imagenActiva.set(url);
+    this.abrirLightbox(url, indice);
+  }
+
+  getImagenActiva(): string {
+    return this.imagenActiva()
+      ?? this.imagenes()[0]?.url
+      ?? this.monumento()?.imagen
+      ?? '';
+  }
+
+  // ── Lightbox ───────────────────────────────────────────────
+
+  abrirLightbox(url: string, indice?: number): void {
+    const idx = indice ?? this.imagenes().findIndex(i => i.url === url);
+    this.lightboxIndice.set(idx >= 0 ? idx : 0);
+    this.lightboxUrl.set(url);
+    this.lightboxAbierto.set(true);
+    if (isPlatformBrowser(this.platformId)) document.body.style.overflow = 'hidden';
+  }
+
+  cerrarLightbox(): void {
+    this.lightboxAbierto.set(false);
+    if (isPlatformBrowser(this.platformId)) document.body.style.overflow = '';
+  }
+
+  navLightbox(dir: 1 | -1): void {
+    const imgs = this.imagenes();
+    if (imgs.length === 0) return;
+    const nuevo = (this.lightboxIndice() + dir + imgs.length) % imgs.length;
+    this.lightboxIndice.set(nuevo);
+    this.lightboxUrl.set(imgs[nuevo].url);
+  }
+
+  // ── Época ──────────────────────────────────────────────────
+
+  getColorEpoca(): string {
+    const m = this.monumento();
+    return m ? (EPOCAS[m.idEpoca]?.color ?? '#125700') : '#125700';
+  }
+
+  getLabelEpoca(): string {
+    const m = this.monumento();
+    return m ? (EPOCAS[m.idEpoca]?.label ?? '') : '';
   }
 }

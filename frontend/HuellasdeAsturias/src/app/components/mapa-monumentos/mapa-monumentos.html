@@ -70,9 +70,9 @@
               <i class="bi bi-calendar3 me-1"></i>{{ monumentoSeleccionado.fechaConstruccion }}
             </p>
             <p class="small text-secondary lh-lg">{{ monumentoSeleccionado.descripcion }}</p>
-            <a href="#" class="btn btn-primary btn-sm rounded-pill px-4 mt-1 w-100">
+            <button class="btn btn-success btn-sm rounded-pill px-4 mt-1 w-100" (click)="irADetalle()">
               Ver más información <i class="bi bi-arrow-right ms-1"></i>
-            </a>
+            </button>
           </div>
         }
 

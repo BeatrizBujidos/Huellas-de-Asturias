@@ -24,5 +24,9 @@ export const routes: Routes = [
     {
         path: 'monumentos',
         loadComponent: () => import('./pages/monumentos/monumentos').then(m => m.Monumentos)
+    },
+    {
+        path: 'monumentos/:id',
+        loadComponent: () => import('./pages/monumentos/monumentos').then(m => m.Monumentos)
     }
 ];

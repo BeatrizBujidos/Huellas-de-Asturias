@@ -1,100 +1,583 @@
-.page-monumentos {
-  font-family: 'Inter', sans-serif;
+:host {
+  --color-primary: #125700;
+  --color-text: #202020;
+  --color-text-muted: #6c757d;
+  --color-border: #ebebeb;
+  --shadow-sm: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 1rem 3rem rgba(0, 0, 0, 0.14);
+  --transition: all 0.3s ease;
+  --radius: 0.875rem;
+  --radius-pill: 9999px;
 }
 
-.page-monumentos h1,
-.page-monumentos h2,
-.page-monumentos h3,
-.page-monumentos .brand {
-  font-family: 'Crimson Pro', serif;
+/* ─── CONTENEDOR ─────────────────────────────────────────── */
+
+.monumento-detalle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 5rem;
 }
 
-.page-monumentos .text-primary  { color: #2c3e50; }
-.page-monumentos .btn-primary   { background-color: #2c3e50; border-color: #2c3e50; }
-.page-monumentos .btn-primary:hover { background-color: #1a252f; border-color: #1a252f; }
-.page-monumentos .border-primary { border-color: #2c3e50; }
+/* ─── CABECERA ───────────────────────────────────────────── */
 
-.mapa-contenedor {
-  aspect-ratio: 21 / 9;
-  min-height: 300px;
-  background-color: #d1d5db;
+.detalle-header {
+  margin-bottom: 2.5rem;
 }
 
-.mapa-fondo {
+.detalle-epoca-badge {
+  display: inline-block;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.75rem;
+}
+
+.detalle-nombre {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.detalle-fecha {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.detalle-fecha .material-icons {
+  font-size: 1rem;
+}
+
+/* ─── CUERPO PRINCIPAL ───────────────────────────────────── */
+
+.detalle-cuerpo {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+}
+
+/* Imagen principal */
+
+.detalle-imagen-wrapper {
+  flex: 0 0 48%;
+  max-width: 48%;
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  aspect-ratio: 4 / 3;
+}
+
+.detalle-imagen-principal {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.mapa-gradiente {
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
-  pointer-events: none;
+.detalle-imagen-wrapper:hover .detalle-imagen-principal {
+  transform: scale(1.03);
 }
 
-.mapa-marcador {
-  background: none;
-  line-height: 1;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+/* Columna de info */
+
+.detalle-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.mapa-marcador:hover .mapa-pin,
-.mapa-marcador-activo .mapa-pin {
-  transform: scale(1.3);
-  color: #e74c3c;
+/* Tabla datos técnicos */
+
+.detalle-tabla {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
 }
 
-.mapa-pin {
-  font-size: 2rem;
-  transition: transform 0.2s ease, color 0.2s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+.detalle-fila {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.125rem;
+  border-bottom: 1px solid var(--color-border);
+  gap: 1rem;
 }
 
-.mapa-tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  color: #1a1a1a;
-  font-size: 0.7rem;
+.detalle-fila:last-child {
+  border-bottom: none;
+}
+
+.detalle-fila dt {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+.detalle-fila dt .material-icons {
+  font-size: 1rem;
+  color: var(--color-primary);
+}
+
+.detalle-fila dd {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Descripción */
+
+.detalle-descripcion {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Mini mapa */
+
+.detalle-mapa {
+  width: 100%;
+  height: 220px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* ─── GALERÍA ────────────────────────────────────────────── */
+
+.galeria-cargando {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+  padding: 1.5rem 0;
+}
+
+.spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.detalle-galeria {
+  border-top: 1px solid var(--color-border);
+  padding-top: 2.5rem;
+}
+
+.galeria-titulo {
+  font-size: 1.5rem;
   font-weight: 700;
-  white-space: nowrap;
-  padding: 3px 8px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  margin-bottom: 4px;
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
 }
 
-.mapa-marcador:hover .mapa-tooltip,
-.mapa-marcador-activo .mapa-tooltip {
-  opacity: 1;
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
-.mapa-galeria-principal {
-  aspect-ratio: 1 / 1;
-}
-
-.mapa-miniatura {
-  aspect-ratio: 1 / 1;
+.galeria-item {
+  aspect-ratio: 4 / 3;
+  border-radius: 0.625rem;
+  overflow: hidden;
   cursor: pointer;
+  border: 2px solid transparent;
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
 }
 
-.mapa-miniatura-hover {
-  transition: transform 0.3s ease;
+.galeria-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
 }
 
-.mapa-miniatura:hover .mapa-miniatura-hover {
-  transform: scale(1.08);
+.galeria-item-activo {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(18, 87, 0, 0.15);
 }
 
-.ficha-badge {
-  background-color: rgba(44, 62, 80, 0.1);
-  color: #2c3e50;
-  border: 1px solid rgba(44, 62, 80, 0.2);
+.galeria-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.galeria-item:hover .galeria-item-img {
+  transform: scale(1.07);
+}
+
+/* ─── NO ENCONTRADO ──────────────────────────────────────── */
+
+.detalle-no-encontrado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 0;
+  color: var(--color-text-muted);
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.detalle-no-encontrado .material-icons {
+  font-size: 3.5rem;
+  opacity: 0.3;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+
+@media (max-width: 991px) {
+  .detalle-cuerpo {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .detalle-imagen-wrapper {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .detalle-nombre {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .detalle-nombre {
+    font-size: 1.875rem;
+  }
+
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detalle-fila {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .detalle-fila dt {
+    min-width: unset;
+  }
+}
+
+/* ─── ZOOM HINT EN IMAGEN PRINCIPAL ─────────────────────── */
+
+.detalle-imagen-wrapper {
+  cursor: zoom-in;
+}
+
+.detalle-imagen-zoom-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s ease;
+  pointer-events: none;
+}
+
+.detalle-imagen-zoom-hint .material-icons {
+  font-size: 2.5rem;
+  color: white;
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+}
+
+.detalle-imagen-wrapper:hover .detalle-imagen-zoom-hint {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.detalle-imagen-wrapper:hover .detalle-imagen-zoom-hint .material-icons {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── ZOOM HINT EN MINIATURAS ────────────────────────────── */
+
+.galeria-item {
+  position: relative;
+}
+
+.galeria-item-zoom {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  pointer-events: none;
+}
+
+.galeria-item-zoom .material-icons {
+  font-size: 1.75rem;
+  color: white;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+}
+
+.galeria-item:hover .galeria-item-zoom {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* ─── LIGHTBOX ───────────────────────────────────────────── */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightbox-in 0.2s ease;
+}
+
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lightbox-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+  display: block;
+  animation: lightbox-img-in 0.25s ease;
+}
+
+@keyframes lightbox-img-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-contador {
+  margin-top: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.lightbox-cerrar {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 10000;
+}
+
+.lightbox-cerrar:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  z-index: 10000;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.lightbox-prev { left: 1.5rem; }
+.lightbox-next { right: 1.5rem; }
+
+.lightbox-nav .material-icons {
+  font-size: 2rem;
+}
+
+@media (max-width: 576px) {
+  .lightbox-prev { left: 0.5rem; }
+  .lightbox-next { right: 0.5rem; }
+
+  .lightbox-nav {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* ─── FILTROS POR ÉPOCA ──────────────────────────────────── */
+
+.epocas-nav {
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.epocas-nav-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.epocas-nav-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-epoca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-epoca:hover {
+  border-color: var(--epoca-color, var(--color-primary));
+  color: var(--epoca-color, var(--color-primary));
+}
+
+.btn-epoca-activo {
+  background-color: var(--epoca-color, var(--color-primary));
+  border-color: var(--epoca-color, var(--color-primary));
+  color: white !important;
+}
+
+.btn-epoca-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.btn-epoca-activo .btn-epoca-dot {
+  background-color: rgba(255,255,255,0.7) !important;
+}
+
+/* Lista de monumentos de la época seleccionada */
+
+.epocas-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.epoca-monumento-item {
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.epoca-monumento-item:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.epoca-monumento-activo {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white !important;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .epocas-nav {
+    padding: 1rem;
+  }
+
+  .btn-epoca {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.75rem;
+  }
 }

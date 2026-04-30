@@ -1,13 +1,24 @@
+/* Contenedor principal del carrusel */
+.carousel-container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
 .carousel-title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
   align-content: center;
 }
+
 .carousel-item {
   transition: transform 0.6s ease-in-out;
-  height: 700px;
+  height: 600px;
+  width: 100%;
+  align-content: center;
   background-color: #125700;
+  position: relative;
 }
 
 .carousel-item img {
@@ -22,10 +33,23 @@
   object-fit: cover;
 }
 
+/* Controles posicionados fuera de la imagen */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%;
+  width: auto;
   opacity: 1;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.carousel-control-prev {
+  left: -60px;
+}
+
+.carousel-control-next {
+  right: -60px;
 }
 
 .carousel-control-prev-icon,
@@ -36,6 +60,9 @@
   background-size: 60%;
   width: 3rem;
   height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-control-prev:hover .carousel-control-prev-icon,
@@ -67,24 +94,47 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-
+  .carousel-container {
+    width: 90%;
+  }
+  
+  .carousel-control-prev {
+    left: -40px;
+  }
+  
+  .carousel-control-next {
+    right: -40px;
+  }
+  
   .carousel-item img {
     max-height: 220px;
   }
+  
   .carousel-content-title {
     font-size: 1.25rem;
   }
-
+  
   .carousel-content-description {
     font-size: 0.875rem;
   }
-
+  
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
     width: 2rem;
     height: 2rem;
     padding: 0.75rem;
   }
+}
 
+/* Para pantallas muy pequeñas, ajustar flechas */
+@media (max-width: 576px) {
+  .carousel-control-prev {
+    left: -30px;
+  }
+  
+  .carousel-control-next {
+    right: -30px;
+  }
 }
