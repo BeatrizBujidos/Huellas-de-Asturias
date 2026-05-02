@@ -1,10 +1,9 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, HostListener } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { Obra } from '../../../model/obra';
 import { ObraService } from '../../../service/obra-service';
 import { ImagenService } from '../../../service/imagen-service';
+import { Imagen } from '../../../model/imagen';
 
 @Component({
   selector: 'app-obra-detalle',
@@ -15,8 +14,13 @@ import { ImagenService } from '../../../service/imagen-service';
 export class ObraDetalle implements OnInit {
 
   readonly obra = signal<Obra | null>(null);
-  readonly obrasMismoArtista = signal<Obra[]>([]);
-  readonly imagenesObras = signal<Map<number, string>>(new Map());
+  readonly imagenes = signal<Imagen[]>([]);
+  readonly imagenSeleccionada = signal<string>('');
+  readonly imagenIndice = signal<number>(0);
+
+  // Lightbox
+  readonly lightboxAbierto = signal<boolean>(false);
+  readonly lightboxIndice = signal<number>(0);
 
   private readonly route = inject(ActivatedRoute);
   private readonly obraService = inject(ObraService);
@@ -29,45 +33,49 @@ export class ObraDetalle implements OnInit {
       next: (data) => {
         this.obra.set(data);
 
-        // Imagen de la obra principal
-        this.imagenService.getUrlPrincipal('OBRA', data.id).subscribe({
-          next: (url) => {
-            if (url) {
-              const m = new Map(this.imagenesObras());
-              m.set(data.id, url);
-              this.imagenesObras.set(m);
+        this.imagenService.getByEntidad('OBRA', data.id).subscribe({
+          next: (imagenes) => {
+            this.imagenes.set(imagenes);
+            if (imagenes.length > 0) {
+              this.imagenSeleccionada.set(imagenes[0].url);
+              this.imagenIndice.set(0);
             }
           }
-        });
-
-        // Obras relacionadas del mismo artista
-        this.obraService.getAll().pipe(
-          switchMap((todas) => {
-            const relacionadas = todas
-              .filter(o => o.artistaId === data.artistaId && o.id !== data.id)
-              .slice(0, 3);
-            this.obrasMismoArtista.set(relacionadas);
-            if (relacionadas.length === 0) return of([]);
-            return forkJoin(
-              relacionadas.map(o => this.imagenService.getUrlPrincipal('OBRA', o.id))
-            );
-          })
-        ).subscribe({
-          next: (urls) => {
-            const m = new Map(this.imagenesObras());
-            (urls as (string | null)[]).forEach((url, i) => {
-              if (url) m.set(this.obrasMismoArtista()[i].id, url);
-            });
-            this.imagenesObras.set(m);
-          },
-          error: (err) => console.warn('Error al cargar obras relacionadas:', err)
         });
       },
       error: (err) => console.error('Error al cargar obra:', err)
     });
   }
 
-  getImagenObra(obraId: number): string {
-    return this.imagenesObras().get(obraId) ?? '';
+  seleccionarImagen(url: string, indice: number): void {
+    this.imagenSeleccionada.set(url);
+    this.imagenIndice.set(indice);
+  }
+
+  // ── Lightbox ──────────────────────────────────────────────
+
+  abrirLightbox(indice: number): void {
+    this.lightboxIndice.set(indice);
+    this.lightboxAbierto.set(true);
+    document.body.style.overflow = 'hidden';
+  }
+
+  cerrarLightbox(): void {
+    this.lightboxAbierto.set(false);
+    document.body.style.overflow = '';
+  }
+
+  navLightbox(delta: number): void {
+    const total = this.imagenes().length;
+    const nuevo = (this.lightboxIndice() + delta + total) % total;
+    this.lightboxIndice.set(nuevo);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (!this.lightboxAbierto()) return;
+    if (event.key === 'Escape') this.cerrarLightbox();
+    if (event.key === 'ArrowLeft') this.navLightbox(-1);
+    if (event.key === 'ArrowRight') this.navLightbox(1);
   }
 }

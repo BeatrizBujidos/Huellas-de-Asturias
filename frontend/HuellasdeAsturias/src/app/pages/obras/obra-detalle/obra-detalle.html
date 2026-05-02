@@ -23,97 +23,97 @@
           <span class="fecha-creacion">{{ obra.fechaCreacion }}</span>
           }
           @if (obra.epocaNombre) {
-          <span class="epoca-badge">
-            {{ obra.epocaNombre }}
-          </span>
+          <span class="epoca-badge">{{ obra.epocaNombre }}</span>
           }
         </div>
       </div>
     </div>
   </header>
 
-  <!-- IMAGEN PRINCIPAL -->
+  <!-- CUERPO PRINCIPAL -->
   <section class="imagen-section">
-    <div class="obra-img-principal">
-      <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
-        class="obra-img-principal-img" />
-    </div>
-  </section>
-
-  <!-- DESCRIPCIÓN Y FICHA TÉCNICA -->
-  <section class="contenido-section">
-    <div class="descripcion-col">
-      <h2 class="titulo-seccion">
-        <span class="barra-titulo"></span>
-        Descripción
-      </h2>
-      <p class="descripcion-texto">{{ obra.descripcion }}</p>
-    </div>
-
-    <aside class="ficha-col">
-      <div class="ficha-tecnica">
-        <h3 class="ficha-titulo">Ficha Técnica</h3>
-        <dl class="ficha-lista">
-          @if (obra.tecnica) {
-          <div class="ficha-item">
-            <dt class="ficha-label">Técnica</dt>
-            <dd class="ficha-valor">{{ obra.tecnica }}</dd>
-          </div>
-          }
-          @if (obra.dimensiones) {
-          <div class="ficha-item">
-            <dt class="ficha-label">Dimensiones</dt>
-            <dd class="ficha-valor">{{ obra.dimensiones }}</dd>
-          </div>
-          }
-          @if (obra.fechaCreacion) {
-          <div class="ficha-item">
-            <dt class="ficha-label">Fecha</dt>
-            <dd class="ficha-valor">{{ obra.fechaCreacion }}</dd>
-          </div>
-          }
-          @if (obra.museoNombre) {
-          <div class="ficha-item">
-            <dt class="ficha-label">Museo</dt>
-            <dd class="ficha-valor">{{ obra.museoNombre }}</dd>
-          </div>
-          }
-          @if (obra.epocaNombre) {
-          <div class="ficha-item sin-borde">
-            <dt class="ficha-label">Época</dt>
-            <dd class="ficha-valor">{{ obra.epocaNombre }}</dd>
-          </div>
-          }
-        </dl>
+    <div class="obra-cuerpo-principal">
+      <div class="obra-img-principal" (click)="abrirLightbox(imagenIndice())" title="Ver imagen completa">
+        <img [src]="imagenSeleccionada()" [alt]="obra.titulo" class="obra-img-principal-img" />
+        <div class="obra-img-zoom-hint">
+          <span class="material-icons">zoom_in</span>
+        </div>
       </div>
 
-      @if (obra.artistaId) {
-      <a [routerLink]="['/artistas', obra.artistaId]" class="btn-ver-artista">
-        Ver artista
-      </a>
-      }
-    </aside>
-  </section>
+      <!-- Descripción y ficha técnica -->
+      <div class="contenido-section">
 
-  @if (obrasMismoArtista().length > 0) {
-  <section class="obras-relacionadas">
-    <h2 class="titulo-relacionadas">Otras obras del autor</h2>
-    <div class="obras-grid">
-      @for (relacionada of obrasMismoArtista(); track relacionada.id) {
-      <div class="obra-card">
-        <a [routerLink]="['/obras', relacionada.id]" class="obra-link">
-          <div class="obra-img-wrapper">
-            <img [src]="getImagenObra(relacionada.id)" [alt]="relacionada.titulo"
-              class="obra-relacionada-img" />
+        <div class="descripcion-col">
+          <h2 class="titulo-seccion">
+            <span class="barra-titulo"></span>
+            Descripción
+          </h2>
+          <p class="descripcion-texto">{{ obra.descripcion }}</p>
+        </div>
+
+        <aside class="ficha-col">
+          <div class="ficha-tecnica">
+            <h3 class="ficha-titulo">Ficha Técnica</h3>
+            <dl class="ficha-lista">
+              @if (obra.tecnica) {
+              <div class="ficha-item">
+                <dt class="ficha-label">Técnica</dt>
+                <dd class="ficha-valor">{{ obra.tecnica }}</dd>
+              </div>
+              }
+              @if (obra.dimensiones) {
+              <div class="ficha-item">
+                <dt class="ficha-label">Dimensiones</dt>
+                <dd class="ficha-valor">{{ obra.dimensiones }}</dd>
+              </div>
+              }
+              @if (obra.fechaCreacion) {
+              <div class="ficha-item">
+                <dt class="ficha-label">Fecha</dt>
+                <dd class="ficha-valor">{{ obra.fechaCreacion }}</dd>
+              </div>
+              }
+              @if (obra.museoNombre) {
+              <div class="ficha-item">
+                <dt class="ficha-label">Museo</dt>
+                <dd class="ficha-valor">{{ obra.museoNombre }}</dd>
+              </div>
+              }
+              @if (obra.epocaNombre) {
+              <div class="ficha-item sin-borde">
+                <dt class="ficha-label">Época</dt>
+                <dd class="ficha-valor">{{ obra.epocaNombre }}</dd>
+              </div>
+              }
+            </dl>
           </div>
-          <h4 class="obra-titulo">{{ relacionada.titulo }}</h4>
-          <p class="obra-fecha">{{ relacionada.fechaCreacion }}</p>
-        </a>
+
+          @if (obra.artistaId) {
+          <a [routerLink]="['/artistas', obra.artistaId]" class="btn-ver-artista">
+            Ver artista
+          </a>
+          }
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- GALERÍA DE MINIATURAS -->
+    @if (imagenes().length > 1) {
+    <div class="galeria-miniaturas">
+      <h3 class="galeria-miniaturas-titulo">Imágenes</h3>
+      @for (img of imagenes(); track img.id; let i = $index) {
+      <div class="miniatura-wrapper" [class.activa]="imagenSeleccionada() === img.url"
+        (click)="seleccionarImagen(img.url, i)">
+        <img [src]="img.url" [alt]="obra.titulo" class="miniatura-img" />
+        <div class="miniatura-zoom">
+          <span class="material-icons">zoom_in</span>
+        </div>
       </div>
       }
     </div>
+    }
   </section>
-  }
 
   } @else {
   <div class="loading-container">
@@ -122,3 +122,33 @@
   </div>
   }
 </main>
+
+<!-- LIGHTBOX -->
+@if (lightboxAbierto()) {
+<div class="lightbox-overlay" (click)="cerrarLightbox()" (keydown.escape)="cerrarLightbox()">
+
+  <button class="lightbox-cerrar" (click)="cerrarLightbox()" aria-label="Cerrar">
+    <span class="material-icons">close</span>
+  </button>
+
+  @if (imagenes().length > 1) {
+  <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)" aria-label="Anterior">
+    <span class="material-icons">chevron_left</span>
+  </button>
+  }
+
+  <div class="lightbox-contenido" (click)="$event.stopPropagation()">
+    <img [src]="imagenes()[lightboxIndice()].url" [alt]="obra()?.titulo" class="lightbox-img" />
+    @if (imagenes().length > 1) {
+    <p class="lightbox-contador">{{ lightboxIndice() + 1 }} / {{ imagenes().length }}</p>
+    }
+  </div>
+
+  @if (imagenes().length > 1) {
+  <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)" aria-label="Siguiente">
+    <span class="material-icons">chevron_right</span>
+  </button>
+  }
+
+</div>
+}

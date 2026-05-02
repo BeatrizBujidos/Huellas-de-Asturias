@@ -7,11 +7,11 @@
 }
 
 .bg-black {
-  background-color: #000000 !important;
+  background-color: #202020;
 }
 
 .text-white-50 {
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(220, 211, 206, 0.5);
 }
 
 ::-webkit-scrollbar {
@@ -19,7 +19,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #202020;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -28,5 +28,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #555;
 }

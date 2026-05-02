@@ -1,4 +1,4 @@
-/* Contenedor principal del carrusel */
+/* CONTENEDOR PRINCIPAL */
 .carousel-container {
   width: 80%;
   margin: 0 auto;
@@ -17,7 +17,7 @@
   height: 600px;
   width: 100%;
   align-content: center;
-  background-color: #125700;
+  background-color: rgba(201, 187, 178, 0.3);
   position: relative;
 }
 
@@ -33,7 +33,7 @@
   object-fit: cover;
 }
 
-/* Controles posicionados fuera de la imagen */
+/* CONTROLES */
 .carousel-control-prev,
 .carousel-control-next {
   width: auto;
@@ -89,13 +89,13 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 1.5rem;
-  background: white;
+  background: rgba(201, 187, 178, 0.3);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .carousel-container {
     width: 90%;
   }
@@ -125,16 +125,5 @@
     width: 2rem;
     height: 2rem;
     padding: 0.75rem;
-  }
-}
-
-/* Para pantallas muy pequeñas, ajustar flechas */
-@media (max-width: 576px) {
-  .carousel-control-prev {
-    left: -30px;
-  }
-  
-  .carousel-control-next {
-    right: -30px;
   }
 }

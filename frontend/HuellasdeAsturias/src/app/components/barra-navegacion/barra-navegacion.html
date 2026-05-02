@@ -18,7 +18,7 @@
         <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">Obras</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/monumentos" routerLinkActive="active" (click)="toggleMenu()">Mapa</a>
+        <a class="nav-link" routerLink="/monumentos/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">Monumentos</a>
       </li>
     </ul>
   </div>

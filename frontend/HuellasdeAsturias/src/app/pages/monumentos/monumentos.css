@@ -1,8 +1,9 @@
+/* VARIABLES */
 :host {
   --color-primary: #125700;
   --color-text: #202020;
-  --color-text-muted: #6c757d;
-  --color-border: #ebebeb;
+  --color-text-muted: #858585;
+  --color-border: #F5F5F5;
   --shadow-sm: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
   --shadow-md: 0 1rem 3rem rgba(0, 0, 0, 0.14);
   --transition: all 0.3s ease;
@@ -10,7 +11,7 @@
   --radius-pill: 9999px;
 }
 
-/* ─── CONTENEDOR ─────────────────────────────────────────── */
+/* CONTENEDOR */
 
 .monumento-detalle-container {
   max-width: 1200px;
@@ -18,7 +19,7 @@
   padding: 2.5rem 1rem 5rem;
 }
 
-/* ─── CABECERA ───────────────────────────────────────────── */
+/* CABECERA */
 
 .detalle-header {
   margin-bottom: 2.5rem;
@@ -26,7 +27,7 @@
 
 .detalle-epoca-badge {
   display: inline-block;
-  color: white;
+  color: #F5F5F5;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -57,7 +58,7 @@
   font-size: 1rem;
 }
 
-/* ─── CUERPO PRINCIPAL ───────────────────────────────────── */
+/* CUERPO PRINCIPAL */
 
 .detalle-cuerpo {
   display: flex;
@@ -66,7 +67,7 @@
   margin-bottom: 3rem;
 }
 
-/* Imagen principal */
+/* IMAGEN PRINCIPAL */
 
 .detalle-imagen-wrapper {
   flex: 0 0 48%;
@@ -90,7 +91,7 @@
   transform: scale(1.03);
 }
 
-/* Columna de info */
+/* INFORMACIÓN */
 
 .detalle-info {
   flex: 1;
@@ -99,7 +100,7 @@
   gap: 1.5rem;
 }
 
-/* Tabla datos técnicos */
+/* DATOS TÉCNICOS */
 
 .detalle-tabla {
   display: flex;
@@ -147,7 +148,7 @@
   margin: 0;
 }
 
-/* Descripción */
+/* DESCRIPCIÓN */
 
 .detalle-descripcion {
   font-size: 1.0625rem;
@@ -167,7 +168,7 @@
   border: 1px solid var(--color-border);
 }
 
-/* ─── GALERÍA ────────────────────────────────────────────── */
+/* GALERÍA DE IMÁGENES */
 
 .galeria-cargando {
   display: flex;
@@ -188,7 +189,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .detalle-galeria {
@@ -216,7 +219,7 @@
   cursor: pointer;
   border: 2px solid transparent;
   transition: var(--transition);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
 }
 
 .galeria-item:hover {
@@ -241,7 +244,7 @@
   transform: scale(1.07);
 }
 
-/* ─── NO ENCONTRADO ──────────────────────────────────────── */
+/* NO ENCONTRADO */
 
 .detalle-no-encontrado {
   display: flex;
@@ -259,46 +262,7 @@
   opacity: 0.3;
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-
-@media (max-width: 991px) {
-  .detalle-cuerpo {
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  .detalle-imagen-wrapper {
-    flex: 0 0 auto;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .detalle-nombre {
-    font-size: 2.25rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .detalle-nombre {
-    font-size: 1.875rem;
-  }
-
-  .galeria-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .detalle-fila {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.2rem;
-  }
-
-  .detalle-fila dt {
-    min-width: unset;
-  }
-}
-
-/* ─── ZOOM HINT EN IMAGEN PRINCIPAL ─────────────────────── */
+/* ZOOM EN IMAGEN PRINCIPAL */
 
 .detalle-imagen-wrapper {
   cursor: zoom-in;
@@ -317,11 +281,11 @@
 
 .detalle-imagen-zoom-hint .material-icons {
   font-size: 2.5rem;
-  color: white;
+  color: #F5F5F5;
   opacity: 0;
   transform: scale(0.7);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
 .detalle-imagen-wrapper:hover .detalle-imagen-zoom-hint {
@@ -333,7 +297,7 @@
   transform: scale(1);
 }
 
-/* ─── ZOOM HINT EN MINIATURAS ────────────────────────────── */
+/* ZOOM EN MINIATURAS */
 
 .galeria-item {
   position: relative;
@@ -353,8 +317,8 @@
 
 .galeria-item-zoom .material-icons {
   font-size: 1.75rem;
-  color: white;
-  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+  color: #F5F5F5;
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
 }
 
 .galeria-item:hover .galeria-item-zoom {
@@ -362,7 +326,7 @@
   background: rgba(0, 0, 0, 0.28);
 }
 
-/* ─── LIGHTBOX ───────────────────────────────────────────── */
+/* LIGHTBOX */
 
 .lightbox-overlay {
   position: fixed;
@@ -376,8 +340,13 @@
 }
 
 @keyframes lightbox-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .lightbox-contenido {
@@ -399,8 +368,15 @@
 }
 
 @keyframes lightbox-img-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .lightbox-contador {
@@ -416,7 +392,7 @@
   right: 1.5rem;
   background: rgba(255, 255, 255, 0.12);
   border: none;
-  color: white;
+  color: #F5F5F5;
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -438,7 +414,7 @@
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.12);
   border: none;
-  color: white;
+  color: #F5F5F5;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -454,29 +430,24 @@
   background: rgba(255, 255, 255, 0.28);
 }
 
-.lightbox-prev { left: 1.5rem; }
-.lightbox-next { right: 1.5rem; }
+.lightbox-prev {
+  left: 1.5rem;
+}
+
+.lightbox-next {
+  right: 1.5rem;
+}
 
 .lightbox-nav .material-icons {
   font-size: 2rem;
 }
 
-@media (max-width: 576px) {
-  .lightbox-prev { left: 0.5rem; }
-  .lightbox-next { right: 0.5rem; }
-
-  .lightbox-nav {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-}
-
-/* ─── FILTROS POR ÉPOCA ──────────────────────────────────── */
+/* FILTROS POR ÉPOCA */
 
 .epocas-nav {
   margin-bottom: 2.5rem;
   padding: 1.25rem 1.5rem;
-  background: white;
+  background: rgba(201, 187, 178, 0.3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
@@ -505,7 +476,7 @@
   padding: 0.4rem 1rem;
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-border);
-  background: white;
+  background: #F5F5F5;
   font-size: 0.85rem;
   font-family: inherit;
   color: var(--color-text);
@@ -521,7 +492,7 @@
 .btn-epoca-activo {
   background-color: var(--epoca-color, var(--color-primary));
   border-color: var(--epoca-color, var(--color-primary));
-  color: white !important;
+  color: #F5F5F5 !important;
 }
 
 .btn-epoca-dot {
@@ -533,10 +504,10 @@
 }
 
 .btn-epoca-activo .btn-epoca-dot {
-  background-color: rgba(255,255,255,0.7) !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* Lista de monumentos de la época seleccionada */
+/* LISTA DE MONUMENTOS */
 
 .epocas-lista {
   display: flex;
@@ -567,11 +538,48 @@
 .epoca-monumento-activo {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
-  color: white !important;
+  color: #F5F5F5 !important;
   font-weight: 600;
 }
 
-@media (max-width: 576px) {
+/* RESPONSIVE */
+
+@media(min-width: 601px) and (max-width: 1200px) {
+  .detalle-cuerpo {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .detalle-imagen-wrapper {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .detalle-nombre {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .detalle-nombre {
+    font-size: 1.875rem;
+  }
+
+  .galeria-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .detalle-fila {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .detalle-fila dt {
+    min-width: unset;
+  }
+
   .epocas-nav {
     padding: 1rem;
   }
@@ -579,5 +587,18 @@
   .btn-epoca {
     font-size: 0.78rem;
     padding: 0.35rem 0.75rem;
+  }
+
+  .lightbox-prev {
+    left: 0.5rem;
+  }
+
+  .lightbox-next {
+    right: 0.5rem;
+  }
+
+  .lightbox-nav {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

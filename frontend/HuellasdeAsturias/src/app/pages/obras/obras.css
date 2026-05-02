@@ -1,8 +1,9 @@
+/* VARIABLES */
 :host {
-  --primary-color: #125700;
+  --color-primary: #125700;
   --primary-light: rgba(18, 87, 0, 0.1);
-  --text-color: #202020;
-  --border-color: #f5f5f5;
+  --color-text: #202020;
+  --color-border: #f5f5f5;
   --bg-light: #f5f5f5;
   --shadow-sm: 0 1rem 3rem rgba(0, 0, 0, 0.175);
   --shadow-md: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
@@ -18,7 +19,7 @@
 }
 
 .container {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -30,12 +31,12 @@
 .page-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--color-primary);
   margin-bottom: 0.25rem;
 }
 
 .page-subtitle {
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 1.125rem;
 }
 
@@ -51,7 +52,7 @@
   display: flex;
   align-items: center;
   max-width: 380px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   background: white;
   overflow: hidden;
@@ -60,7 +61,7 @@
 .search-icon {
   padding: 0.5rem 0 0.5rem 0.75rem;
   font-size: 1rem;
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .search-input {
@@ -72,10 +73,10 @@
 }
 
 .search-input::placeholder {
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
-/* Épocas filters */
+/* ÉPOCAS */
 .epocas-filters {
   display: flex;
   flex-wrap: wrap;
@@ -94,23 +95,23 @@
 }
 
 .btn-filter-active {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: white;
 }
 
 .btn-filter-active:hover {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
 }
 
 .btn-filter-inactive {
   background-color: white;
-  color: var(--text-color);
-  border-color: var(--border-color);
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 .btn-filter-inactive:hover {
   background-color: var(--bg-light);
-  border-color: var(--text-color);
+  border-color: var(--color-text);
 }
 
 .loading-spinner {
@@ -123,8 +124,8 @@
 .spinner {
   width: 2rem;
   height: 2rem;
-  border: 3px solid var(--border-color);
-  border-top-color: var(--primary-color);
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-right: 0.75rem;
@@ -135,7 +136,7 @@
 }
 
 .loading-text {
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 1.125rem;
 }
 
@@ -144,7 +145,7 @@
 }
 
 .result-count {
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 0.875rem;
   margin-bottom: 1rem;
 }
@@ -157,7 +158,7 @@
 
 .obra-card {
   cursor: pointer;
-  background: white;
+  background: rgba(201, 187, 178, 0.3);
   border-radius: var(--border-radius);
   overflow: hidden;
   transition: var(--transition-base);
@@ -213,7 +214,7 @@
 }
 
 .overlay-button {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius);
@@ -223,7 +224,7 @@
 }
 
 .overlay-button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
 }
 
 .obra-card-body {
@@ -238,11 +239,11 @@
   font-weight: 700;
   margin-bottom: 0.25rem;
   line-height: 1.4;
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 .obra-card-artist {
-  color: var(--text-color);
+  color: var(--color-text);
   font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
@@ -264,19 +265,19 @@
 
 .badge-light {
   background-color: var(--bg-light);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 .badge-primary {
-  background-color: var(--primary-light);
-  color: var(--primary-color);
+  background-color: var(--color-primary);
+  color: #F5F5F5;
   border: 1px solid rgba(18, 87, 0, 0.25);
 }
 
 .filters-panel {
-  background: white;
-  border: 1px solid var(--border-color);
+  background: rgba(201, 187, 178, 0.3);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
   padding: 1.5rem;
 }
@@ -285,7 +286,7 @@
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 1rem;
 }
 
@@ -299,18 +300,18 @@
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-base);
-  color: var(--text-color);
+  color: var(--color-text);
   font-family: inherit;
 }
 
 .filter-type-btn:hover {
   background-color: var(--bg-light);
-  color: var(--text-color);
+  color: var(--color-text);
 }
 
 .filter-type-active {
   background-color: var(--primary-light);
-  color: var(--primary-color);
+  color: var(--color-primary);
   position: relative;
 }
 
@@ -322,7 +323,7 @@
   transform: translateX(-50%);
   width: 40px;
   height: 3px;
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   border-radius: 2px;
 }
 
@@ -344,14 +345,14 @@
 .filtro-activo-label {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--color-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .filtro-activo-valor {
   font-size: 0.875rem;
-  color: var(--primary-color);
+  color: var(--color-primary);
   font-weight: 500;
 }
 
@@ -360,7 +361,7 @@
   border: none;
   cursor: pointer;
   font-size: 0.875rem;
-  color: var(--primary-color);
+  color: var(--color-primary);
   padding: 0 0.25rem;
   transition: var(--transition-base);
 }
@@ -384,9 +385,9 @@
 }
 
 .btn-clear-all:hover {
-  background-color: #fee2e2;
-  border-color: #ef4444;
-  color: #ef4444;
+  background-color: #fcd2d2;
+  border-color: #e74242;
+  color: #e74242;
 }
 
 .results-header {
@@ -444,7 +445,7 @@
   border-color: var(--text-color);
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 601px) and (max-width: 1200px) {
   .container {
     padding: 2rem 1.5rem;
   }
@@ -482,7 +483,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .container {
     padding: 1.5rem 1rem;
   }
@@ -562,11 +563,5 @@
 @media (min-width: 640px) and (max-width: 767px) {
   .obras-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .obras-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }

@@ -15,9 +15,9 @@ export interface Monumento {
 }
 
 export const EPOCAS: Record<number, { label: string; color: string }> = {
-  1: { label: 'Alfonso II (791–842)', color: '#1a4a7a' },
-  2: { label: 'Ramirense (842–866)', color: '#dfd225' },
-  3: { label: 'Alfonso III (866–910)', color: '#1a7a4a' },
+  1: { label: 'Alfonso II (791–842)', color: '#00B2FF' },
+  2: { label: 'Ramirense (842–866)', color: '#FFF200' },
+  3: { label: 'Alfonso III (866–910)', color: '#56AF3F' },
 };
 
 export const MONUMENTOS: Monumento[] = [

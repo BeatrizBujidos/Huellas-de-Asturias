@@ -88,7 +88,7 @@
         <div class="obras-grid">
             @for (obra of obrasFiltradas(); track obra.id) {
             <div class="obra-card">
-                <div class="obra-card-img-wrapper">
+                <div class="obra-card-img-wrapper" [routerLink]="['/obras', obra.id]" style="cursor:pointer">
                     <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
                         class="obra-card-img" />
                     <div class="obra-card-overlay">
