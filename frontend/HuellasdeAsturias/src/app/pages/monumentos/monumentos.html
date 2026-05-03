@@ -32,7 +32,7 @@
         }
       </div>
 
-      <!-- Lista de monumentos del época seleccionada -->
+      <!-- Lista de monumentos de la época seleccionada -->
       @if (epocaActiva() !== null && monumentosDeEpoca().length > 0) {
         <div class="epocas-lista">
           @for (m of monumentosDeEpoca(); track m.id) {
@@ -74,7 +74,7 @@
           }
           <div class="detalle-fila">
             <dt><span class="material-icons">palette</span>Estilo</dt>
-            <dd [style.color]="getColorEpoca()">{{ getLabelEpoca() }}</dd>
+            <dd>{{ getLabelEpoca() }}</dd>
           </div>
           <div class="detalle-fila">
             <dt><span class="material-icons">location_on</span>Ubicación</dt>

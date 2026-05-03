@@ -2,7 +2,7 @@
 :host {
   --color-primary: #125700;
   --color-text: #202020;
-  --color-text-muted: #858585;
+  --color-text-muted: #2e2e2e;
   --color-border: #F5F5F5;
   --shadow-sm: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
   --shadow-md: 0 1rem 3rem rgba(0, 0, 0, 0.14);
@@ -27,7 +27,7 @@
 
 .detalle-epoca-badge {
   display: inline-block;
-  color: #F5F5F5;
+  color: #2E2E2E;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -129,7 +129,7 @@
   gap: 0.4rem;
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: #4A4A4A;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   min-width: 150px;
@@ -492,7 +492,7 @@
 .btn-epoca-activo {
   background-color: var(--epoca-color, var(--color-primary));
   border-color: var(--epoca-color, var(--color-primary));
-  color: #F5F5F5 !important;
+  color: #2E2E2E !important;
 }
 
 .btn-epoca-dot {
@@ -522,7 +522,7 @@
   padding: 0.3rem 0.85rem;
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-border);
-  background: white;
+  background: #F5F5F5;
   font-size: 0.8125rem;
   font-family: inherit;
   color: var(--color-text-muted);

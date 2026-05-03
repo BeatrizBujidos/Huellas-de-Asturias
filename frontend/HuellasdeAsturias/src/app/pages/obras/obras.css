@@ -54,7 +54,7 @@
   max-width: 380px;
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius);
-  background: white;
+  background: #F5F5F5;
   overflow: hidden;
 }
 
@@ -215,7 +215,7 @@
 
 .overlay-button {
   background-color: var(--color-primary);
-  color: white;
+  color: #F5F5F5;
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius);
   font-size: 0.875rem;

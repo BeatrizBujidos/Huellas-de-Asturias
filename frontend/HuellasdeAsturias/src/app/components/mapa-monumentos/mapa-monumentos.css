@@ -39,6 +39,11 @@
 
 .detalle-panel {
   border-top: 3px solid var(--primary) !important;
+  background-color: #4A4A4A;;
+}
+
+.detalle-panel .text-secondary {
+  color: #2E2E2E !important;
 }
 
 ::ng-deep .popup-preromanico {
@@ -68,15 +73,16 @@
 }
 
 ::ng-deep .leyenda-mapa {
-  background: white;
+  background: #2E2E2E;
   border-radius: 8px;
   padding: 10px 14px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   font-size: 0.75rem;
   line-height: 1.8;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  color: #F5F5F5;
 
   span {
     display: inline-block;

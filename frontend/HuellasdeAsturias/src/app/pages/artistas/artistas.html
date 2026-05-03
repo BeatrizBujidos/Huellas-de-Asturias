@@ -1,21 +1,23 @@
 <main class="artistas-container">
 
-    <div class="search-filters">
-        <div class="search-wrapper">
-            <div class="search-input-group">
-                <span class="search-icon">
-                    <span class="material-icons" style="font-size:1.1rem">search</span>
-                </span>
-                <input
-                    [ngModel]="busqueda()"
-                    (ngModelChange)="busqueda.set($event)"
-                    (focus)="onFocusBusqueda()"
-                    (blur)="onBlurBusqueda()"
-                    (input)="onInputBusqueda()"
-                    type="text"
-                    class="search-input"
-                    placeholder="Buscar artista por nombre..." />
-            </div>
+<div class="search-filters">
+    <div class="search-wrapper">
+        <label for="busqueda-artista" class="visually-hidden">Buscar artista por nombre</label>
+        <div class="search-input-group">
+            <span class="search-icon">
+                <span class="material-icons" style="font-size:1.1rem">search</span>
+            </span>
+            <input
+                id="busqueda-artista"
+                [ngModel]="busqueda()"
+                (ngModelChange)="busqueda.set($event)"
+                (focus)="onFocusBusqueda()"
+                (blur)="onBlurBusqueda()"
+                (input)="onInputBusqueda()"
+                type="text"
+                class="search-input"
+                placeholder="Buscar artista por nombre..." />
+        </div>
 
             @if (mostrarSugerencias() && artistasFiltrados().length > 0) {
             <div class="sugerencias-dropdown">

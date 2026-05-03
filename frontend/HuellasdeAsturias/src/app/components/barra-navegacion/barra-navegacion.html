@@ -1,11 +1,8 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <a class="navbar-brand" routerLink="/">Huellas de Asturias</a>
-  
-  <button 
-    class="navbar-toggler" 
-    type="button" 
-    (click)="toggleMenu()"
-    [attr.aria-expanded]="!isNavbarCollapsed">
+
+  <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="!isNavbarCollapsed"
+    aria-label="Menú de navegación">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -18,7 +15,8 @@
         <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">Obras</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/monumentos/1" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">Monumentos</a>
+        <a class="nav-link" routerLink="/monumentos/1" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">Monumentos</a>
       </li>
     </ul>
   </div>
