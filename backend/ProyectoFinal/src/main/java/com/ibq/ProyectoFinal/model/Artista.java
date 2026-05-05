@@ -31,6 +31,7 @@ public class Artista {
 
     private String lugarNacimiento;
     private String biografia;
+    private String biografiaEn;
     private String estilo;
     private String imagen;
 

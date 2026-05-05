@@ -7,6 +7,7 @@ export interface Artista {
   fechaMuerte?: string;
   lugarNacimiento: string;
   biografia: string;
+  biografiaEn?: string;
   estilo: string;
   imagen: string;
 }

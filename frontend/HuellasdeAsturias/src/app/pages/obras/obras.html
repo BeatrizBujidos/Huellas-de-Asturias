@@ -5,37 +5,50 @@
       <h1 class="page-title">Galería de Obras</h1>
       <p class="page-subtitle">Explora nuestra colección de arte por artista, técnica o época</p>
     </header>
+
     <!-- FILTROS -->
-    <section class="filters-section">
+    <section class="filters-section" aria-label="Filtros de búsqueda">
       <div class="filters-panel">
         <!-- Selector de tipo de filtro -->
-        <div class="filter-type-selector">
+        <div class="filter-type-selector" role="tablist" aria-label="Tipo de filtro">
           <button 
             type="button"
             class="filter-type-btn"
             [class.filter-type-active]="tipoFiltro() === 'artista'"
-            (click)="cambiarTipoFiltro('artista')">
+            (click)="cambiarTipoFiltro('artista')"
+            role="tab"
+            [attr.aria-selected]="tipoFiltro() === 'artista'">
             Artista
           </button>
           <button 
             type="button"
             class="filter-type-btn"
             [class.filter-type-active]="tipoFiltro() === 'tecnica'"
-            (click)="cambiarTipoFiltro('tecnica')">
+            (click)="cambiarTipoFiltro('tecnica')"
+            role="tab"
+            [attr.aria-selected]="tipoFiltro() === 'tecnica'">
             Técnica
           </button>
           <button 
             type="button"
             class="filter-type-btn"
             [class.filter-type-active]="tipoFiltro() === 'epoca'"
-            (click)="cambiarTipoFiltro('epoca')">
+            (click)="cambiarTipoFiltro('epoca')"
+            role="tab"
+            [attr.aria-selected]="tipoFiltro() === 'epoca'">
             Época
           </button>
         </div>
 
         @if (tipoFiltro() === 'artista') {
         <div class="filter-select-wrapper">
-          <select class="filter-select" [value]="artistaSeleccionado() || ''" (change)="seleccionarArtista($event)">
+          <label for="filtro-artista" class="visually-hidden">Filtrar por artista</label>
+          <select 
+            id="filtro-artista"
+            class="filter-select" 
+            [value]="artistaSeleccionado() || ''" 
+            (change)="seleccionarArtista($event)"
+            aria-label="Seleccionar artista">
             <option value="">Todos los artistas</option>
             @for (artista of artistas(); track artista) {
             <option [value]="artista">{{ artista }}</option>
@@ -46,7 +59,13 @@
 
         @if (tipoFiltro() === 'tecnica') {
         <div class="filter-select-wrapper">
-          <select class="filter-select" [value]="tecnicaSeleccionada() || ''" (change)="seleccionarTecnica($event)">
+          <label for="filtro-tecnica" class="visually-hidden">Filtrar por técnica</label>
+          <select 
+            id="filtro-tecnica"
+            class="filter-select" 
+            [value]="tecnicaSeleccionada() || ''" 
+            (change)="seleccionarTecnica($event)"
+            aria-label="Seleccionar técnica">
             <option value="">Todas las técnicas</option>
             @for (tecnica of tecnicas(); track tecnica) {
             <option [value]="tecnica">{{ tecnica }}</option>
@@ -57,7 +76,13 @@
 
         @if (tipoFiltro() === 'epoca') {
         <div class="filter-select-wrapper">
-          <select class="filter-select" [value]="epocaSeleccionada() || ''" (change)="seleccionarEpocaSelect($event)">
+          <label for="filtro-epoca" class="visually-hidden">Filtrar por época</label>
+          <select 
+            id="filtro-epoca"
+            class="filter-select" 
+            [value]="epocaSeleccionada() || ''" 
+            (change)="seleccionarEpocaSelect($event)"
+            aria-label="Seleccionar época">
             <option value="">Todas las épocas</option>
             @for (epoca of epocas(); track epoca.id) {
             <option [value]="epoca.id">{{ epoca.nombre }}</option>
@@ -70,20 +95,20 @@
         <div class="filtro-activo">
           <span class="filtro-activo-label">{{ getTipoFiltroLabel() }}:</span>
           <span class="filtro-activo-valor">{{ getFiltroActivo() }}</span>
-          <button type="button" class="filtro-activo-clear" (click)="limpiarFiltroActual()">✕</button>
+          <button type="button" class="filtro-activo-clear" (click)="limpiarFiltroActual()" aria-label="Eliminar filtro">✕</button>
         </div>
         }
 
         @if (tieneFiltrosActivos()) {
-        <button type="button" class="btn-clear-all" (click)="limpiarTodosFiltros()">
-         Limpiar todos los filtros
+        <button type="button" class="btn-clear-all" (click)="limpiarTodosFiltros()" aria-label="Limpiar todos los filtros">
+          Limpiar todos los filtros
         </button>
         }
       </div>
     </section>
 
     @if (cargando()) {
-    <div class="loading-spinner">
+    <div class="loading-spinner" role="status" aria-live="polite">
       <div class="spinner"></div>
       <span class="loading-text">Cargando obras...</span>
     </div>
@@ -91,7 +116,7 @@
 
     @if (!cargando()) {
       @if (obrasFiltradas().length > 0) {
-      <section class="obras-section">
+      <section class="obras-section" aria-label="Obras filtradas">
         <div class="results-header">
           <p class="result-count">{{ obrasFiltradas().length }} obra(s) encontrada(s)</p>
           <div class="result-tags">
@@ -108,7 +133,7 @@
         </div>
         <div class="obras-grid">
           @for (obra of obrasFiltradas(); track obra.id) {
-          <div class="obra-card" [routerLink]="['/obras', obra.id]">
+          <div class="obra-card" [routerLink]="['/obras', obra.id]" role="link" tabindex="0">
             <div class="obra-card-image-wrapper">
               <img
                 [src]="getImagenObra(obra.id)"
@@ -140,7 +165,7 @@
         </div>
       </section>
       } @else {
-      <div class="empty-state">
+      <div class="empty-state" role="status">
         <p class="empty-message">No se encontraron obras con los filtros aplicados.</p>
         <button type="button" class="btn-clear-filters" (click)="limpiarTodosFiltros()">
           Limpiar filtros

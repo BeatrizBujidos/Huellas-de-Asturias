@@ -32,6 +32,7 @@ public class ArtistaService {
                 .fechaMuerte(artista.getFechaMuerte())
                 .lugarNacimiento(artista.getLugarNacimiento())
                 .biografia(artista.getBiografia())
+                .biografiaEn(artista.getBiografiaEn())
                 .estilo(artista.getEstilo())
                 .imagen(artista.getImagen())
                 .build();
@@ -47,6 +48,7 @@ public class ArtistaService {
         artista.setFechaMuerte(dto.getFechaMuerte());
         artista.setLugarNacimiento(dto.getLugarNacimiento());
         artista.setBiografia(dto.getBiografia());
+        artista.setBiografiaEn(dto.getBiografiaEn());
         artista.setEstilo(dto.getEstilo());
         artista.setImagen(dto.getImagen());
         return artista;
@@ -115,6 +117,9 @@ public class ArtistaService {
         }
         if (Objects.nonNull(artistaDTO.getBiografia()) && !artistaDTO.getBiografia().isEmpty()) {
             artistaDB.setBiografia(artistaDTO.getBiografia());
+        }
+        if (Objects.nonNull(artistaDTO.getBiografiaEn()) && !artistaDTO.getBiografiaEn().isEmpty()) {
+            artistaDB.setBiografiaEn(artistaDTO.getBiografiaEn());
         }
         if (Objects.nonNull(artistaDTO.getEstilo()) && !artistaDTO.getEstilo().isEmpty()) {
             artistaDB.setEstilo(artistaDTO.getEstilo());

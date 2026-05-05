@@ -18,7 +18,7 @@
 
     <!-- FILTROS POR ÉPOCA -->
     <div class="epocas-nav">
-      <span class="epocas-nav-label">Explorar por época:</span>
+      <span class="epocas-nav-label">{{ 'MONUMENTOS.EXPLORAR_EPOCA' | translate }}</span>
       <div class="epocas-nav-botones">
         @for (epoca of epocasLista; track epoca.id) {
           <button
@@ -49,8 +49,7 @@
 
     <!-- CUERPO PRINCIPAL: imagen + datos -->
     <div class="detalle-cuerpo">
-
-      <!-- Imagen principal (clicable para lightbox) -->
+      <!-- Imagen principal -->
       <div class="detalle-imagen-wrapper" (click)="abrirLightbox(getImagenActiva())" title="Ver imagen completa">
         <img
           [src]="getImagenActiva()"
@@ -68,16 +67,16 @@
         <dl class="detalle-tabla">
           @if (monumento()!.fechaConstruccion) {
             <div class="detalle-fila">
-              <dt><span class="material-icons">calendar_today</span>Construcción</dt>
+              <dt><span class="material-icons">calendar_today</span>{{ 'MONUMENTOS.CONSTRUCCION' | translate }}</dt>
               <dd>{{ monumento()!.fechaConstruccion }}</dd>
             </div>
           }
           <div class="detalle-fila">
-            <dt><span class="material-icons">palette</span>Estilo</dt>
+            <dt><span class="material-icons">palette</span>{{ 'MONUMENTOS.ESTILO' | translate }}</dt>
             <dd>{{ getLabelEpoca() }}</dd>
           </div>
           <div class="detalle-fila">
-            <dt><span class="material-icons">location_on</span>Ubicación</dt>
+            <dt><span class="material-icons">location_on</span>{{ 'MONUMENTOS.UBICACION' | translate }}</dt>
             <dd>{{ monumento()!.latitud }}, {{ monumento()!.longitud }}</dd>
           </div>
         </dl>
@@ -93,11 +92,11 @@
     @if (cargandoImagenes()) {
       <div class="galeria-cargando">
         <div class="spinner"></div>
-        <span>Cargando imágenes...</span>
+        <span>{{ 'MONUMENTOS.CARGANDO' | translate }}</span>
       </div>
     } @else if (imagenes().length > 0) {
       <section class="detalle-galeria">
-        <h2 class="galeria-titulo">Galería fotográfica</h2>
+        <h2 class="galeria-titulo">{{ 'MONUMENTOS.GALERIA' | translate }}</h2>
         <div class="galeria-grid">
           @for (img of imagenes(); track img.url; let i = $index) {
             <div
@@ -106,7 +105,7 @@
               (click)="seleccionarImagen(img.url, i)">
               <img
                 [src]="img.url"
-                [alt]="monumento()!.nombre"
+                [alt]="monumento()!.nombre + ' - Imagen ' + (i + 1)"
                 class="galeria-item-img"
                 onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
               <div class="galeria-item-zoom">
@@ -121,7 +120,7 @@
   } @else {
     <div class="detalle-no-encontrado">
       <span class="material-icons">search_off</span>
-      <p>Monumento no encontrado.</p>
+      <p>{{ 'MONUMENTOS.NO_ENCONTRADO' | translate }}</p>
     </div>
   }
 

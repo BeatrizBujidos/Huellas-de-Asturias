@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" routerLink="/">Huellas de Asturias</a>
+  <a class="navbar-brand" routerLink="/">{{ 'NAV.BRAND' | translate }}</a>
 
   <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="!isNavbarCollapsed"
     aria-label="Menú de navegación">
@@ -9,15 +9,20 @@
   <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/artistas" routerLinkActive="active" (click)="toggleMenu()">Artistas</a>
+        <a class="nav-link" routerLink="/artistas" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.ARTISTAS' | translate }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">Obras</a>
+        <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.OBRAS' | translate }}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/monumentos/1" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">Monumentos</a>
+          [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">{{ 'NAV.MAPA' | translate }}</a>
       </li>
     </ul>
+        <!-- Botón de idioma -->
+    <button class="btn-lang" (click)="toggleLang()" [title]="'NAV.LANG' | translate">
+      <span class="lang-flag">{{ translate.isEs() ? '🇬🇧' : '🇪🇸' }}</span>
+      <span class="lang-label">{{ 'NAV.LANG' | translate }}</span>
+    </button>
   </div>
 </nav>

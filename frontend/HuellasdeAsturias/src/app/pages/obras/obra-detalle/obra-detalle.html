@@ -8,7 +8,7 @@
         <nav aria-label="breadcrumb" class="breadcrumb-nav">
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a routerLink="/obras" class="breadcrumb-link">Galería</a>
+              <a routerLink="/obras" class="breadcrumb-link">{{ 'OBRA_DETALLE.GALERIA' | translate }}</a>
             </li>
             <li class="breadcrumb-item active">{{ obra.titulo }}</li>
           </ol>
@@ -46,42 +46,42 @@
         <div class="descripcion-col">
           <h2 class="titulo-seccion">
             <span class="barra-titulo"></span>
-            Descripción
+            {{ 'OBRA_DETALLE.DESCRIPCION' | translate }}
           </h2>
-          <p class="descripcion-texto">{{ obra.descripcion }}</p>
+          <p class="descripcion-texto">{{ translate.isEn() && obra.descripcionEn ? obra.descripcionEn : obra.descripcion }}</p>
         </div>
 
         <aside class="ficha-col">
           <div class="ficha-tecnica">
-            <h3 class="ficha-titulo">Ficha Técnica</h3>
+            <h3 class="ficha-titulo">{{ 'OBRA_DETALLE.FICHA_TECNICA' | translate }}</h3>
             <dl class="ficha-lista">
               @if (obra.tecnica) {
               <div class="ficha-item">
-                <dt class="ficha-label">Técnica</dt>
+                <dt class="ficha-label">{{ 'OBRA_DETALLE.TECNICA' | translate }}</dt>
                 <dd class="ficha-valor">{{ obra.tecnica }}</dd>
               </div>
               }
               @if (obra.dimensiones) {
               <div class="ficha-item">
-                <dt class="ficha-label">Dimensiones</dt>
+                <dt class="ficha-label">{{ 'OBRA_DETALLE.DIMENSIONES' | translate }}</dt>
                 <dd class="ficha-valor">{{ obra.dimensiones }}</dd>
               </div>
               }
               @if (obra.fechaCreacion) {
               <div class="ficha-item">
-                <dt class="ficha-label">Fecha</dt>
+                <dt class="ficha-label">{{ 'OBRA_DETALLE.FECHA' | translate }}</dt>
                 <dd class="ficha-valor">{{ obra.fechaCreacion }}</dd>
               </div>
               }
               @if (obra.museoNombre) {
               <div class="ficha-item">
-                <dt class="ficha-label">Museo</dt>
+                <dt class="ficha-label">{{ 'OBRA_DETALLE.MUSEO' | translate }}</dt>
                 <dd class="ficha-valor">{{ obra.museoNombre }}</dd>
               </div>
               }
               @if (obra.epocaNombre) {
               <div class="ficha-item sin-borde">
-                <dt class="ficha-label">Época</dt>
+                <dt class="ficha-label">{{ 'OBRA_DETALLE.EPOCA' | translate }}</dt>
                 <dd class="ficha-valor">{{ obra.epocaNombre }}</dd>
               </div>
               }
@@ -90,7 +90,7 @@
 
           @if (obra.artistaId) {
           <a [routerLink]="['/artistas', obra.artistaId]" class="btn-ver-artista">
-            Ver artista
+            {{ 'OBRA_DETALLE.VER_ARTISTA' | translate }}
           </a>
           }
         </aside>
@@ -101,7 +101,7 @@
     <!-- GALERÍA DE MINIATURAS -->
     @if (imagenes().length > 1) {
     <div class="galeria-miniaturas">
-      <h3 class="galeria-miniaturas-titulo">Imágenes</h3>
+      <h3 class="galeria-miniaturas-titulo">{{ 'OBRA_DETALLE.GALERIA' | translate }}</h3>
       @for (img of imagenes(); track img.id; let i = $index) {
       <div class="miniatura-wrapper" [class.activa]="imagenSeleccionada() === img.url"
         (click)="seleccionarImagen(img.url, i)">
@@ -118,7 +118,7 @@
   } @else {
   <div class="loading-container">
     <div class="spinner" role="status"></div>
-    <span class="loading-text">Cargando obra...</span>
+    <span class="loading-text">{{ 'OBRA_DETALLE.CARGANDO_OBRA' | translate }}</span>
   </div>
   }
 </main>

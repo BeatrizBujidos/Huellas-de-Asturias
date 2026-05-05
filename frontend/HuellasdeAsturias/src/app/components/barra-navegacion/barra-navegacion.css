@@ -18,3 +18,37 @@
     font-weight: bold;
     color: #3AEE17 !important;
 }
+
+.btn-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-left: 1rem;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+}
+
+.btn-lang:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lang-flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .btn-lang {
+    margin: 0.75rem 0 0.25rem 0;
+    align-self: flex-start;
+  }
+}

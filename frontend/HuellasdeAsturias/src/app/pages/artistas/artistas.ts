@@ -8,14 +8,17 @@ import { ArtistaService } from '../../service/artista-service';
 import { Obra } from '../../model/obra';
 import { ObraService } from '../../service/obra-service';
 import { ImagenService } from '../../service/imagen-service';
+import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-artistas',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, TranslatePipe],
   templateUrl: './artistas.html',
   styleUrl: './artistas.css',
 })
 export class Artistas implements OnInit {
+  readonly translate = inject(TranslateService);
   artista = signal<Artista | null>(null);
   busqueda = signal('');
   artistasDisponibles = signal<Artista[]>([]);
@@ -180,5 +183,13 @@ export class Artistas implements OnInit {
       ? this.formatearFecha(artistaActual.fechaMuerte) 
       : 'Actualidad';
     return `Nacimiento: ${nacimiento} - Muerte: ${muerte}`;
+  }
+
+  getBiografia(): string {
+    // Leer el signal lang() hace que Angular re-evalúe cuando cambia el idioma
+    const isEn = this.translate.lang() === 'en';
+    const a = this.artista();
+    if (!a) return '';
+    return isEn && a.biografiaEn ? a.biografiaEn : a.biografia;
   }
 }

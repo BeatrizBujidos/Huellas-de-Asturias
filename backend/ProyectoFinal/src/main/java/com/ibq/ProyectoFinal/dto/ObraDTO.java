@@ -12,6 +12,7 @@ public class ObraDTO {
     private Integer fechaCreacion;
     private String tecnica;
     private String descripcion;
+    private String descripcionEn;
     private String dimensiones;
 
     private Long artistaId;

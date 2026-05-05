@@ -28,6 +28,7 @@ public class ObraService {
                 .fechaCreacion(obra.getFechaCreacion())
                 .tecnica(obra.getTecnica())
                 .descripcion(obra.getDescripcion())
+                .descripcionEn(obra.getDescripcionEn())
                 .dimensiones(obra.getDimensiones());
         // Añadir información del artista si existe
         if (obra.getArtista() != null) {
@@ -58,6 +59,7 @@ public class ObraService {
         obra.setFechaCreacion(dto.getFechaCreacion());
         obra.setTecnica(dto.getTecnica());
         obra.setDescripcion(dto.getDescripcion());
+        obra.setDescripcionEn(dto.getDescripcionEn());
         obra.setDimensiones(dto.getDimensiones());
         return obra;
     }
@@ -131,6 +133,9 @@ public class ObraService {
         }
         if (Objects.nonNull(obraDTO.getDescripcion()) && !obraDTO.getDescripcion().isEmpty()) {
             obraDB.setDescripcion(obraDTO.getDescripcion());
+        }
+        if (Objects.nonNull(obraDTO.getDescripcionEn()) && !obraDTO.getDescripcionEn().isEmpty()) {
+            obraDB.setDescripcionEn(obraDTO.getDescripcionEn());
         }
         if (Objects.nonNull(obraDTO.getDimensiones()) && !obraDTO.getDimensiones().isEmpty()) {
             obraDB.setDimensiones(obraDTO.getDimensiones());

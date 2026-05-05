@@ -40,18 +40,18 @@
   padding: 0;
   margin: 0 0 1rem 0;
   font-size: 0.875rem;
-  color: #2e2e2e;
+  color: #2E2E2E;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
   content: "/";
   padding: 0 0.5rem;
-  color: #2e2e2e;
+  color: #2E2E2E;
 }
 
 .breadcrumb-link {
   text-decoration: none;
-  color: #2e2e2e;
+  color: #2E2E2E;
   transition: var(--transition-default);
 }
 
@@ -87,7 +87,7 @@
 }
 
 .separador {
-  color: #ABB;
+  color: #333;
 }
 
 .fecha-creacion {
@@ -262,7 +262,7 @@
 .ficha-label {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #858585;
+  color: #2E2E2E;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
@@ -531,7 +531,7 @@
 
 .obra-fecha {
   font-size: 0.875rem;
-  color: #2e2e2e;
+  color: #2E2E2E;
   margin: 0;
 }
 
@@ -560,7 +560,7 @@
 }
 
 .loading-text {
-  color: #2e2e2e;
+  color: #2E2E2E;
   font-size: 1.125rem;
 }
 

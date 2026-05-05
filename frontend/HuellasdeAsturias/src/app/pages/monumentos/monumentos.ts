@@ -7,11 +7,13 @@ import { Subscription } from 'rxjs';
 import { ImagenService } from '../../service/imagen-service';
 import { Imagen } from '../../model/imagen';
 import { MONUMENTOS, EPOCAS, Monumento } from '../../components/mapa-monumentos/mapa-monumentos';
+import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-monumentos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './monumentos.html',
   styleUrl: './monumentos.css',
 })
@@ -27,6 +29,7 @@ export class Monumentos implements OnInit, OnDestroy {
   readonly imagenes = signal<Imagen[]>([]);
   readonly imagenActiva = signal<string | null>(null);
   readonly cargandoImagenes = signal(true);
+  readonly translate = inject(TranslateService);
 
   // Filtro épocas
   readonly epocaActiva = signal<number | null>(null);
@@ -65,8 +68,6 @@ export class Monumentos implements OnInit, OnDestroy {
   ngOnInit(): void {
     // paramMap.subscribe detecta cambios de :id sin destruir el componente,
     // lo que permite navegar entre monumentos desde el filtro de épocas.
-    // Los signals se actualizan dentro de setTimeout para evitar NG0100
-    // (ExpressionChangedAfterItHasBeenChecked) en SSR.
     this.routeSub = this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       const encontrado = MONUMENTOS.find(m => m.id === id) ?? null;
@@ -138,8 +139,7 @@ export class Monumentos implements OnInit, OnDestroy {
       .openPopup();
   }
 
-  // ── Épocas ─────────────────────────────────────────────────
-
+  // Épocas 
   toggleEpoca(id: number): void {
     this.epocaActiva.set(this.epocaActiva() === id ? null : id);
   }
@@ -148,8 +148,7 @@ export class Monumentos implements OnInit, OnDestroy {
     this.router.navigate(['/monumentos', id]);
   }
 
-  // ── Imagen activa ──────────────────────────────────────────
-
+  // Imagen activa 
   seleccionarImagen(url: string, indice: number): void {
     this.imagenActiva.set(url);
     this.abrirLightbox(url, indice);
@@ -162,8 +161,7 @@ export class Monumentos implements OnInit, OnDestroy {
       ?? '';
   }
 
-  // ── Lightbox ───────────────────────────────────────────────
-
+  // Lightbox 
   abrirLightbox(url: string, indice?: number): void {
     const idx = indice ?? this.imagenes().findIndex(i => i.url === url);
     this.lightboxIndice.set(idx >= 0 ? idx : 0);
@@ -185,8 +183,7 @@ export class Monumentos implements OnInit, OnDestroy {
     this.lightboxUrl.set(imgs[nuevo].url);
   }
 
-  // ── Época ──────────────────────────────────────────────────
-
+  // Época 
   getColorEpoca(): string {
     const m = this.monumento();
     return m ? (EPOCAS[m.idEpoca]?.color ?? '#125700') : '#125700';

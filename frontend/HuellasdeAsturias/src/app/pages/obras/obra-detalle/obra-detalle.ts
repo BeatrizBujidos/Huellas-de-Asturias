@@ -4,10 +4,12 @@ import { Obra } from '../../../model/obra';
 import { ObraService } from '../../../service/obra-service';
 import { ImagenService } from '../../../service/imagen-service';
 import { Imagen } from '../../../model/imagen';
+import { TranslateService } from '../../../service/translate.service';
+import { TranslatePipe } from '../../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-obra-detalle',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './obra-detalle.html',
   styleUrl: './obra-detalle.css',
 })
@@ -25,6 +27,7 @@ export class ObraDetalle implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly obraService = inject(ObraService);
   private readonly imagenService = inject(ImagenService);
+  readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
     const obraId = Number(this.route.snapshot.paramMap.get('id')) || 1;

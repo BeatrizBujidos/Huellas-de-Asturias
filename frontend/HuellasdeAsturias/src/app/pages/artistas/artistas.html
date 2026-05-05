@@ -16,7 +16,7 @@
                 (input)="onInputBusqueda()"
                 type="text"
                 class="search-input"
-                placeholder="Buscar artista por nombre..." />
+                [placeholder]="'ARTISTAS.BUSCAR_PLACEHOLDER' | translate" />
         </div>
 
             @if (mostrarSugerencias() && artistasFiltrados().length > 0) {
@@ -39,7 +39,7 @@
         <div class="artista-foto">
             <div class="foto-artista">
                 <img [src]="getImagenArtista()"
-                    [alt]="'Retrato de ' + artista()!.nombre + ' ' + artista()!.apellidos"
+                    [alt]="('COMUN.RETRATO_DE' | translate) +  ' ' + artista()!.nombre + ' ' + artista()!.apellidos"
                     class="foto-artista-img" />
             </div>
         </div>
@@ -54,11 +54,11 @@
                 </p>
             </div>
             <div class="artista-biografia">
-                <h2 class="biografia-titulo">Biografía</h2>
-                <p class="biografia-texto">{{ artista()!.biografia }}</p>
+                <h2 class="biografia-titulo">{{ 'ARTISTAS.BIOGRAFIA' | translate }}</h2>
+                <p class="biografia-texto">{{ getBiografia() }}</p>
                 @if(artista()!.estilo) {
                 <p class="artista-estilo">
-                    <span class="estilo-label">Estilo: </span>{{ artista()!.estilo }}
+                    <span class="estilo-label">{{ 'ARTISTAS.ESTILO' | translate }}</span>{{ artista()!.estilo }}
                 </p>
                 }
             </div>
@@ -67,23 +67,23 @@
     } @else {
     <div class="loading-spinner">
         <div class="spinner"></div>
-        <span class="loading-text">Cargando artista...</span>
+        <span class="loading-text">{{ 'ARTISTAS.CARGANDO' | translate }}</span>
     </div>
     }
 
     @if (cargandoObras()) {
     <div class="loading-obras">
         <div class="spinner-small"></div>
-        <span>Cargando obras...</span>
+        <span>{{ 'ARTISTAS.CARGANDO_OBRAS' | translate }}</span>
     </div>
     }
 
     @if (!cargandoObras() && obrasFiltradas().length > 0) {
     <section class="obras-section">
         <div class="obras-header">
-            <h2 class="obras-titulo">Obras Destacadas</h2>
+            <h2 class="obras-titulo">{{ 'ARTISTAS.OBRAS_DESTACADAS' | translate }}</h2>
             <a class="ver-todas-link" routerLink="/obras">
-                Ver todas 
+                {{ 'ARTISTAS.VER_TODAS' | translate }}
                 <span class="material-icons" style="font-size:1rem">arrow_forward</span>
             </a>
         </div>
@@ -94,7 +94,7 @@
                     <img [src]="getImagenObra(obra.id)" [alt]="obra.titulo"
                         class="obra-card-img" />
                     <div class="obra-card-overlay">
-                        <span class="btn-ver-detalles">Ver detalles</span>
+                        <span class="btn-ver-detalles">{{ 'ARTISTAS.VER_DETALLES' | translate }}</span>
                     </div>
                 </div>
                 <div class="obra-card-body">

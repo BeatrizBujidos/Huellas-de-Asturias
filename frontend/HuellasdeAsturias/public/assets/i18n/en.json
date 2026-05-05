@@ -1,0 +1,148 @@
+{
+  "NAV": {
+    "BRAND": "Huellas de Asturias",
+    "ARTISTAS": "Artists",
+    "OBRAS": "Works",
+    "MAPA": "Map",
+    "LANG": "ES"
+  },
+  "CARRUSEL": {
+    "TITULO": "News from Asturian Museums",
+    "LEER_MAS": "Read more",
+    "ANTERIOR": "Previous",
+    "SIGUIENTE": "Next"
+  },
+  "ARTISTAS_SECCION": {
+    "TITULO": "Who is who?",
+    "SUBTITULO": "Find out",
+    "VER_MAS": "See more",
+    "PAGINACION": "{{desde}}–{{hasta}} of {{total}}",
+    "ARIA_ANTERIOR": "Previous artists",
+    "ARIA_SIGUIENTE": "Next artists"
+  },
+  "ARTISTAS": {
+    "BUSCAR_PLACEHOLDER": "Search artist by name...",
+    "BIOGRAFIA": "Biography",
+    "ESTILO": "Style:",
+    "OBRAS_DESTACADAS": "Featured Works",
+    "VER_TODAS": "See all",
+    "VER_DETALLES": "See details",
+    "CARGANDO": "Loading artist...",
+    "CARGANDO_OBRAS": "Loading works..."
+  },
+  "OBRAS": {
+    "TITULO": "Works Gallery",
+    "SUBTITULO": "Explore our art collection by artist, technique or period",
+    "FILTRO_ARTISTA": "Artist",
+    "FILTRO_TECNICA": "Technique",
+    "FILTRO_EPOCA": "Period",
+    "TODOS_ARTISTAS": "All artists",
+    "TODAS_TECNICAS": "All techniques",
+    "TODAS_EPOCAS": "All periods",
+    "LIMPIAR_FILTROS": "Clear all filters",
+    "LIMPIAR": "Clear filters",
+    "CARGANDO": "Loading works...",
+    "RESULTADO": "{{count}} work(s) found",
+    "FILTRO_ARTISTA_LABEL": "Artist",
+    "FILTRO_TECNICA_LABEL": "Technique",
+    "FILTRO_EPOCA_LABEL": "Period",
+    "SIN_RESULTADOS": "No works found with the applied filters.",
+    "VER_DETALLES": "See details"
+  },
+  "OBRA_DETALLE": {
+    "GALERIA": "Gallery",
+    "DESCRIPCION": "Description",
+    "FICHA_TECNICA": "Technical Sheet",
+    "TECNICA": "Technique",
+    "DIMENSIONES": "Dimensions",
+    "FECHA": "Date",
+    "MUSEO": "Museum",
+    "EPOCA": "Period",
+    "VER_ARTISTA": "See artist",
+    "CARGANDO": "Loading work..."
+  },
+  "MONUMENTOS": {
+    "TITULO": "Pre-Romanesque Map",
+    "SUBTITULO": "Explore the jewels of Asturian art. Click on any marker to discover the monument.",
+    "EXPLORAR_EPOCA": "Explore by period:",
+    "CONSTRUCCION": "Built",
+    "ESTILO": "Style",
+    "UBICACION": "Location",
+    "DESCRIPCION": "Description",
+    "GALERIA": "Photo gallery",
+    "COMO_LLEGAR": "How to get there",
+    "VER_DETALLES": "See more details",
+    "CARGANDO": "Loading images...",
+    "SIN_SELECCION": "Click on a map marker to view the monument's information.",
+    "NO_ENCONTRADO": "Monument not found."
+  },
+  "MAPA": {
+    "VER_INFO": "See more information",
+    "EPOCAS": {
+      "1": "Alfonso II (791–842)",
+      "2": "Ramirense (842–866)",
+      "3": "Alfonso III (866–910)"
+    }
+  },
+  "MONUMENTOS_DATA": {
+    "1": {
+      "nombre": "San Tirso",
+      "descripcion": "Founded by Alfonso II 'The Chaste' as part of the episcopal complex of Oviedo. Although it underwent multiple renovations over the centuries (the current façade is Baroque), it preserves from its pre-Romanesque origins the chevet of the main chapel with its emblematic trigeminal window of round arches and columns with capitals in the Visigothic tradition. This tripartite window has become one of the iconic visual symbols of Asturian art."
+    },
+    "2": {
+      "nombre": "Cámara Santa",
+      "descripcion": "A two-storey palatine chapel integrated into Oviedo Cathedral. The upper level (San Miguel) houses the relics of the Arca Santa and the Crosses of Victory and the Angels, symbols of Asturias. The lower space (Santa Leocadia) features a barrel vault. Notable is the Romanesque apostolate later added to its columns, one of the most important sculptural ensembles of the 12th century in Spain."
+    },
+    "3": {
+      "nombre": "San Julián de los Prados",
+      "descripcion": "Popularly known as Santullano, it is the largest and oldest church of the Asturian period. Built by Alfonso II, it stands out for its great amplitude, its basilical plan with a raised transept, and above all for its exceptional cycle of aniconic mural paintings with geometric and architectural motifs that originally covered all its interior walls."
+    },
+    "4": {
+      "nombre": "Santa María de Bendones",
+      "descripcion": "A basilical structure following the model of Santullano, though of smaller dimensions. It was rebuilt after suffering serious damage in 1936 during the Spanish Civil War. Its large narthex or entrance porch and the layout of its side naves are noteworthy, making it a key example of the style under the reign of Alfonso II."
+    },
+    "5": {
+      "nombre": "San Pedro de Nora",
+      "descripcion": "A basilical church with three naves separated by round-arch arcades on square pillars, located in a rural setting beside the Nora river. It features a tripartite chevet characteristic of Asturian art. Despite being almost entirely rebuilt after the Civil War, it maintains the purity of line and volumetric sobriety characteristic of Asturian art."
+    },
+    "6": {
+      "nombre": "Santa María del Naranco",
+      "descripcion": "A masterpiece of the Ramirense period. Originally conceived as an aula regia or pleasure palace on the outskirts of Oviedo, it was converted into a church in the 12th century. It stands out for its innovative architecture: a rectangular two-storey structure with lateral galleries, a barrel vault reinforced with transverse arches, and exquisite sculptural decoration. It represents the pinnacle of pre-Romanesque architecture in Europe."
+    },
+    "7": {
+      "nombre": "San Miguel de Lillo",
+      "descripcion": "A palatine church dedicated to Saint Michael the Archangel, located just metres from Naranco. Only about a third of the original floor plan survives following a collapse in the 13th century. It is renowned for the slenderness of its proportions, its pierced stone tracery windows with geometric motifs, and the reliefs on its jambs inspired by a Roman consular diptych."
+    },
+    "8": {
+      "nombre": "Santa Cristina de Lena",
+      "descripcion": "A small gem of the Ramirense period perched on a hilltop with panoramic views over the Caudal valley. Its most distinctive feature is the iconostasis: a triple stone arcade separating the presbytery from the nave, decorated with reused Visigothic pieces. Its Greek-cross plan and the quality of its ashlar masonry evidence the maturity of the Ramirense style."
+    },
+    "9": {
+      "nombre": "Foncalada",
+      "descripcion": "The only civil public-utility construction of Asturian pre-Romanesque art to survive in situ. It is a drinking-water spring protected by a stone aedicule with a round arch. The pediment bears the Cross of Victory along with its inscription. It is an exceptional testimony to early medieval hydraulic engineering."
+    },
+    "10": {
+      "nombre": "Santo Adriano de Tuñón",
+      "descripcion": "A simple three-nave basilical church commissioned by Alfonso III and his wife Jimena. It preserves important remains of original mural paintings in the chevet with geometric and vegetal motifs. It is a fundamental testimony to the expansion of the Asturian kingdom into the inner valleys of the Cantabrian Mountains."
+    },
+    "11": {
+      "nombre": "San Salvador de Valdediós",
+      "descripcion": "Popularly known as 'El Conventín', it represents the apogee of the Alfonsine period. Set in the lush natural surroundings of the Boides valley, it is distinguished by its open lateral porch (unique in Asturian pre-Romanesque art) and by its perfect balance between the traditional Asturian influence and new Mozarabic elements."
+    },
+    "12": {
+      "nombre": "San Salvador de Priesca",
+      "descripcion": "Consecrated in the 10th century, it faithfully follows the architectural schemes of Santullano. It preserves a notable part of its original pictorial decoration with Mozarabic influences. It serves as the link of transition between the pure Asturian style and the first Romanesque."
+    },
+    "13": {
+      "nombre": "Santiago de Gobiendes",
+      "descripcion": "Located near the eastern Asturian coast (Colunga), this church stands out for the elegance of its proportions. Modern restorations have recovered its pre-Romanesque essence, especially visible in the tripartite chevet and the decorated capitals."
+    }
+  },
+  "COMUN": {
+    "CARGANDO": "Loading...",
+    "RETRATO_DE": "Portrait of",
+    "LIGHTBOX_CERRAR": "Close",
+    "LIGHTBOX_ANTERIOR": "Previous image",
+    "LIGHTBOX_SIGUIENTE": "Next image"
+  }
+}

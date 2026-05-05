@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, PLATFORM_ID, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { TranslateService } from '../../service/translate.service';
 
 export interface Monumento {
   id: number;
@@ -100,6 +101,7 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
+  readonly translate = inject(TranslateService);
   
 
   monumentos: Monumento[] = MONUMENTOS;
@@ -109,6 +111,19 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
   private mapa: any;
   private marcadores: Map<number, any> = new Map();
 
+  constructor() {
+    // Actualizar popups cuando cambie el idioma
+    effect(() => {
+      this.translate.lang();
+      if (this.mapa) {
+        this.marcadores.forEach((marcador, id) => {
+          const mon = this.monumentos.find(m => m.id === id);
+          if (mon) marcador.setPopupContent(this.crearContenido(mon));
+        });
+      }
+    });
+  }
+ 
   ngOnInit(): void { }
 
   async ngAfterViewInit(): Promise<void> {

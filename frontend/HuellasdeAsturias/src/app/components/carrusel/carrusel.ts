@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 interface Noticia {
   id: number;
@@ -12,7 +14,7 @@ interface Noticia {
 @Component({
   selector: 'app-carrusel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './carrusel.html',
   styleUrls: ['./carrusel.css']
 })

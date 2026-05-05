@@ -31,6 +31,7 @@ public class Obra {
     private Integer fechaCreacion;
     private String tecnica;
     private String descripcion;
+    private String descripcionEn;
     private String dimensiones;
 
     @Transient
