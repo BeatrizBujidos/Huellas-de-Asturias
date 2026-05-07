@@ -2,158 +2,140 @@
 
   @if (monumento()) {
 
-    <!-- CABECERA -->
-    <div class="detalle-header">
-      <div class="detalle-epoca-badge" [style.background-color]="getColorEpoca()">
-        {{ getLabelEpoca() }}
-      </div>
-      <h1 class="detalle-nombre">{{ monumento()!.nombre }}</h1>
-      @if (monumento()!.fechaConstruccion) {
-        <p class="detalle-fecha">
-          <span class="material-icons">calendar_today</span>
-          {{ monumento()!.fechaConstruccion }}
-        </p>
+  <!-- Cabecera -->
+  <div class="detalle-header">
+    <div class="detalle-epoca-badge" [style.background-color]="getColorEpoca()">
+      {{ getLabelEpoca() }}
+    </div>
+    <h1 class="detalle-nombre">{{ monumento()!.nombre }}</h1>
+    @if (monumento()!.fechaConstruccion) {
+    <p class="detalle-fecha">
+      <span class="material-icons">calendar_today</span>
+      {{ monumento()!.fechaConstruccion }}
+    </p>
+    }
+  </div>
+
+  <!-- Filtros por época -->
+  <div class="epocas-nav">
+    <span class="epocas-nav-label">{{ 'MONUMENTOS.EXPLORAR_EPOCA' | translate }}</span>
+    <div class="epocas-nav-botones">
+      @for (epoca of epocasLista; track epoca.id) {
+      <button class="btn-epoca" [class.btn-epoca-activo]="epocaActiva() === epoca.id"
+        [style.--epoca-color]="epoca.color" (click)="toggleEpoca(epoca.id)">
+        <span class="btn-epoca-dot" [style.background-color]="epoca.color"></span>
+        {{ epoca.label }}
+      </button>
       }
     </div>
 
-    <!-- FILTROS POR ÉPOCA -->
-    <div class="epocas-nav">
-      <span class="epocas-nav-label">{{ 'MONUMENTOS.EXPLORAR_EPOCA' | translate }}</span>
-      <div class="epocas-nav-botones">
-        @for (epoca of epocasLista; track epoca.id) {
-          <button
-            class="btn-epoca"
-            [class.btn-epoca-activo]="epocaActiva() === epoca.id"
-            [style.--epoca-color]="epoca.color"
-            (click)="toggleEpoca(epoca.id)">
-            <span class="btn-epoca-dot" [style.background-color]="epoca.color"></span>
-            {{ epoca.label }}
-          </button>
-        }
-      </div>
+    <!-- Lista de monumentos de la época seleccionada -->
+    @if (epocaActiva() !== null && monumentosDeEpoca().length > 0) {
+    <div class="epocas-lista">
+      @for (m of monumentosDeEpoca(); track m.id) {
+      <button class="epoca-monumento-item" [class.epoca-monumento-activo]="monumento()!.id === m.id"
+        (click)="navegarA(m.id)">
+        {{ m.nombre }}
+      </button>
+      }
+    </div>
+    }
+  </div>
 
-      <!-- Lista de monumentos de la época seleccionada -->
-      @if (epocaActiva() !== null && monumentosDeEpoca().length > 0) {
-        <div class="epocas-lista">
-          @for (m of monumentosDeEpoca(); track m.id) {
-            <button
-              class="epoca-monumento-item"
-              [class.epoca-monumento-activo]="monumento()!.id === m.id"
-              (click)="navegarA(m.id)">
-              {{ m.nombre }}
-            </button>
-          }
+  <div class="detalle-cuerpo">
+    <!-- Imagen principal -->
+    <div class="detalle-imagen-wrapper" (click)="abrirLightbox(getImagenActiva())" title="Ver imagen completa">
+      <img [src]="getImagenActiva()" [alt]="monumento()!.nombre" class="detalle-imagen-principal"
+        onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
+      <div class="detalle-imagen-zoom-hint">
+        <span class="material-icons">zoom_in</span>
+      </div>
+    </div>
+
+    <!-- Datos técnicos + mapa -->
+    <div class="detalle-info">
+      <dl class="detalle-tabla">
+        @if (monumento()!.fechaConstruccion) {
+        <div class="detalle-fila">
+          <dt><span class="material-icons">calendar_today</span>{{ 'MONUMENTOS.CONSTRUCCION' | translate }}</dt>
+          <dd>{{ monumento()!.fechaConstruccion }}</dd>
         </div>
-      }
-    </div>
+        }
+        <div class="detalle-fila">
+          <dt><span class="material-icons">palette</span>{{ 'MONUMENTOS.ESTILO' | translate }}</dt>
+          <dd>{{ getLabelEpoca() }}</dd>
+        </div>
+        <div class="detalle-fila">
+          <dt><span class="material-icons">location_on</span>{{ 'MONUMENTOS.UBICACION' | translate }}</dt>
+          <dd>{{ monumento()!.latitud }}, {{ monumento()!.longitud }}</dd>
+        </div>
+      </dl>
 
-    <!-- CUERPO PRINCIPAL: imagen + datos -->
-    <div class="detalle-cuerpo">
-      <!-- Imagen principal -->
-      <div class="detalle-imagen-wrapper" (click)="abrirLightbox(getImagenActiva())" title="Ver imagen completa">
-        <img
-          [src]="getImagenActiva()"
-          [alt]="monumento()!.nombre"
-          class="detalle-imagen-principal"
+      <p class="detalle-descripcion">{{ getDescripcionMonumento() }}</p>
+
+      <div id="mapa-detalle" class="detalle-mapa"></div>
+
+    </div>
+  </div>
+
+  <!-- Galería -->
+  @if (cargandoImagenes()) {
+  <div class="galeria-cargando">
+    <div class="spinner"></div>
+    <span>{{ 'MONUMENTOS.CARGANDO' | translate }}</span>
+  </div>
+  } @else if (imagenes().length > 0) {
+  <section class="detalle-galeria">
+    <h2 class="galeria-titulo">{{ 'MONUMENTOS.GALERIA' | translate }}</h2>
+    <div class="galeria-grid">
+      @for (img of imagenes(); track img.url; let i = $index) {
+      <div class="galeria-item" [class.galeria-item-activo]="getImagenActiva() === img.url"
+        (click)="seleccionarImagen(img.url, i)">
+        <img [src]="img.url" [alt]="monumento()!.nombre + ' - Imagen ' + (i + 1)" class="galeria-item-img"
           onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
-        <div class="detalle-imagen-zoom-hint">
+        <div class="galeria-item-zoom">
           <span class="material-icons">zoom_in</span>
         </div>
       </div>
-
-      <!-- Datos técnicos + mapa -->
-      <div class="detalle-info">
-
-        <dl class="detalle-tabla">
-          @if (monumento()!.fechaConstruccion) {
-            <div class="detalle-fila">
-              <dt><span class="material-icons">calendar_today</span>{{ 'MONUMENTOS.CONSTRUCCION' | translate }}</dt>
-              <dd>{{ monumento()!.fechaConstruccion }}</dd>
-            </div>
-          }
-          <div class="detalle-fila">
-            <dt><span class="material-icons">palette</span>{{ 'MONUMENTOS.ESTILO' | translate }}</dt>
-            <dd>{{ getLabelEpoca() }}</dd>
-          </div>
-          <div class="detalle-fila">
-            <dt><span class="material-icons">location_on</span>{{ 'MONUMENTOS.UBICACION' | translate }}</dt>
-            <dd>{{ monumento()!.latitud }}, {{ monumento()!.longitud }}</dd>
-          </div>
-        </dl>
-
-        <p class="detalle-descripcion">{{ monumento()!.descripcion }}</p>
-
-        <div id="mapa-detalle" class="detalle-mapa"></div>
-
-      </div>
+      }
     </div>
-
-    <!-- GALERÍA DE IMÁGENES -->
-    @if (cargandoImagenes()) {
-      <div class="galeria-cargando">
-        <div class="spinner"></div>
-        <span>{{ 'MONUMENTOS.CARGANDO' | translate }}</span>
-      </div>
-    } @else if (imagenes().length > 0) {
-      <section class="detalle-galeria">
-        <h2 class="galeria-titulo">{{ 'MONUMENTOS.GALERIA' | translate }}</h2>
-        <div class="galeria-grid">
-          @for (img of imagenes(); track img.url; let i = $index) {
-            <div
-              class="galeria-item"
-              [class.galeria-item-activo]="getImagenActiva() === img.url"
-              (click)="seleccionarImagen(img.url, i)">
-              <img
-                [src]="img.url"
-                [alt]="monumento()!.nombre + ' - Imagen ' + (i + 1)"
-                class="galeria-item-img"
-                onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
-              <div class="galeria-item-zoom">
-                <span class="material-icons">zoom_in</span>
-              </div>
-            </div>
-          }
-        </div>
-      </section>
-    }
+  </section>
+  }
 
   } @else {
-    <div class="detalle-no-encontrado">
-      <span class="material-icons">search_off</span>
-      <p>{{ 'MONUMENTOS.NO_ENCONTRADO' | translate }}</p>
-    </div>
+  <div class="detalle-no-encontrado">
+    <span class="material-icons">search_off</span>
+    <p>{{ 'MONUMENTOS.NO_ENCONTRADO' | translate }}</p>
+  </div>
   }
 
 </main>
 
-<!-- LIGHTBOX -->
+<!-- Lightbox -->
 @if (lightboxAbierto()) {
-  <div class="lightbox-overlay" (click)="cerrarLightbox()">
-    <button class="lightbox-cerrar" (click)="cerrarLightbox()">
-      <span class="material-icons">close</span>
-    </button>
+<div class="lightbox-overlay" (click)="cerrarLightbox()">
+  <button class="lightbox-cerrar" (click)="cerrarLightbox()">
+    <span class="material-icons">close</span>
+  </button>
 
+  @if (imagenes().length > 1) {
+  <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)">
+    <span class="material-icons">chevron_left</span>
+  </button>
+  }
+
+  <div class="lightbox-contenido" (click)="$event.stopPropagation()">
+    <img [src]="lightboxUrl()" [alt]="monumento()?.nombre" class="lightbox-img"
+      onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
     @if (imagenes().length > 1) {
-      <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)">
-        <span class="material-icons">chevron_left</span>
-      </button>
-    }
-
-    <div class="lightbox-contenido" (click)="$event.stopPropagation()">
-      <img
-        [src]="lightboxUrl()"
-        [alt]="monumento()?.nombre"
-        class="lightbox-img"
-        onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
-      @if (imagenes().length > 1) {
-        <p class="lightbox-contador">{{ lightboxIndice() + 1 }} / {{ imagenes().length }}</p>
-      }
-    </div>
-
-    @if (imagenes().length > 1) {
-      <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)">
-        <span class="material-icons">chevron_right</span>
-      </button>
+    <p class="lightbox-contador">{{ lightboxIndice() + 1 }} / {{ imagenes().length }}</p>
     }
   </div>
+
+  @if (imagenes().length > 1) {
+  <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)">
+    <span class="material-icons">chevron_right</span>
+  </button>
+  }
+</div>
 }

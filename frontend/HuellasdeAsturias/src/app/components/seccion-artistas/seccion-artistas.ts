@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 export interface Artista {
   id: number;
@@ -18,9 +20,9 @@ export interface Artista {
 @Component({
   selector: 'app-seccion-artistas',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './seccion-artistas.html',
-  styleUrl:'./seccion-artistas.css',
+  styleUrl: './seccion-artistas.css',
 })
 export class SeccionArtistas {
   private readonly router = inject(Router);
@@ -161,6 +163,8 @@ export class SeccionArtistas {
   readonly puedeSiguiente = computed(() => this.indice() + 2 < this.total);
   readonly indicePagina = computed(() => this.indice() / 2);
   readonly dotsArray = computed(() => Array(Math.ceil(this.total / 2)).fill(0));
+
+  readonly translate = inject(TranslateService);
 
   anterior(): void {
     if (this.puedeAnterior()) this.indice.update(i => i - 2);

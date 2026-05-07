@@ -42,7 +42,6 @@ export class Monumentos implements OnInit, OnDestroy {
       : MONUMENTOS.filter(m => m.idEpoca === this.epocaActiva())
   );
 
-  // Lightbox
   readonly lightboxAbierto = signal(false);
   readonly lightboxIndice = signal(0);
   readonly lightboxUrl = signal<string>('');
@@ -52,8 +51,6 @@ export class Monumentos implements OnInit, OnDestroy {
   private keydownListener?: (e: KeyboardEvent) => void;
 
   constructor() {
-    // El listener de teclado se registra en el constructor (contexto de inyección)
-    // y solo se activa en el browser gracias al guard isPlatformBrowser
     if (isPlatformBrowser(this.platformId)) {
       this.keydownListener = (e: KeyboardEvent) => {
         if (!this.lightboxAbierto()) return;
@@ -108,7 +105,7 @@ export class Monumentos implements OnInit, OnDestroy {
       error: () => this.cargandoImagenes.set(false),
     });
   }
-
+  // Crear mapa de Leaflet importandolo dinámicamente
   private async iniciarMapa(monumento: Monumento): Promise<void> {
     const leaflet = await import('leaflet');
     const L = (leaflet as any).default ?? leaflet;
@@ -161,7 +158,7 @@ export class Monumentos implements OnInit, OnDestroy {
       ?? '';
   }
 
-  // Lightbox 
+  // Lightbox (Imágenes en pantalla completa)
   abrirLightbox(url: string, indice?: number): void {
     const idx = indice ?? this.imagenes().findIndex(i => i.url === url);
     this.lightboxIndice.set(idx >= 0 ? idx : 0);
@@ -192,5 +189,12 @@ export class Monumentos implements OnInit, OnDestroy {
   getLabelEpoca(): string {
     const m = this.monumento();
     return m ? (EPOCAS[m.idEpoca]?.label ?? '') : '';
+  }
+  // Descripción traducida (si existe) o original
+  getDescripcionMonumento(): string {
+    const m = this.monumento();
+    if (!m) return '';
+    const traducido = this.translate.t(`MONUMENTOS_DATA.${m.id}.descripcion`);
+    return traducido !== `MONUMENTOS_DATA.${m.id}.descripcion` ? traducido : m.descripcion;
   }
 }

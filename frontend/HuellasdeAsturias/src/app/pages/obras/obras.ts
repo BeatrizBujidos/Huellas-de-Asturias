@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Obra } from '../../model/obra';
 import { ObraService } from '../../service/obra-service';
 import { ImagenService } from '../../service/imagen-service';
+import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 interface Epoca {
   id: number;
@@ -21,19 +23,19 @@ type TipoFiltro = 'artista' | 'tecnica' | 'epoca';
 
 @Component({
   selector: 'app-obras',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, TranslatePipe],
   templateUrl: './obras.html',
   styleUrls: ['./obras.css'],
 })
 export class Obras implements OnInit {
 
   private readonly todasLasObras = signal<Obra[]>([]);
-  
+
   // Datos para filtros
   readonly epocas = signal<Epoca[]>([]);
   readonly artistas = signal<string[]>([]);
   readonly tecnicas = signal<string[]>([]);
-  
+
   // Filtros seleccionados
   readonly tipoFiltro = signal<TipoFiltro>('artista');
   readonly artistaSeleccionado = signal<string | null>(null);
@@ -45,37 +47,38 @@ export class Obras implements OnInit {
 
   readonly obrasFiltradas = computed(() => {
     let filtradas = this.todasLasObras();
-    
+
     // Filtrar por artista
     const artista = this.artistaSeleccionado();
     if (artista) {
       filtradas = filtradas.filter(o => o.artistaNombre === artista);
     }
-    
+
     // Filtrar por técnica
     const tecnica = this.tecnicaSeleccionada();
     if (tecnica) {
       filtradas = filtradas.filter(o => o.tecnica === tecnica);
     }
-    
+
     // Filtrar por época
     const epocaId = this.epocaSeleccionada();
     if (epocaId !== null) {
       filtradas = filtradas.filter(o => o.epocaId === epocaId);
     }
-    
+
     return filtradas;
   });
 
   readonly tieneFiltrosActivos = computed(() => {
     return this.artistaSeleccionado() !== null ||
-           this.tecnicaSeleccionada() !== null ||
-           this.epocaSeleccionada() !== null;
+      this.tecnicaSeleccionada() !== null ||
+      this.epocaSeleccionada() !== null;
   });
 
   private readonly obraService = inject(ObraService);
   private readonly imagenService = inject(ImagenService);
   private readonly http = inject(HttpClient);
+  readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
     // Cargar épocas
@@ -109,9 +112,9 @@ export class Obras implements OnInit {
           }
         });
         this.tecnicas.set(tecnicasUnicas.sort());
-        
+
         this.cargando.set(false);
-        
+
         if (obras.length === 0) return of([]);
         return forkJoin(obras.map(o => this.imagenService.getUrlPrincipal('OBRA', o.id)));
       })

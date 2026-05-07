@@ -9,19 +9,21 @@
   <div class="collapse navbar-collapse" [ngClass]="{'show': !isNavbarCollapsed}">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/artistas" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.ARTISTAS' | translate }}</a>
+        <a class="nav-link" routerLink="/artistas" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.ARTISTAS' |
+          translate }}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.OBRAS' | translate }}</a>
+        <a class="nav-link" routerLink="/obras" routerLinkActive="active" (click)="toggleMenu()">{{ 'NAV.OBRAS' |
+          translate }}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/monumentos/1" routerLinkActive="active"
           [routerLinkActiveOptions]="{exact: false}" (click)="toggleMenu()">{{ 'NAV.MAPA' | translate }}</a>
       </li>
     </ul>
-        <!-- Botón de idioma -->
+    <!-- Botón de idioma -->
     <button class="btn-lang" (click)="toggleLang()" [title]="'NAV.LANG' | translate">
-      <span class="lang-flag">{{ translate.isEs() ? '🇬🇧' : '🇪🇸' }}</span>
+      <img [src]="currentFlag" alt="Bandera" class="lang-flag-img">
       <span class="lang-label">{{ 'NAV.LANG' | translate }}</span>
     </button>
   </div>

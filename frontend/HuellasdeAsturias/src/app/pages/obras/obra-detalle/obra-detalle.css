@@ -1,5 +1,6 @@
-/* VARIABLES */
-:root, :host {
+/* Varribles */
+:root,
+:host {
   --color-primary: #125700;
   --color-border: #F5F5F5;
   --shadow-sm: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
@@ -9,7 +10,7 @@
   --radius-pill: 9999px;
 }
 
-/* CONTENEDOR */
+/* Contenedor */
 
 .container {
   max-width: 1200px;
@@ -17,7 +18,7 @@
   padding: 2.5rem 1rem 5rem;
 }
 
-/* CABECERA */
+/* Cabecera */
 
 .header {
   margin-bottom: 2.5rem;
@@ -29,6 +30,7 @@
   gap: 1rem;
 }
 
+/* Breadcrumb (navegación secundaria) */
 .breadcrumb-nav {
   margin-bottom: 0.5rem;
 }
@@ -43,7 +45,7 @@
   color: #2E2E2E;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
   content: "/";
   padding: 0 0.5rem;
   color: #2E2E2E;
@@ -64,6 +66,8 @@
   color: #202020;
   font-weight: 500;
 }
+
+/* Título e información */
 
 .titulo-principal {
   font-size: 2.5rem;
@@ -109,7 +113,7 @@
   letter-spacing: 0.05em;
 }
 
-/* CUERPO PRINCIPAL */
+/* Cuerpo principal */
 
 .imagen-section {
   margin-bottom: 3rem;
@@ -122,7 +126,7 @@
   margin-bottom: 2rem;
 }
 
-/* IMAGEN PRINCIPAL */
+/* Imagen principal */
 
 .obra-img-principal {
   flex: 0 0 48%;
@@ -156,7 +160,7 @@
   opacity: 0;
   transform: scale(0.7);
   transition: opacity 0.3s ease, transform 0.3s ease;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
 .obra-img-principal:hover .obra-img-zoom-hint {
@@ -181,7 +185,7 @@
   transform: scale(1.03);
 }
 
-/* DESCRIPCION */
+/* Descripción */
 
 .contenido-section {
   flex: 1;
@@ -216,7 +220,7 @@
   margin: 0;
 }
 
-/* FICHA TÉCNICA */
+/* Ficha técnica*/
 
 .ficha-col {
   display: flex;
@@ -299,7 +303,7 @@
   color: #F5F5F5;
 }
 
-/* GALERÍA DE MINIATURAS */
+/* Galería de miniaturas */
 
 .galeria-miniaturas {
   display: grid;
@@ -344,7 +348,7 @@
 .miniatura-zoom .material-icons {
   font-size: 1.75rem;
   color: #F5F5F5;
-  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
 }
 
 .miniatura-wrapper:hover .miniatura-zoom {
@@ -352,7 +356,7 @@
   background: rgba(0, 0, 0, 0.28);
 }
 
-/* LIGHTBOX */
+/* Lightbox */
 
 .lightbox-overlay {
   position: fixed;
@@ -366,8 +370,13 @@
 }
 
 @keyframes lightbox-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .lightbox-contenido {
@@ -389,8 +398,15 @@
 }
 
 @keyframes lightbox-img-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .lightbox-contador {
@@ -444,8 +460,13 @@
   background: rgba(255, 255, 255, 0.28);
 }
 
-.lightbox-prev { left: 1.5rem; }
-.lightbox-next { right: 1.5rem; }
+.lightbox-prev {
+  left: 1.5rem;
+}
+
+.lightbox-next {
+  right: 1.5rem;
+}
 
 .lightbox-nav .material-icons {
   font-size: 2rem;
@@ -474,7 +495,7 @@
   transform: scale(1.07);
 }
 
-/* OBRAS RELACIONADAS */
+/* Obras relacionadas */
 
 .obras-relacionadas {
   margin-top: 3rem;
@@ -535,7 +556,7 @@
   margin: 0;
 }
 
-/* LOADING */
+/* Cargando */
 
 .loading-container {
   display: flex;
@@ -556,7 +577,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-text {
@@ -564,7 +587,7 @@
   font-size: 1.125rem;
 }
 
-/* ZOOM EN IMAGEN PRINCIPAL */
+/* Zoom imagen principal */
 
 .obra-img-principal {
   cursor: zoom-in;
@@ -599,7 +622,7 @@
   transform: scale(1);
 }
 
-/* ZOOM EN MINIATURAS */
+/* Zoom miniaturas */
 
 .miniatura-zoom {
   position: absolute;
@@ -624,7 +647,7 @@
   background: rgba(0, 0, 0, 0.28);
 }
 
-/* RESPONSIVE */
+/* Responsive */
 
 @media(min-width: 601px) and (max-width: 1200px) {
   .obra-cuerpo-principal {
@@ -661,9 +684,14 @@
   .ficha-valor {
     text-align: left;
   }
-  
-  .lightbox-prev { left: 0.5rem; }
-  .lightbox-next { right: 0.5rem; }
+
+  .lightbox-prev {
+    left: 0.5rem;
+  }
+
+  .lightbox-next {
+    right: 0.5rem;
+  }
 
   .lightbox-nav {
     width: 2.5rem;

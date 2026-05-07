@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnInit, OnDestroy, ChangeDetectionStrategy, C
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '../../service/translate.service';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 export interface Monumento {
   id: number;
@@ -91,7 +92,7 @@ export const MONUMENTOS: Monumento[] = [
 
 @Component({
   selector: 'app-mapa-monumentos',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './mapa-monumentos.html',
   styleUrl: './mapa-monumentos.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -102,7 +103,7 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly router = inject(Router);
   readonly translate = inject(TranslateService);
-  
+
 
   monumentos: Monumento[] = MONUMENTOS;
   monumentoSeleccionado: Monumento | null = null;
@@ -123,7 +124,7 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
- 
+
   ngOnInit(): void { }
 
   async ngAfterViewInit(): Promise<void> {
@@ -187,6 +188,7 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
 
   private crearContenido(monumento: Monumento): string {
     const epoca = EPOCAS[monumento.idEpoca];
+    const desc = this.translate.t(`MONUMENTOS_DATA.${monumento.id}.descripcion`) || monumento.descripcion;
     return `
       <div class="popup-contenido">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -197,7 +199,7 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
         <p style="font-size:0.78rem;color:#6c757d;margin:0 0 6px;">
           <i class="bi bi-calendar3"></i> ${monumento.fechaConstruccion}
         </p>
-        <p style="font-size:0.78rem;color:#495057;margin:0;line-height:1.4;">${monumento.descripcion.substring(0, 120)}…</p>
+        <p style="font-size:0.78rem;color:#495057;margin:0;line-height:1.4;">${desc.substring(0, 120)}…</p>
       </div>
     `;
   }
@@ -213,9 +215,16 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
     if (marcador) marcador.openPopup();
 
   }
+
   irADetalle(): void {
     if (this.monumentoSeleccionado) {
       this.router.navigate(['/monumentos', this.monumentoSeleccionado.id]);
     }
+  }
+
+  getDescripcion(monumento: Monumento): string {
+    this.translate.lang();
+    const traducido = this.translate.t(`MONUMENTOS_DATA.${monumento.id}.descripcion`);
+    return traducido !== `MONUMENTOS_DATA.${monumento.id}.descripcion` ? traducido : monumento.descripcion;
   }
 }

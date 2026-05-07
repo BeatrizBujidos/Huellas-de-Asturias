@@ -5,7 +5,7 @@ export type Lang = 'es' | 'en';
 
 //Fallback con traducciones en español para evitar errores si no se carga el JSON
 const ES_FALLBACK: Record<string, any> = {
-   "NAV": {
+  "NAV": {
     "BRAND": "Huellas de Asturias",
     "ARTISTAS": "Artistas",
     "OBRAS": "Obras",
@@ -96,8 +96,70 @@ const ES_FALLBACK: Record<string, any> = {
     "LIGHTBOX_CERRAR": "Cerrar",
     "LIGHTBOX_ANTERIOR": "Imagen anterior",
     "LIGHTBOX_SIGUIENTE": "Imagen siguiente"
+  },
+  "MONUMENTOS_SECCION": {
+    "TITULO": "Descubre el Prerrománico Asturiano",
+    "SUBTITULO": "Explora los monumentos más emblemáticos del arte prerrománico en el mapa interactivo.",
+    "MONUMENTOS": "Monumentos",
+    "HAZ_CLIC": "Haz clic en un monumento para ver su información.",
+    "VER_DETALLES": "Ver más información",
+    "SELECCIONA_MONUMENTO": "Selecciona un monumento en el mapa o en la lista."
+  },
+  "MONUMENTOS_DATA": {
+    "1": {
+      "nombre": "San Tirso",
+      "descripcion": "Fundada por Alfonso II 'El Casto' como parte del complejo episcopal ovetense. Aunque sufrió múltiples reformas a lo largo de los siglos (la fachada actual es barroca), conserva de su origen prerrománico el testero de la capilla mayor con su emblemática ventana trigeminada de arcos de medio punto y columnas con capiteles de tradición visigoda. Esta ventana tripartita se ha convertido en uno de los iconos visuales del arte asturiano."
+    },
+    "2": {
+      "nombre": "Cámara Santa",
+      "descripcion": "Capilla palatina de dos pisos integrada en la Catedral de Oviedo. El nivel superior (San Miguel) custodia las reliquias del Arca Santa y las cruces de la Victoria y los Ángeles, símbolos de Asturias. El espacio inferior (Santa Leocadia) presenta bóveda de cañón. Destaca el apostolado románico añadido posteriormente en sus columnas, siendo uno de los conjuntos escultóricos más importantes del siglo XII en España."
+    },
+    "3": {
+      "nombre": "San Julián de los Prados",
+      "descripcion": "Conocida popularmente como Santullano, es la iglesia más grande y antigua del periodo asturiano. Mandada construir por Alfonso II, destaca por su gran amplitud, su planta basilical con transepto elevado y, sobre todo, por su excepcional ciclo de pinturas murales anicónicas con motivos geométricos y arquitectónicos que cubrían originalmente todos sus muros interiores."
+    },
+    "4": {
+      "nombre": "Santa María de Bendones",
+      "descripcion": "Estructura basilical que sigue el modelo de Santullano, aunque con dimensiones más reducidas. Fue reconstruida tras sufrir graves daños en 1936 durante la Guerra Civil española. Destaca su gran nártex o pórtico de entrada y la disposición de sus naves laterales, siendo un ejemplo clave del estilo bajo el reinado de Alfonso II."
+    },
+    "5": {
+      "nombre": "San Pedro de Nora",
+      "descripcion": "Iglesia de planta basilical con tres naves separadas por arquerías de medio punto sobre pilares cuadrados, situada en un entorno rural junto al río Nora. Presenta una cabecera tripartita característica del arte asturiano. A pesar de su reconstrucción casi completa tras la Guerra Civil, mantiene la pureza de líneas y la sobriedad volumétrica características del arte asturiano."
+    },
+    "6": {
+      "nombre": "Santa María del Naranco",
+      "descripcion": "Obra maestra del periodo ramirense. Originalmente concebida como un aula regia o palacio de recreo situado en las afueras de Oviedo, fue transformada en iglesia en el siglo XII. Destaca por su arquitectura innovadora: estructura rectangular de dos pisos con miradores laterales, bóveda de cañón reforzada con arcos fajones y exquisita decoración escultórica. Representa la cúspide de la arquitectura prerrománica europea."
+    },
+    "7": {
+      "nombre": "San Miguel de Lillo",
+      "descripcion": "Iglesia palatina dedicada a San Miguel Arcángel, situada a escasos metros del Naranco. Actualmente solo se conserva el tercio occidental de la planta original tras un derrumbe en el siglo XIII. Es famosa por la esbeltez de sus proporciones, sus celosías de piedra tallada con motivos geométricos y los relieves de sus jambas inspirados en un díptero consular romano."
+    },
+    "8": {
+      "nombre": "Santa Cristina de Lena",
+      "descripcion": "Pequeña joya del periodo ramirense situada sobre una colina con vistas panorámicas al valle del Caudal. Su elemento más distintivo es el iconostasio: una triple arquería de piedra que separa el presbiterio de la nave, decorada con piezas visigodas reutilizadas. Su planta de cruz griega y la calidad de su sillería evidencian la madurez del estilo ramirense."
+    },
+    "9": {
+      "nombre": "Foncalada",
+      "descripcion": "Única construcción civil de utilidad pública del prerrománico asturiano que se conserva in situ. Se trata de una fuente de agua potable protegida por un templete de piedra con arco de medio punto. En el frontón luce la Cruz de la Victoria junto con su inscripción. Es un testimonio excepcional de la ingeniería hidráulica altomedieval."
+    },
+    "10": {
+      "nombre": "Santo Adriano de Tuñón",
+      "descripcion": "Iglesia de estructura sencilla y planta basilical de tres naves, mandada construir por Alfonso III y su esposa Jimena. Conserva importantes restos de pinturas murales originales en la cabecera con motivos geométricos y vegetales. Es un testimonio fundamental de la expansión del reino asturiano hacia los valles interiores de la cordillera Cantábrica."
+    },
+    "11": {
+      "nombre": "San Salvador de Valdediós",
+      "descripcion": "Denominada popularmente 'El Conventín', representa el apogeo del periodo alfonsino. Situada en un entorno natural exuberante del valle de Boides. Destaca por su pórtico lateral abierto (único en el prerrománico asturiano) y por mantener un equilibrio perfecto entre la influencia asturiana tradicional y los nuevos elementos mozárabes."
+    },
+    "12": {
+      "nombre": "San Salvador de Priesca",
+      "descripcion": "Consagrada en el siglo X, sigue fielmente los esquemas arquitectónicos de Santullano aunque en una época más tardía. Conserva una notable parte de su decoración pictórica original con influencias mozárabes. Sirve de eslabón de transición entre el estilo asturiano puro y el primer románico."
+    },
+    "13": {
+      "nombre": "Santiago de Gobiendes",
+      "descripcion": "Situada cerca de la costa oriental asturiana (Colunga), esta iglesia destaca por la elegancia de sus proporciones y la calidad de su fábrica de sillarejo. Las restauraciones modernas han permitido recuperar su esencia prerrománica, especialmente visible en la cabecera tripartita y los capiteles decorados."
+    }
   }
-};
+}
 
 @Injectable({ providedIn: 'root' })
 export class TranslateService {

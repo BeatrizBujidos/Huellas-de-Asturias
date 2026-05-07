@@ -1,24 +1,36 @@
+/*Barra de navegación */
+nav.navbar {
+  position: fixed !important;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
 .navbar {
-    margin-top: 10px;
+  margin-top: 0;
+  width: 100%;
 }
 
 .navbar-brand {
-    font-weight: 600;
-    font-size: 1.5rem;
-    margin-left: 20px;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-left: 20px;
 }
 
 .nav-link {
-    font-size: 1.1rem;
-    margin-right: 15px;
-    transition: color 0.3s ease;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  transition: color 0.3s ease;
 }
 
 .nav-link.active {
-    font-weight: bold;
-    color: #3AEE17 !important;
+  font-weight: bold;
+  color: #3AEE17 !important;
 }
 
+/* Botón de idioma */
 .btn-lang {
   display: inline-flex;
   align-items: center;
@@ -41,14 +53,22 @@
   background: rgba(255, 255, 255, 0.22);
 }
 
-.lang-flag {
-  font-size: 1rem;
-  line-height: 1;
+.lang-flag-img {
+  width: 25px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
+/* Responsive */
 @media (max-width: 600px) {
   .btn-lang {
     margin: 0.75rem 0 0.25rem 0;
     align-self: flex-start;
+  }
+
+  .navbar-collapse.show {
+    max-height: calc(100vh - 56px);
+    overflow-y: auto;
   }
 }

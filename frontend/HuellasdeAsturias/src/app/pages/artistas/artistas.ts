@@ -38,8 +38,8 @@ export class Artistas implements OnInit {
   private readonly todasLasObras = signal<Obra[]>([]);
   readonly imagenesObras = signal<Map<number, string>>(new Map());
 
-  // Las obras no se filtran por busqueda cuando hay un artista seleccionado,
-  // ya que busqueda contiene el nombre del artista, no un filtro de obras.
+  // Las obras no se filtran por búsqueda cuando hay un artista seleccionado,
+  // ya que búsqueda contiene el nombre del artista, no un filtro de obras.
   readonly obrasFiltradas = computed(() => {
     return this.todasLasObras();
   });
@@ -70,7 +70,7 @@ export class Artistas implements OnInit {
     this.imagenesObras.set(new Map());
     this.cargandoObras.set(true);
     this.cdr.detectChanges();
-    
+
     this.artistaService.getById(id).subscribe({
       next: (artista) => {
         this.artista.set(artista);
@@ -119,17 +119,18 @@ export class Artistas implements OnInit {
         console.log('Obras recibidas:', obras.length);
         this.todasLasObras.set(obras);
         this.cdr.detectChanges();
-        
+
         if (obras.length === 0) {
           this.cargandoObras.set(false);
           this.cdr.detectChanges();
           return of([]);
         }
-
+        // Para cada obra, se carga la URL de su imagen principal
         return forkJoin(
           obras.map(obra => this.imagenService.getUrlPrincipal('OBRA', obra.id))
         );
       }),
+      // finalize se ejecuta al completar el observable
       finalize(() => {
         this.cargandoObras.set(false);
         this.cdr.detectChanges();
@@ -138,7 +139,7 @@ export class Artistas implements OnInit {
       next: (urls) => {
         const obras = this.todasLasObras();
         const nuevoMap = new Map<number, string>();
-        
+
         if (urls && urls.length > 0) {
           (urls as (string | null)[]).forEach((url, i) => {
             if (url && obras[i]) {
@@ -146,7 +147,7 @@ export class Artistas implements OnInit {
             }
           });
         }
-        
+
         this.imagenesObras.set(nuevoMap);
         console.log('Imágenes cargadas:', nuevoMap.size);
         this.cdr.detectChanges();
@@ -168,7 +169,7 @@ export class Artistas implements OnInit {
   getImagenObra(obraId: number): string {
     return this.imagenesObras().get(obraId) ?? '';
   }
-
+  // Formato de la fecha en español
   formatearFecha(fecha: string | null | undefined): string {
     if (!fecha) return '';
     const [year, month, day] = fecha.split('-');
@@ -179,8 +180,8 @@ export class Artistas implements OnInit {
     const artistaActual = this.artista();
     if (!artistaActual) return '';
     const nacimiento = this.formatearFecha(artistaActual.fechaNacimiento);
-    const muerte = artistaActual.fechaMuerte 
-      ? this.formatearFecha(artistaActual.fechaMuerte) 
+    const muerte = artistaActual.fechaMuerte
+      ? this.formatearFecha(artistaActual.fechaMuerte)
       : 'Actualidad';
     return `Nacimiento: ${nacimiento} - Muerte: ${muerte}`;
   }

@@ -100,14 +100,14 @@ export class Carrusel implements OnInit, OnDestroy {
   }
 
   prev() {
-    this.currentIndex = this.currentIndex === 0 
-      ? this.noticias.length - 1 
+    this.currentIndex = this.currentIndex === 0
+      ? this.noticias.length - 1
       : this.currentIndex - 1;
   }
 
   next() {
-    this.currentIndex = this.currentIndex === this.noticias.length - 1 
-      ? 0 
+    this.currentIndex = this.currentIndex === this.noticias.length - 1
+      ? 0
       : this.currentIndex + 1;
   }
 

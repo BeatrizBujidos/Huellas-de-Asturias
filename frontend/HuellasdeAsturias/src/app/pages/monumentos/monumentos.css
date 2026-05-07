@@ -1,4 +1,4 @@
-/* VARIABLES */
+/* Variables */
 :host {
   --color-primary: #125700;
   --color-text: #202020;
@@ -11,7 +11,7 @@
   --radius-pill: 9999px;
 }
 
-/* CONTENEDOR */
+/* Contenedor */
 
 .monumento-detalle-container {
   max-width: 1200px;
@@ -19,7 +19,7 @@
   padding: 2.5rem 1rem 5rem;
 }
 
-/* CABECERA */
+/* Cabecera */
 
 .detalle-header {
   margin-bottom: 2.5rem;
@@ -58,7 +58,7 @@
   font-size: 1rem;
 }
 
-/* CUERPO PRINCIPAL */
+/* Cuerpo principal */
 
 .detalle-cuerpo {
   display: flex;
@@ -67,7 +67,7 @@
   margin-bottom: 3rem;
 }
 
-/* IMAGEN PRINCIPAL */
+/* Imagen principal */
 
 .detalle-imagen-wrapper {
   flex: 0 0 48%;
@@ -91,7 +91,7 @@
   transform: scale(1.03);
 }
 
-/* INFORMACIÓN */
+/* Información */
 
 .detalle-info {
   flex: 1;
@@ -100,7 +100,7 @@
   gap: 1.5rem;
 }
 
-/* DATOS TÉCNICOS */
+/* Datos técnicos */
 
 .detalle-tabla {
   display: flex;
@@ -148,7 +148,7 @@
   margin: 0;
 }
 
-/* DESCRIPCIÓN */
+/* Descripción */
 
 .detalle-descripcion {
   font-size: 1.0625rem;
@@ -168,7 +168,7 @@
   border: 1px solid var(--color-border);
 }
 
-/* GALERÍA DE IMÁGENES */
+/* Galería */
 
 .galeria-cargando {
   display: flex;
@@ -244,7 +244,7 @@
   transform: scale(1.07);
 }
 
-/* NO ENCONTRADO */
+/* No encontrado */
 
 .detalle-no-encontrado {
   display: flex;
@@ -262,7 +262,7 @@
   opacity: 0.3;
 }
 
-/* ZOOM EN IMAGEN PRINCIPAL */
+/* Zoom imagen principal */
 
 .detalle-imagen-wrapper {
   cursor: zoom-in;
@@ -297,7 +297,7 @@
   transform: scale(1);
 }
 
-/* ZOOM EN MINIATURAS */
+/* Zoom miniaturas */
 
 .galeria-item {
   position: relative;
@@ -326,7 +326,7 @@
   background: rgba(0, 0, 0, 0.28);
 }
 
-/* LIGHTBOX */
+/* Lightbox */
 
 .lightbox-overlay {
   position: fixed;
@@ -442,7 +442,7 @@
   font-size: 2rem;
 }
 
-/* FILTROS POR ÉPOCA */
+/* Filtros por época */
 
 .epocas-nav {
   margin-bottom: 2.5rem;
@@ -507,7 +507,7 @@
   background-color: rgba(255, 255, 255, 0.7) !important;
 }
 
-/* LISTA DE MONUMENTOS */
+/* Lista de monumentos */
 
 .epocas-lista {
   display: flex;
@@ -542,7 +542,7 @@
   font-weight: 600;
 }
 
-/* RESPONSIVE */
+/* Responsive */
 
 @media(min-width: 601px) and (max-width: 1200px) {
   .detalle-cuerpo {

@@ -55,7 +55,7 @@ export class ObraDetalle implements OnInit {
     this.imagenIndice.set(indice);
   }
 
-  // ── Lightbox ──────────────────────────────────────────────
+  // Lightbox 
 
   abrirLightbox(indice: number): void {
     this.lightboxIndice.set(indice);

@@ -1,7 +1,7 @@
 <main class="container">
   @if (obra(); as obra) {
 
-  <!-- CABECERA -->
+  <!-- Cabecera -->
   <header class="header">
     <div class="header-content">
       <div>
@@ -30,7 +30,7 @@
     </div>
   </header>
 
-  <!-- CUERPO PRINCIPAL -->
+  <!-- Cuerpo principal -->
   <section class="imagen-section">
     <div class="obra-cuerpo-principal">
       <div class="obra-img-principal" (click)="abrirLightbox(imagenIndice())" title="Ver imagen completa">
@@ -48,7 +48,8 @@
             <span class="barra-titulo"></span>
             {{ 'OBRA_DETALLE.DESCRIPCION' | translate }}
           </h2>
-          <p class="descripcion-texto">{{ translate.isEn() && obra.descripcionEn ? obra.descripcionEn : obra.descripcion }}</p>
+          <p class="descripcion-texto">{{ translate.isEn() && obra.descripcionEn ? obra.descripcionEn : obra.descripcion
+            }}</p>
         </div>
 
         <aside class="ficha-col">
@@ -98,7 +99,7 @@
       </div>
     </div>
 
-    <!-- GALERÍA DE MINIATURAS -->
+    <!-- Galería -->
     @if (imagenes().length > 1) {
     <div class="galeria-miniaturas">
       <h3 class="galeria-miniaturas-titulo">{{ 'OBRA_DETALLE.GALERIA' | translate }}</h3>
@@ -123,7 +124,7 @@
   }
 </main>
 
-<!-- LIGHTBOX -->
+<!-- Lightbox (imágenes a tamaño completo) -->
 @if (lightboxAbierto()) {
 <div class="lightbox-overlay" (click)="cerrarLightbox()" (keydown.escape)="cerrarLightbox()">
 

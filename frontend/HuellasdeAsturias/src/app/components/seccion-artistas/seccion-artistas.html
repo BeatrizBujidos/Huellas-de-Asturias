@@ -1,8 +1,8 @@
 <section class="artistas">
 
   <div class="text-center mb-5">
-    <h2 class="display-4 fw-bold font-display mb-2">¿Quién es quién?</h2>
-    <p class="fs-5 fst-italic text-muted fw-light">Descúbrelo</p>
+    <h2 class="display-4 fw-bold font-display mb-2">{{'ARTISTAS_SECCION.TITULO' | translate}}</h2>
+    <p class="fs-5 fst-italic text-muted fw-light">{{'ARTISTAS_SECCION.SUBTITULO' | translate}}</p>
   </div>
 
   <div class="row g-4 g-lg-5">
@@ -12,8 +12,7 @@
         <div class="row g-0 h-100">
           <div class="col-12 d-flex flex-column p-3 p-md-4">
             <div class="retrato-wrapper">
-              <img [src]="artista.imagen" [alt]="'Retrato de ' + getNombreCompleto(artista)"
-                class="retrato-img" />
+              <img [src]="artista.imagen" [alt]="'Retrato de ' + getNombreCompleto(artista)" class="retrato-img" />
             </div>
 
             <div class="text-center mt-3">
@@ -23,7 +22,7 @@
             <div class="text-center mt-3">
               <a [routerLink]="['/artistas', artista.id]"
                 class="btn btn-outline-success btn-sm rounded-pill px-4 text-decoration-none">
-                Ver más <i class="bi bi-arrow-right ms-1"></i>
+                {{'ARTISTAS_SECCION.VER_MAS' | translate}} <i class="bi bi-arrow-right ms-1"></i>
               </a>
             </div>
           </div>

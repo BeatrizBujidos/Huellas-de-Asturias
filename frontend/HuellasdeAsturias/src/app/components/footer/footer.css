@@ -8,14 +8,10 @@
 }
 
 .bi {
-    color: #125700;
+    color: #2FC910;
     width: 2em;
     height: fit-content;
     font-size: 1.2rem;
-}
-
-.footer-link:hover {
-    color: #125700;
 }
 
 .tracking-wide {

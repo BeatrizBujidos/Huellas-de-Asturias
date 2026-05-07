@@ -17,6 +17,7 @@
   &::-webkit-scrollbar {
     width: 4px;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: rgba(var(--primary-rgb), 0.3);
     border-radius: 4px;
@@ -39,7 +40,8 @@
 
 .detalle-panel {
   border-top: 3px solid var(--primary) !important;
-  background-color: #4A4A4A;;
+  background-color: #4A4A4A;
+  ;
 }
 
 .detalle-panel .text-secondary {

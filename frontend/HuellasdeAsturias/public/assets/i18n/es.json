@@ -144,5 +144,13 @@
     "LIGHTBOX_CERRAR": "Cerrar",
     "LIGHTBOX_ANTERIOR": "Imagen anterior",
     "LIGHTBOX_SIGUIENTE": "Imagen siguiente"
+  },
+  "MONUMENTOS_SECCION": {
+    "TITULO": "Descubre el Prerrománico Asturiano",
+    "SUBTITULO": "Explora los monumentos más emblemáticos del arte prerrománico en el mapa interactivo.",
+    "MONUMENTOS": "Monumentos",
+    "HAZ_CLIC": "Haz clic en un monumento para ver su información.",
+    "VER_DETALLES": "Ver más información",
+    "SELECCIONA_MONUMENTO": "Selecciona un monumento en el mapa o en la lista."
   }
 }
