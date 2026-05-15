@@ -1,6 +1,7 @@
 package com.ibq.ProyectoFinal.service;
 
 import com.ibq.ProyectoFinal.dto.ArtistaDTO;
+import com.ibq.ProyectoFinal.exception.ResourceNotFoundException;
 import com.ibq.ProyectoFinal.model.Artista;
 import com.ibq.ProyectoFinal.repository.ArtistaRepository;
 import com.ibq.ProyectoFinal.repository.ObraRepository;
@@ -18,10 +19,11 @@ public class ArtistaService {
     private final ObraRepository obraRepository;
 
     @Autowired
-    public ArtistaService (ArtistaRepository artistaRepository, ObraRepository obraRepository){
+    public ArtistaService(ArtistaRepository artistaRepository, ObraRepository obraRepository) {
         this.artistaRepository = artistaRepository;
         this.obraRepository = obraRepository;
     }
+
     //mapToDTO
     private ArtistaDTO mapToDTO(Artista artista) {
         return ArtistaDTO.builder()
@@ -37,6 +39,7 @@ public class ArtistaService {
                 .imagen(artista.getImagen())
                 .build();
     }
+
     //DTO → Entity
     private Artista mapToEntity(ArtistaDTO dto) {
         Artista artista = new Artista();
@@ -53,6 +56,7 @@ public class ArtistaService {
         artista.setImagen(dto.getImagen());
         return artista;
     }
+
     // Operacion CREATE
     @Transactional
     public ArtistaDTO saveArtista(ArtistaDTO artistaDTO) {
@@ -60,26 +64,30 @@ public class ArtistaService {
         Artista savedArtista = artistaRepository.save(artista);
         return mapToDTO(savedArtista);
     }
+
     // Operaciones READ
     @Transactional(readOnly = true)
-    public ArtistaDTO findById(Long id){
+    public ArtistaDTO findById(Long id) {
         Artista artista = artistaRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Artista no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado"));
         return mapToDTO(artista);
     }
+
     @Transactional(readOnly = true)
-    public List<ArtistaDTO> getAllArtistas(){
+    public List<ArtistaDTO> getAllArtistas() {
         return artistaRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public ArtistaDTO findByNombreAndApellidos(String nombre, String apellidos) {
         Artista artista = artistaRepository.findByNombreAndApellidos(nombre, apellidos)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el nombre: " + nombre + " " + apellidos));
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado con el nombre: " + nombre + " " + apellidos));
         return mapToDTO(artista);
     }
+
     @Transactional(readOnly = true)
     public List<ArtistaDTO> findByEstilo(String estilo) {
         return artistaRepository.findByEstilo(estilo)
@@ -87,6 +95,7 @@ public class ArtistaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public List<ArtistaDTO> findByLugarNacimiento(String lugarNacimiento) {
         return artistaRepository.findByLugarNacimiento(lugarNacimiento)
@@ -94,11 +103,12 @@ public class ArtistaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     // Operacion UPDATE
     @Transactional
     public ArtistaDTO updateArtista(ArtistaDTO artistaDTO, Long idArtista) {
         Artista artistaDB = artistaRepository.findById(idArtista)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el ID: " + idArtista));
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado con el ID: " + idArtista));
         // Actualizar solo campos no nulos
         if (Objects.nonNull(artistaDTO.getNombre()) && !artistaDTO.getNombre().isEmpty()) {
             artistaDB.setNombre(artistaDTO.getNombre());
@@ -131,11 +141,12 @@ public class ArtistaService {
         Artista updatedArtista = artistaRepository.save(artistaDB);
         return mapToDTO(updatedArtista);
     }
+
     // Operacion DELETE
     @Transactional
     public void deleteArtistaById(Long idArtista) {
         Artista artista = artistaRepository.findById(idArtista)
-                .orElseThrow(() -> new RuntimeException("Artista no encontrado con el ID: " + idArtista));
+                .orElseThrow(() -> new ResourceNotFoundException("Artista no encontrado con el ID: " + idArtista));
 
         // Verificar si el artista tiene obras
         if (obraRepository.existsByArtistaId(idArtista)) {

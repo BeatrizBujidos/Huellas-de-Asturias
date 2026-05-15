@@ -1,6 +1,7 @@
 package com.ibq.ProyectoFinal.service;
 
 import com.ibq.ProyectoFinal.dto.EpocaDTO;
+import com.ibq.ProyectoFinal.exception.ResourceNotFoundException;
 import com.ibq.ProyectoFinal.model.Epoca;
 import com.ibq.ProyectoFinal.repository.EpocaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class EpocaService {
     private final EpocaRepository epocaRepository;
 
     @Autowired
-    public EpocaService (EpocaRepository epocaRepository){
+    public EpocaService(EpocaRepository epocaRepository) {
         this.epocaRepository = epocaRepository;
     }
 
@@ -31,6 +32,7 @@ public class EpocaService {
                 .caracteristicas(epoca.getCaracteristicas())
                 .build();
     }
+
     //DTO → Entity
     private Epoca mapToEntity(EpocaDTO dto) {
         Epoca epoca = new Epoca();
@@ -43,6 +45,7 @@ public class EpocaService {
         epoca.setCaracteristicas(dto.getCaracteristicas());
         return epoca;
     }
+
     // Operacion CREATE
     @Transactional
     public EpocaDTO saveEpoca(EpocaDTO epocaDTO) {
@@ -50,19 +53,22 @@ public class EpocaService {
         Epoca savedEpoca = epocaRepository.save(epoca);
         return mapToDTO(savedEpoca);
     }
+
     // Operaciones READ
     @Transactional(readOnly = true)
-    public EpocaDTO findById(Long id){
+    public EpocaDTO findById(Long id) {
         Epoca epoca = epocaRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Época no encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Época no encontrada"));
         return mapToDTO(epoca);
     }
+
     @Transactional(readOnly = true)
     public EpocaDTO findByNombre(String nombre) {
         Epoca epoca = epocaRepository.findByNombre(nombre)
-                .orElseThrow(() -> new RuntimeException("Época no encontrada con el nombre: " + nombre));
+                .orElseThrow(() -> new ResourceNotFoundException("Época no encontrada con el nombre: " + nombre));
         return mapToDTO(epoca);
     }
+
     @Transactional(readOnly = true)
     public List<EpocaDTO> listarEpocas() {
         return epocaRepository.findAll()
@@ -70,11 +76,12 @@ public class EpocaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     // Operacion UPDATE
     @Transactional
     public EpocaDTO updateEpoca(EpocaDTO epocaDTO, Long idEpoca) {
         Epoca epocaDB = epocaRepository.findById(idEpoca)
-                .orElseThrow(() -> new RuntimeException("Época no encontrada con el ID: " + idEpoca));
+                .orElseThrow(() -> new ResourceNotFoundException("Época no encontrada con el ID: " + idEpoca));
 
         // Actualizar solo campos no nulos
         if (Objects.nonNull(epocaDTO.getNombre()) && !epocaDTO.getNombre().isEmpty()) {
@@ -96,11 +103,12 @@ public class EpocaService {
         Epoca updatedEpoca = epocaRepository.save(epocaDB);
         return mapToDTO(updatedEpoca);
     }
+
     // Operacion DELETE
     @Transactional
     public void deleteEpocaById(Long idEpoca) {
         if (!epocaRepository.existsById(idEpoca)) {
-            throw new RuntimeException("Época no encontrada con el ID: " + idEpoca);
+            throw new ResourceNotFoundException("Época no encontrada con el ID: " + idEpoca);
         }
         epocaRepository.deleteById(idEpoca);
     }

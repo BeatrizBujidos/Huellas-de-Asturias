@@ -1,6 +1,7 @@
 package com.ibq.ProyectoFinal.service;
 
 import com.ibq.ProyectoFinal.dto.MuseoDTO;
+import com.ibq.ProyectoFinal.exception.ResourceNotFoundException;
 import com.ibq.ProyectoFinal.model.Museo;
 import com.ibq.ProyectoFinal.repository.MuseoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class MuseoService {
     private final MuseoRepository museoRepository;
+
     @Autowired
-    public MuseoService (MuseoRepository museoRepository){
+    public MuseoService(MuseoRepository museoRepository) {
         this.museoRepository = museoRepository;
     }
 
@@ -33,6 +35,7 @@ public class MuseoService {
                 .imagen(museo.getImagen())
                 .build();
     }
+
     //DTO → Entity
     private Museo mapToEntity(MuseoDTO dto) {
         Museo museo = new Museo();
@@ -48,6 +51,7 @@ public class MuseoService {
         museo.setImagen(dto.getImagen());
         return museo;
     }
+
     // Operacion CREATE
     @Transactional
     public MuseoDTO saveMuseo(MuseoDTO museoDTO) {
@@ -55,13 +59,15 @@ public class MuseoService {
         Museo savedMuseo = museoRepository.save(museo);
         return mapToDTO(savedMuseo);
     }
+
     // Operaciones READ
     @Transactional(readOnly = true)
-    public MuseoDTO findById(Long id){
+    public MuseoDTO findById(Long id) {
         Museo museo = museoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Museo no encontrado con el id: " + id));
         return mapToDTO(museo);
     }
+
     @Transactional(readOnly = true)
     public List<MuseoDTO> listarMuseos() {
         return museoRepository.findAll()
@@ -69,6 +75,7 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public List<MuseoDTO> findByCiudad(String ciudad) {
         return museoRepository.findByCiudad(ciudad)
@@ -76,12 +83,14 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public MuseoDTO findByNombre(String nombre) {
         Museo museo = museoRepository.findByNombre(nombre)
-                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el nombre: " + nombre));
+                .orElseThrow(() -> new ResourceNotFoundException("Museo no encontrado con el nombre: " + nombre));
         return mapToDTO(museo);
     }
+
     //Buscar museos en un área geografica (para el mapa interactivo)
     @Transactional(readOnly = true)
     public List<MuseoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
@@ -90,11 +99,12 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     // Operacion UPDATE
     @Transactional
     public MuseoDTO updateMuseo(MuseoDTO museoDTO, Long idMuseo) {
         Museo museoDB = museoRepository.findById(idMuseo)
-                .orElseThrow(() -> new RuntimeException("Museo no encontrado con el ID: " + idMuseo));
+                .orElseThrow(() -> new ResourceNotFoundException("Museo no encontrado con el ID: " + idMuseo));
 
         // Actualizar solo campos no nulos
         if (Objects.nonNull(museoDTO.getNombre()) && !museoDTO.getNombre().isEmpty()) {
@@ -125,11 +135,12 @@ public class MuseoService {
         Museo updatedMuseo = museoRepository.save(museoDB);
         return mapToDTO(updatedMuseo);
     }
+
     // Operacion DELETE
     @Transactional
     public void deleteMuseoById(Long idMuseo) {
         if (!museoRepository.existsById(idMuseo)) {
-            throw new RuntimeException("Museo no encontrado con el ID: " + idMuseo);
+            throw new ResourceNotFoundException("Museo no encontrado con el ID: " + idMuseo);
         }
         museoRepository.deleteById(idMuseo);
     }

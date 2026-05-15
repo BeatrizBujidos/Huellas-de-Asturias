@@ -15,8 +15,9 @@ import java.util.List;
 
 public class ArtistaController {
     private final ArtistaService artistaService;
+
     @Autowired
-    public ArtistaController (ArtistaService artistaService){
+    public ArtistaController(ArtistaService artistaService) {
         this.artistaService = artistaService;
     }
 
@@ -26,19 +27,22 @@ public class ArtistaController {
         ArtistaDTO savedArtista = artistaService.saveArtista(artistaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArtista);
     }
+
     // Operaciones READ
     //Buscar artista por id
     @GetMapping("/artistas/{id}")
-    public ResponseEntity<ArtistaDTO> getArtistaById(@PathVariable ("id") Long id){
+    public ResponseEntity<ArtistaDTO> getArtistaById(@PathVariable("id") Long id) {
         ArtistaDTO artista = artistaService.findById(id);
         return ResponseEntity.ok(artista);
     }
+
     //Obtener todos los artistas
     @GetMapping("/artistas")
-    public ResponseEntity<List<ArtistaDTO>> getAllArtistas(){
+    public ResponseEntity<List<ArtistaDTO>> getAllArtistas() {
         List<ArtistaDTO> artistas = artistaService.getAllArtistas();
         return ResponseEntity.ok(artistas);
     }
+
     //Buscar artistas por nombre y apellidos
     @GetMapping("/artistas/nombreYapellidos")
     public ResponseEntity<ArtistaDTO> findArtistaByNombreAndApellidos(
@@ -47,12 +51,14 @@ public class ArtistaController {
         ArtistaDTO artista = artistaService.findByNombreAndApellidos(nombre, apellidos);
         return ResponseEntity.ok(artista);
     }
+
     //Buscar artistas por estilo
     @GetMapping("/artistas/estilo")
     public ResponseEntity<List<ArtistaDTO>> findArtistaByEstilo(@RequestParam String estilo) {
         List<ArtistaDTO> artistas = artistaService.findByEstilo(estilo);
         return ResponseEntity.ok(artistas);
     }
+
     // Operacion UPDATE
     @PutMapping("/artistas/{id}")
     public ResponseEntity<ArtistaDTO> updateArtista(
@@ -61,14 +67,11 @@ public class ArtistaController {
         ArtistaDTO updatedArtista = artistaService.updateArtista(artistaDTO, idArtista);
         return ResponseEntity.ok(updatedArtista);
     }
+
     // Operacion DELETE
     @DeleteMapping("/artistas/{id}")
     public ResponseEntity<Void> deleteArtistaId(@PathVariable("id") Long idArtista) {
-        try {
-            artistaService.deleteArtistaById(idArtista);
-            return ResponseEntity.noContent().build(); // 204
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build(); // 404
-        }
+        artistaService.deleteArtistaById(idArtista);
+        return ResponseEntity.noContent().build(); // 204
     }
 }

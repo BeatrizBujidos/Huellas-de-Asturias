@@ -28,13 +28,15 @@ public class ImagenController {
         ImagenDTO savedImagen = imagenService.saveImagen(imagenDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedImagen);
     }
+
     // Operaciones READ
     //Buscar imagen por id
     @GetMapping("/imagenes/{id}")
-    public ResponseEntity<ImagenDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ImagenDTO> findById(@PathVariable Long id) {
         ImagenDTO imagen = imagenService.findById(id);
         return ResponseEntity.ok(imagen);
     }
+
     //Buscar imagen por URL
     @GetMapping("/imagenes/url")
     public ResponseEntity<ImagenDTO> getImagenByUrl(@RequestParam String url) {
@@ -42,6 +44,7 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     //Buscar todas las imagenes de una entidad
     @GetMapping("/imagenes/entidad/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<List<ImagenDTO>> getImagenesByEntidad(
@@ -50,6 +53,7 @@ public class ImagenController {
         List<ImagenDTO> imagenes = imagenService.findByEntidad(tipoEntidad, idEntidad);
         return ResponseEntity.ok(imagenes);
     }
+
     //Obtener imagen principal de una entidad
     @GetMapping("/imagenes/principal/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<ImagenDTO> getImagenPrincipal(
@@ -59,6 +63,7 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
     // Operacion UPDATE
     @PutMapping("/imagenes/{id}")
     public ResponseEntity<ImagenDTO> updateImagen(
@@ -70,6 +75,7 @@ public class ImagenController {
         }
         return ResponseEntity.ok(updatedImagen);
     }
+
     // Operaciones DELETE
     //Eliminar imagen por ID
     @DeleteMapping("/imagenes/{id}")
@@ -81,16 +87,13 @@ public class ImagenController {
             return ResponseEntity.notFound().build(); // 404
         }
     }
+
     //Eliminar todas las imágenes de una entidad
     @DeleteMapping("/imagenes/entidad/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<String> deleteAllImagenesByEntidad(
             @PathVariable String tipoEntidad,
             @PathVariable Long idEntidad) {
-        try {
-            imagenService.deleteAllImagenesByEntidad(tipoEntidad, idEntidad);
-            return ResponseEntity.ok("Todas las imágenes de la entidad eliminadas");
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        imagenService.deleteAllImagenesByEntidad(tipoEntidad, idEntidad);
+        return ResponseEntity.ok("Todas las imágenes de la entidad eliminadas");
     }
 }

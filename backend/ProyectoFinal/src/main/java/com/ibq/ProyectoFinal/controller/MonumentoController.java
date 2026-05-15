@@ -27,25 +27,29 @@ public class MonumentoController {
         MonumentoDTO savedMonumento = monumentoService.saveMonumento(monumentoDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMonumento);
     }
+
     // Operaciones READ
     //Buscar monumentos por id
     @GetMapping("/monumentos/{id}")
-    public ResponseEntity<MonumentoDTO> findById(@PathVariable Long id){
+    public ResponseEntity<MonumentoDTO> findById(@PathVariable Long id) {
         MonumentoDTO monumento = monumentoService.findById(id);
         return ResponseEntity.ok(monumento);
     }
+
     //Buscar monumentos por epoca
     @GetMapping("/monumentos/epoca/{idEpoca}")
     public ResponseEntity<List<MonumentoDTO>> findMonumentoByEpoca(@PathVariable Long idEpoca) {
         List<MonumentoDTO> monumentos = monumentoService.findByEpocaId(idEpoca);
         return ResponseEntity.ok(monumentos);
     }
+
     //Listar monumentos
     @GetMapping("/monumentos/listado")
     public ResponseEntity<List<MonumentoDTO>> listarMonumentos() {
         List<MonumentoDTO> monumentos = monumentoService.listarMonumentos();
         return ResponseEntity.ok(monumentos);
     }
+
     // Operacion UPDATE
     @PutMapping("/monumentos/{id}")
     public ResponseEntity<MonumentoDTO> updateMonumento(
@@ -54,14 +58,11 @@ public class MonumentoController {
         MonumentoDTO updatedMonumento = monumentoService.updateMonumento(monumentoDTO, idMonumento);
         return ResponseEntity.ok(updatedMonumento);
     }
+
     // Operacion DELETE
     @DeleteMapping("/monumentos/{id}")
     public ResponseEntity<String> deleteMonumento(@PathVariable("id") Long idMonumento) {
-        try {
-            monumentoService.deleteMonumentoById(idMonumento);
-            return ResponseEntity.ok("Monumento eliminado correctamente");
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        monumentoService.deleteMonumentoById(idMonumento);
+        return ResponseEntity.ok("Monumento eliminado correctamente");
     }
 }

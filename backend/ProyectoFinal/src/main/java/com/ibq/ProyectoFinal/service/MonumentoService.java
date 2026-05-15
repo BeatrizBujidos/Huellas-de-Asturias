@@ -1,6 +1,7 @@
 package com.ibq.ProyectoFinal.service;
 
 import com.ibq.ProyectoFinal.dto.MonumentoDTO;
+import com.ibq.ProyectoFinal.exception.ResourceNotFoundException;
 import com.ibq.ProyectoFinal.model.Monumento;
 import com.ibq.ProyectoFinal.repository.MonumentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class MonumentoService {
     private final MonumentoRepository monumentoRepository;
+
     @Autowired
-    public MonumentoService (MonumentoRepository monumentoRepository){
+    public MonumentoService(MonumentoRepository monumentoRepository) {
         this.monumentoRepository = monumentoRepository;
     }
 
@@ -35,6 +37,7 @@ public class MonumentoService {
         }
         return builder.build();
     }
+
     //DTO → Entity
     private Monumento mapToEntity(MonumentoDTO dto) {
         Monumento monumento = new Monumento();
@@ -47,6 +50,7 @@ public class MonumentoService {
         monumento.setLongitud(dto.getLongitud());
         return monumento;
     }
+
     // Operacion CREATE
     @Transactional
     public MonumentoDTO saveMonumento(MonumentoDTO monumentoDTO) {
@@ -54,13 +58,15 @@ public class MonumentoService {
         Monumento savedMonumento = monumentoRepository.save(monumento);
         return mapToDTO(savedMonumento);
     }
+
     // Operaciones READ
     @Transactional(readOnly = true)
-    public MonumentoDTO findById(Long id){
+    public MonumentoDTO findById(Long id) {
         Monumento monumento = monumentoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con el id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Monumento no encontrado con el id: " + id));
         return mapToDTO(monumento);
     }
+
     @Transactional(readOnly = true)
     public List<MonumentoDTO> listarMonumentos() {
         return monumentoRepository.findAll()
@@ -68,6 +74,7 @@ public class MonumentoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public List<MonumentoDTO> findByEpocaId(Long idEpoca) {
         return monumentoRepository.findByEpocaId(idEpoca)
@@ -75,12 +82,14 @@ public class MonumentoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional(readOnly = true)
     public MonumentoDTO findByNombre(String nombre) {
         Monumento monumento = monumentoRepository.findByNombre(nombre)
-                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con el nombre: " + nombre));
+                .orElseThrow(() -> new ResourceNotFoundException("Monumento no encontrado con el nombre: " + nombre));
         return mapToDTO(monumento);
     }
+
     //Buscar monumentos en un área geografica (para el mapa interactivo)
     @Transactional(readOnly = true)
     public List<MonumentoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
@@ -89,11 +98,12 @@ public class MonumentoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
+
     // Operacion UPDATE
     @Transactional
     public MonumentoDTO updateMonumento(MonumentoDTO monumentoDTO, Long idMonumento) {
         Monumento monumentoDB = monumentoRepository.findById(idMonumento)
-                .orElseThrow(() -> new RuntimeException("Monumento no encontrado con el ID: " + idMonumento));
+                .orElseThrow(() -> new ResourceNotFoundException("Monumento no encontrado con el ID: " + idMonumento));
 
         // Actualizar solo campos no nulos
         if (Objects.nonNull(monumentoDTO.getNombre()) && !monumentoDTO.getNombre().isEmpty()) {
@@ -115,11 +125,12 @@ public class MonumentoService {
         Monumento updatedMonumento = monumentoRepository.save(monumentoDB);
         return mapToDTO(updatedMonumento);
     }
+
     // Operacion DELETE
     @Transactional
     public void deleteMonumentoById(Long idMonumento) {
         if (!monumentoRepository.existsById(idMonumento)) {
-            throw new RuntimeException("Monumento no encontrado con el ID: " + idMonumento);
+            throw new ResourceNotFoundException("Monumento no encontrado con el ID: " + idMonumento);
         }
         monumentoRepository.deleteById(idMonumento);
     }
