@@ -54,7 +54,7 @@ class MuseoControllerTest {
 
         Mockito.when(museoService.findByCiudad("Madrid")).thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/api/museos/Madrid")).andExpect(status().isOk()).andExpect(jsonPath("$[0].ciudad").value("Madrid"));
+        mockMvc.perform(get("/api/museos/ciudad/Madrid")).andExpect(status().isOk()).andExpect(jsonPath("$[0].ciudad").value("Madrid"));
     }
 
     // GET /museos/listado

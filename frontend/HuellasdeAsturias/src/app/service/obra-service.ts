@@ -8,7 +8,7 @@ import { Obra } from '../model/obra';
   providedIn: 'root',
 })
 export class ObraService {
-  private readonly apiUrl = 'http://localhost:8080/api/obras';
+  private readonly apiUrl = '/api/obras';
   private readonly http = inject(HttpClient);
 
   getAll(): Observable<Obra[]> {

@@ -10,7 +10,7 @@
     <h1 class="detalle-nombre">{{ monumento()!.nombre }}</h1>
     @if (monumento()!.fechaConstruccion) {
     <p class="detalle-fecha">
-      <span class="material-icons">calendar_today</span>
+      <i class="bi bi-calendar2-fill"></i>
       {{ monumento()!.fechaConstruccion }}
     </p>
     }
@@ -48,7 +48,7 @@
       <img [src]="getImagenActiva()" [alt]="monumento()!.nombre" class="detalle-imagen-principal"
         onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
       <div class="detalle-imagen-zoom-hint">
-        <span class="material-icons">zoom_in</span>
+        <i class="bi bi-arrows-fullscreen"></i>
       </div>
     </div>
 
@@ -57,16 +57,16 @@
       <dl class="detalle-tabla">
         @if (monumento()!.fechaConstruccion) {
         <div class="detalle-fila">
-          <dt><span class="material-icons">calendar_today</span>{{ 'MONUMENTOS.CONSTRUCCION' | translate }}</dt>
+          <dt><i class="bi bi-calendar2-fill"></i>{{ 'MONUMENTOS.CONSTRUCCION' | translate }}</dt>
           <dd>{{ monumento()!.fechaConstruccion }}</dd>
         </div>
         }
         <div class="detalle-fila">
-          <dt><span class="material-icons">palette</span>{{ 'MONUMENTOS.ESTILO' | translate }}</dt>
+          <dt><i class="bi bi-bank2"></i>{{ 'MONUMENTOS.ESTILO' | translate }}</dt>
           <dd>{{ getLabelEpoca() }}</dd>
         </div>
         <div class="detalle-fila">
-          <dt><span class="material-icons">location_on</span>{{ 'MONUMENTOS.UBICACION' | translate }}</dt>
+          <dt><i class="bi bi-geo-alt-fill"></i>{{ 'MONUMENTOS.UBICACION' | translate }}</dt>
           <dd>{{ monumento()!.latitud }}, {{ monumento()!.longitud }}</dd>
         </div>
       </dl>
@@ -94,7 +94,7 @@
         <img [src]="img.url" [alt]="monumento()!.nombre + ' - Imagen ' + (i + 1)" class="galeria-item-img"
           onerror="this.src='assets/imagenes/monumentos/default.jpg'" />
         <div class="galeria-item-zoom">
-          <span class="material-icons">zoom_in</span>
+          <i class="bi bi-arrows-fullscreen"></i>
         </div>
       </div>
       }
@@ -104,7 +104,7 @@
 
   } @else {
   <div class="detalle-no-encontrado">
-    <span class="material-icons">search_off</span>
+    <i class="bi bi-ban"></i>
     <p>{{ 'MONUMENTOS.NO_ENCONTRADO' | translate }}</p>
   </div>
   }
@@ -115,12 +115,12 @@
 @if (lightboxAbierto()) {
 <div class="lightbox-overlay" (click)="cerrarLightbox()">
   <button class="lightbox-cerrar" (click)="cerrarLightbox()">
-    <span class="material-icons">close</span>
+    <i class="bi bi-x-circle"></i>
   </button>
 
   @if (imagenes().length > 1) {
   <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)">
-    <span class="material-icons">chevron_left</span>
+    <i class="bi bi-chevron-left"></i>
   </button>
   }
 
@@ -134,7 +134,7 @@
 
   @if (imagenes().length > 1) {
   <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)">
-    <span class="material-icons">chevron_right</span>
+    <i class="bi bi-chevron-right"></i>
   </button>
   }
 </div>

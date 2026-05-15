@@ -1,13 +1,86 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>HuellasdeAsturias</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://a.tile.openstreetmap.org">
+
+  <!-- Preload fuentes -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="https://fonts.gstatic.com/s/elmssans/v7/q5uFsoS_Lf9xv7Su1Fp4BDRZ.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="https://fonts.gstatic.com/s/petitformalscript/v19/B50TF6xQr2TXJBnGOFME6u5OR83oRP5qkH7gPg.woff2">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Elms+Sans:wght@400;600;700&family=Petit+Formal+Script&display=optional"
+    rel="stylesheet">
+
+  <!-- CSS inline para evitar CLS antes de que cargue el bundle -->
+  <style>
+    /* Reset mínimo */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #FBD9A9;
+      background-image: url('/assets/imagenes/wallpaper.webp');
+      background-size: cover;
+      background-position: right;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* Reserva el espacio para que el contenido no salte */
+    nav.navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+      height: 56px;
+      background-color: #212529;
+    }
+
+    /* Layout principal — empuja el contenido por debajo del navbar */
+    .app-layout {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-top: 56px;
+    }
+
+    .main-content {
+      flex: 1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin-right: auto;
+      margin-left: auto;
+      padding-right: 12px;
+      padding-left: 12px;
+      padding-top: 16px;
+    }
+  </style>
 </head>
+
 <body>
   <app-root></app-root>
 </body>
+
 </html>

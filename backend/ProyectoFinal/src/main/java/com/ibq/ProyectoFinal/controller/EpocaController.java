@@ -21,7 +21,7 @@ public class EpocaController {
         this.epocaService = epocaService;
     }
 
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/epocas")
     public ResponseEntity<EpocaDTO> saveEpoca(@Valid @RequestBody EpocaDTO epocaDTO) {
         EpocaDTO savedEpoca = epocaService.saveEpoca(epocaDTO);
@@ -46,7 +46,7 @@ public class EpocaController {
         List<EpocaDTO> epocas = epocaService.listarEpocas();
         return ResponseEntity.ok(epocas);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/epocas/{id}")
     public ResponseEntity<EpocaDTO> updateEpoca(
             @RequestBody EpocaDTO epocaDTO,
@@ -54,7 +54,7 @@ public class EpocaController {
         EpocaDTO updatedEpoca = epocaService.updateEpoca(epocaDTO, idEpoca);
         return ResponseEntity.ok(updatedEpoca);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @DeleteMapping("/epocas/{id}")
     public ResponseEntity<String> deleteEpoca(@PathVariable("id") Long idEpoca) {
         try {

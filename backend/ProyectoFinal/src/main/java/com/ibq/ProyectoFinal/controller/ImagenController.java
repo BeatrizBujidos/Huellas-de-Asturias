@@ -22,7 +22,7 @@ public class ImagenController {
         this.imagenService = imagenService;
     }
 
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/imagenes")
     public ResponseEntity<ImagenDTO> saveImagen(@Valid @RequestBody ImagenDTO imagenDTO) {
         ImagenDTO savedImagen = imagenService.saveImagen(imagenDTO);
@@ -42,7 +42,7 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    //Buscar todas las imágenes de una entidad
+    //Buscar todas las imagenes de una entidad
     @GetMapping("/imagenes/entidad/{tipoEntidad}/{idEntidad}")
     public ResponseEntity<List<ImagenDTO>> getImagenesByEntidad(
             @PathVariable String tipoEntidad,
@@ -59,7 +59,7 @@ public class ImagenController {
         return imagen.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/imagenes/{id}")
     public ResponseEntity<ImagenDTO> updateImagen(
             @RequestBody ImagenDTO imagenDTO,

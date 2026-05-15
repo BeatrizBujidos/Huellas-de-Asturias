@@ -5,7 +5,7 @@
             <label for="busqueda-artista" class="visually-hidden">Buscar artista por nombre</label>
             <div class="search-input-group">
                 <span class="search-icon">
-                    <span class="material-icons" style="font-size:1.1rem">search</span>
+                    <i class="bi bi-search"></i>
                 </span>
                 <input id="busqueda-artista" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"
                     (focus)="onFocusBusqueda()" (blur)="onBlurBusqueda()" (input)="onInputBusqueda()" type="text"
@@ -77,7 +77,7 @@
             <h2 class="obras-titulo">{{ 'ARTISTAS.OBRAS_DESTACADAS' | translate }}</h2>
             <a class="ver-todas-link" routerLink="/obras">
                 {{ 'ARTISTAS.VER_TODAS' | translate }}
-                <span class="material-icons" style="font-size:1rem">arrow_forward</span>
+                <i class="bi bi-box-arrow-right"></i>
             </a>
         </div>
         <div class="obras-grid">

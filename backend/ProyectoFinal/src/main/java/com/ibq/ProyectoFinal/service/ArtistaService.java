@@ -53,7 +53,7 @@ public class ArtistaService {
         artista.setImagen(dto.getImagen());
         return artista;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public ArtistaDTO saveArtista(ArtistaDTO artistaDTO) {
         Artista artista = mapToEntity(artistaDTO);
@@ -94,7 +94,7 @@ public class ArtistaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public ArtistaDTO updateArtista(ArtistaDTO artistaDTO, Long idArtista) {
         Artista artistaDB = artistaRepository.findById(idArtista)
@@ -131,7 +131,7 @@ public class ArtistaService {
         Artista updatedArtista = artistaRepository.save(artistaDB);
         return mapToDTO(updatedArtista);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @Transactional
     public void deleteArtistaById(Long idArtista) {
         Artista artista = artistaRepository.findById(idArtista)

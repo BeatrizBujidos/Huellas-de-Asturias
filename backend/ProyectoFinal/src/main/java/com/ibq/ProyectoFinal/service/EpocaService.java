@@ -43,7 +43,7 @@ public class EpocaService {
         epoca.setCaracteristicas(dto.getCaracteristicas());
         return epoca;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public EpocaDTO saveEpoca(EpocaDTO epocaDTO) {
         Epoca epoca = mapToEntity(epocaDTO);
@@ -70,7 +70,7 @@ public class EpocaService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public EpocaDTO updateEpoca(EpocaDTO epocaDTO, Long idEpoca) {
         Epoca epocaDB = epocaRepository.findById(idEpoca)
@@ -96,7 +96,7 @@ public class EpocaService {
         Epoca updatedEpoca = epocaRepository.save(epocaDB);
         return mapToDTO(updatedEpoca);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @Transactional
     public void deleteEpocaById(Long idEpoca) {
         if (!epocaRepository.existsById(idEpoca)) {

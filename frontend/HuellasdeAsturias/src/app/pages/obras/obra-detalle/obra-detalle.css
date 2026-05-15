@@ -141,6 +141,7 @@
   justify-content: center;
   min-height: 280px;
   cursor: zoom-in;
+  aspect-ratio: 4 / 5;
 }
 
 .obra-img-zoom-hint {
@@ -154,7 +155,7 @@
   pointer-events: none;
 }
 
-.obra-img-zoom-hint .material-icons {
+.obra-img-zoom-hint .bi {
   font-size: 2.5rem;
   color: #F5F5F5;
   opacity: 0;
@@ -167,7 +168,7 @@
   background: rgba(0, 0, 0, 0.18);
 }
 
-.obra-img-principal:hover .obra-img-zoom-hint .material-icons {
+.obra-img-principal:hover .obra-img-zoom-hint .bi {
   opacity: 1;
   transform: scale(1);
 }
@@ -345,7 +346,7 @@
   pointer-events: none;
 }
 
-.miniatura-zoom .material-icons {
+.miniatura-zoom .bi {
   font-size: 1.75rem;
   color: #F5F5F5;
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
@@ -468,7 +469,7 @@
   right: 1.5rem;
 }
 
-.lightbox-nav .material-icons {
+.lightbox-nav .bi {
   font-size: 2rem;
 }
 
@@ -604,7 +605,7 @@
   pointer-events: none;
 }
 
-.obra-img-zoom-hint .material-icons {
+.obra-img-zoom-hint .bi {
   font-size: 2.5rem;
   color: #F5F5F5;
   opacity: 0;
@@ -617,7 +618,7 @@
   background: rgba(0, 0, 0, 0.18);
 }
 
-.obra-img-principal:hover .obra-img-zoom-hint .material-icons {
+.obra-img-principal:hover .obra-img-zoom-hint .bi {
   opacity: 1;
   transform: scale(1);
 }
@@ -636,7 +637,7 @@
   pointer-events: none;
 }
 
-.miniatura-zoom .material-icons {
+.miniatura-zoom .bi {
   font-size: 1.5rem;
   color: #F5F5F5;
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));

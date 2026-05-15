@@ -19,7 +19,6 @@ export interface Artista {
 
 @Component({
   selector: 'app-seccion-artistas',
-  standalone: true,
   imports: [RouterLink, TranslatePipe],
   templateUrl: './seccion-artistas.html',
   styleUrl: './seccion-artistas.css',

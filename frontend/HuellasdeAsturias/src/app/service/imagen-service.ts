@@ -9,7 +9,7 @@ import { Imagen } from '../model/imagen';
 })
 export class ImagenService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/imagenes';
+  private readonly apiUrl = '/api/imagenes';
   private readonly http = inject(HttpClient);
 
   // Todas las imágenes de una entidad ordenadas

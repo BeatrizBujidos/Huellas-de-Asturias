@@ -7,7 +7,7 @@ import { Artista } from '../model/artista';
   providedIn: 'root',
 })
 export class ArtistaService {
-  private readonly apiUrl = 'http://localhost:8080/api/artistas';
+  private readonly apiUrl = '/api/artistas';
 
   constructor(private http: HttpClient) {}
 

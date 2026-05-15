@@ -4,6 +4,8 @@
 -- ============================================
 
 USE arte_asturiano;
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 -- JULIA ALCAYDE (ids 1–4)
 

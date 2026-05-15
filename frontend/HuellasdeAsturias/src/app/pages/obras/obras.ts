@@ -9,6 +9,7 @@ import { ObraService } from '../../service/obra-service';
 import { ImagenService } from '../../service/imagen-service';
 import { TranslateService } from '../../service/translate.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { Meta, Title } from '@angular/platform-browser';
 
 interface Epoca {
   id: number;
@@ -28,6 +29,9 @@ type TipoFiltro = 'artista' | 'tecnica' | 'epoca';
   styleUrls: ['./obras.css'],
 })
 export class Obras implements OnInit {
+  // Mejorar SEO
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
 
   private readonly todasLasObras = signal<Obra[]>([]);
 
@@ -81,6 +85,10 @@ export class Obras implements OnInit {
   readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
+    this.title.setTitle('Obras | Huellas de Asturias');
+    this.meta.updateTag(
+      { name: 'description', content: 'Catálogo de las obras de arte asturiano: pinturas, esculturas y más.' },
+    );
     // Cargar épocas
     this.http.get<Epoca[]>('http://localhost:8080/api/epocas/listado').subscribe({
       next: (epocas) => {

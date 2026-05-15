@@ -10,6 +10,7 @@ import { ObraService } from '../../service/obra-service';
 import { ImagenService } from '../../service/imagen-service';
 import { TranslateService } from '../../service/translate.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-artistas',
@@ -18,6 +19,10 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
   styleUrl: './artistas.css',
 })
 export class Artistas implements OnInit {
+  // Mejorar SEO
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
+
   readonly translate = inject(TranslateService);
   artista = signal<Artista | null>(null);
   busqueda = signal('');
@@ -52,6 +57,11 @@ export class Artistas implements OnInit {
   private readonly cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
+
+    this.title.setTitle('Artistas | Huellas de Asturias');
+    this.meta.updateTag(
+      { name: 'description', content: 'Explora los artistas más destacados, sus biografías y sus obras.' },
+    );
 
     this.artistaService.getAll().subscribe({
       next: (artistas) => {

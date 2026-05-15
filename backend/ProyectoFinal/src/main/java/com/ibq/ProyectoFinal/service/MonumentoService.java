@@ -28,7 +28,7 @@ public class MonumentoService {
                 .fechaConstruccion(monumento.getFechaConstruccion())
                 .latitud(monumento.getLatitud())
                 .longitud(monumento.getLongitud());
-        // Añadir información de la época si existe
+        // Añadir informacion de la epoca si existe
         if (monumento.getEpoca() != null) {
             builder.epocaId(monumento.getEpoca().getId())
                     .epocaNombre(monumento.getEpoca().getNombre());
@@ -47,7 +47,7 @@ public class MonumentoService {
         monumento.setLongitud(dto.getLongitud());
         return monumento;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public MonumentoDTO saveMonumento(MonumentoDTO monumentoDTO) {
         Monumento monumento = mapToEntity(monumentoDTO);
@@ -81,7 +81,7 @@ public class MonumentoService {
                 .orElseThrow(() -> new RuntimeException("Monumento no encontrado con el nombre: " + nombre));
         return mapToDTO(monumento);
     }
-    //Buscar monumentos en un área geográfica (para el mapa interactivo)
+    //Buscar monumentos en un área geografica (para el mapa interactivo)
     @Transactional(readOnly = true)
     public List<MonumentoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
         return monumentoRepository.findByLatitudBetweenAndLongitudBetween(latMin, latMax, lonMin, lonMax)
@@ -89,7 +89,7 @@ public class MonumentoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public MonumentoDTO updateMonumento(MonumentoDTO monumentoDTO, Long idMonumento) {
         Monumento monumentoDB = monumentoRepository.findById(idMonumento)
@@ -115,7 +115,7 @@ public class MonumentoService {
         Monumento updatedMonumento = monumentoRepository.save(monumentoDB);
         return mapToDTO(updatedMonumento);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @Transactional
     public void deleteMonumentoById(Long idMonumento) {
         if (!monumentoRepository.existsById(idMonumento)) {

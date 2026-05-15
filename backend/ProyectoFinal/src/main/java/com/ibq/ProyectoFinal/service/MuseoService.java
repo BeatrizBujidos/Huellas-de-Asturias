@@ -48,7 +48,7 @@ public class MuseoService {
         museo.setImagen(dto.getImagen());
         return museo;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public MuseoDTO saveMuseo(MuseoDTO museoDTO) {
         Museo museo = mapToEntity(museoDTO);
@@ -82,7 +82,7 @@ public class MuseoService {
                 .orElseThrow(() -> new RuntimeException("Museo no encontrado con el nombre: " + nombre));
         return mapToDTO(museo);
     }
-    //Buscar museos en un área geográfica (para el mapa interactivo)
+    //Buscar museos en un área geografica (para el mapa interactivo)
     @Transactional(readOnly = true)
     public List<MuseoDTO> findByArea(Double latMin, Double latMax, Double lonMin, Double lonMax) {
         return museoRepository.findByLatitudBetweenAndLongitudBetween(latMin, latMax, lonMin, lonMax)
@@ -90,7 +90,7 @@ public class MuseoService {
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public MuseoDTO updateMuseo(MuseoDTO museoDTO, Long idMuseo) {
         Museo museoDB = museoRepository.findById(idMuseo)
@@ -125,7 +125,7 @@ public class MuseoService {
         Museo updatedMuseo = museoRepository.save(museoDB);
         return mapToDTO(updatedMuseo);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @Transactional
     public void deleteMuseoById(Long idMuseo) {
         if (!museoRepository.existsById(idMuseo)) {

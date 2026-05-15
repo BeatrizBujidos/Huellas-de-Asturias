@@ -129,11 +129,16 @@ export class MapaMonumentos implements OnInit, AfterViewInit, OnDestroy {
 
   async ngAfterViewInit(): Promise<void> {
     if (isPlatformBrowser(this.platformId)) {
-      setTimeout(async () => {
+      requestAnimationFrame(async () => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+
         const leaflet = await import('leaflet');
         const L = (leaflet as any).default ?? leaflet;
         this.iniciarMapa(L);
-      }, 0);
+      });
     }
   }
 

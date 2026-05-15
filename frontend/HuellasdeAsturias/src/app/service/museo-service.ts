@@ -8,7 +8,7 @@ import { Museo } from '../model/museo';
 })
 export class MuseoService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/museos';
+  private readonly apiUrl = '/api/museos';
 
   constructor(private http: HttpClient) {}
 

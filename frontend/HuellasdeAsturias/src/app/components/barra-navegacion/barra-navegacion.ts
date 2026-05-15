@@ -25,6 +25,6 @@ export class BarraNavegacion {
   }
 
   get currentFlag(): string {
-    return this.translate.isEs() ? 'assets/imagenes/gb.png' : 'assets/imagenes/sp.png';
+    return this.translate.isEs() ? 'assets/imagenes/gb.webp' : 'assets/imagenes/sp.webp';
   }
 }

@@ -21,7 +21,7 @@ public class MonumentoController {
         this.monumentoService = monumentoService;
     }
 
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/monumentos")
     public ResponseEntity<MonumentoDTO> saveMonumento(@Valid @RequestBody MonumentoDTO monumentoDTO) {
         MonumentoDTO savedMonumento = monumentoService.saveMonumento(monumentoDTO);
@@ -46,7 +46,7 @@ public class MonumentoController {
         List<MonumentoDTO> monumentos = monumentoService.listarMonumentos();
         return ResponseEntity.ok(monumentos);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/monumentos/{id}")
     public ResponseEntity<MonumentoDTO> updateMonumento(
             @RequestBody MonumentoDTO monumentoDTO,
@@ -54,7 +54,7 @@ public class MonumentoController {
         MonumentoDTO updatedMonumento = monumentoService.updateMonumento(monumentoDTO, idMonumento);
         return ResponseEntity.ok(updatedMonumento);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @DeleteMapping("/monumentos/{id}")
     public ResponseEntity<String> deleteMonumento(@PathVariable("id") Long idMonumento) {
         try {

@@ -9,7 +9,8 @@
     <div class="carousel-inner">
       @for (noticia of noticias; track noticia.id; let i = $index) {
       <div class="carousel-item" [class.active]="i === currentIndex">
-        <img [src]="noticia.imagen" [alt]="noticia.titulo">
+        <img [src]="noticia.imagen" [alt]="noticia.titulo" width="800" height="450"
+          [attr.fetchpriority]="i === 0 ? 'high' : 'auto'" [loading]="i === 0 ? 'eager' : 'lazy'" >
       </div>
       }
     </div>
@@ -25,7 +26,7 @@
 
   <div class="carousel-content mt-4">
     @if (noticias[currentIndex]) {
-    <h3 class="carousel-content-title font-display">{{ noticias[currentIndex].titulo }}</h3>
+    <h2 class="carousel-content-title font-display">{{ noticias[currentIndex].titulo }}</h2>
     <p class="carousel-content-description">{{ noticias[currentIndex].descripcion }}</p>
     <a [href]="noticias[currentIndex].enlace" class="btn btn-outline-success btn-sm mt-2" target="_blank"
       rel="noopener">{{ 'CARRUSEL.LEER_MAS' | translate }}</a>

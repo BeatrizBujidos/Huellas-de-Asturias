@@ -9,15 +9,18 @@ import { Imagen } from '../../model/imagen';
 import { MONUMENTOS, EPOCAS, Monumento } from '../../components/mapa-monumentos/mapa-monumentos';
 import { TranslateService } from '../../service/translate.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-monumentos',
-  standalone: true,
   imports: [CommonModule, TranslatePipe],
   templateUrl: './monumentos.html',
   styleUrl: './monumentos.css',
 })
 export class Monumentos implements OnInit, OnDestroy {
+  // Mejorar SEO
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
 
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -51,6 +54,10 @@ export class Monumentos implements OnInit, OnDestroy {
   private keydownListener?: (e: KeyboardEvent) => void;
 
   constructor() {
+    this.title.setTitle('Monumentos | Huellas de Asturias');
+    this.meta.updateTag(
+      { name: 'description', content: 'Monumentos prerrománicos de Asturias: iglesias, palacios y otros edificios históricos.' });
+
     if (isPlatformBrowser(this.platformId)) {
       this.keydownListener = (e: KeyboardEvent) => {
         if (!this.lightboxAbierto()) return;
@@ -107,6 +114,13 @@ export class Monumentos implements OnInit, OnDestroy {
   }
   // Crear mapa de Leaflet importandolo dinámicamente
   private async iniciarMapa(monumento: Monumento): Promise<void> {
+    if (!document.querySelector('link[href*="leaflet"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+    }
+
     const leaflet = await import('leaflet');
     const L = (leaflet as any).default ?? leaflet;
     if (this.mapa) this.mapa.remove();

@@ -76,7 +76,7 @@
   border-radius: 1.25rem;
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
 }
 
 .detalle-imagen-principal {
@@ -136,7 +136,7 @@
   flex-shrink: 0;
 }
 
-.detalle-fila dt .material-icons {
+.detalle-fila dt .bi {
   font-size: 1rem;
   color: var(--color-primary);
 }
@@ -213,7 +213,7 @@
 }
 
 .galeria-item {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   border-radius: 0.625rem;
   overflow: hidden;
   cursor: pointer;
@@ -257,7 +257,7 @@
   text-align: center;
 }
 
-.detalle-no-encontrado .material-icons {
+.detalle-no-encontrado .bi {
   font-size: 3.5rem;
   opacity: 0.3;
 }
@@ -279,7 +279,7 @@
   pointer-events: none;
 }
 
-.detalle-imagen-zoom-hint .material-icons {
+.detalle-imagen-zoom-hint .bi {
   font-size: 2.5rem;
   color: #F5F5F5;
   opacity: 0;
@@ -292,7 +292,7 @@
   background: rgba(0, 0, 0, 0.18);
 }
 
-.detalle-imagen-wrapper:hover .detalle-imagen-zoom-hint .material-icons {
+.detalle-imagen-wrapper:hover .detalle-imagen-zoom-hint .bi {
   opacity: 1;
   transform: scale(1);
 }
@@ -315,7 +315,7 @@
   pointer-events: none;
 }
 
-.galeria-item-zoom .material-icons {
+.galeria-item-zoom .bi {
   font-size: 1.75rem;
   color: #F5F5F5;
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
@@ -438,7 +438,7 @@
   right: 1.5rem;
 }
 
-.lightbox-nav .material-icons {
+.lightbox-nav .bi {
   font-size: 2rem;
 }
 

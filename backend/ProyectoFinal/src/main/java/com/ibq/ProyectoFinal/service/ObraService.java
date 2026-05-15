@@ -30,7 +30,7 @@ public class ObraService {
                 .descripcion(obra.getDescripcion())
                 .descripcionEn(obra.getDescripcionEn())
                 .dimensiones(obra.getDimensiones());
-        // Añadir información del artista si existe
+        // Añadir informacion del artista si existe
         if (obra.getArtista() != null) {
             builder.artistaId(obra.getArtista()
                     .getId())
@@ -38,12 +38,12 @@ public class ObraService {
                             .getNombre() + " " + (obra.getArtista()
                             .getApellidos() != null ? obra.getArtista().getApellidos() : ""));
         }
-        // Añadir información del museo si existe
+        // Añadir informacion del museo si existe
         if (obra.getMuseo() != null) {
             builder.museoId(obra.getMuseo().getId())
                     .museoNombre(obra.getMuseo().getNombre());
         }
-        // Añadir información de la época si existe
+        // Añadir informacion de la epoca si existe
         if (obra.getEpoca() != null) {
             builder.epocaId(obra.getEpoca().getId())
                     .epocaNombre(obra.getEpoca().getNombre());
@@ -63,7 +63,7 @@ public class ObraService {
         obra.setDimensiones(dto.getDimensiones());
         return obra;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public ObraDTO saveObra(ObraDTO obraDTO) {
         Obra obra = mapToEntity(obraDTO);
@@ -116,7 +116,7 @@ public class ObraService {
                 .stream()
                 .map(this::mapToDTO).collect(Collectors.toList());
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public ObraDTO updateObra(ObraDTO obraDTO, Long idObra) {
         Obra obraDB = obraRepository.findById(idObra).orElseThrow(() -> new RuntimeException("Obra no encontrada con el ID: " + idObra));
@@ -144,7 +144,7 @@ public class ObraService {
         Obra updatedObra = obraRepository.save(obraDB);
         return mapToDTO(updatedObra);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @Transactional
     public void deleteObraById(Long idObra) {
         if (!obraRepository.existsById(idObra)) {

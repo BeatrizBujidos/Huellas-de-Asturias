@@ -6,6 +6,7 @@ import { ImagenService } from '../../../service/imagen-service';
 import { Imagen } from '../../../model/imagen';
 import { TranslateService } from '../../../service/translate.service';
 import { TranslatePipe } from '../../../pipe/translate.pipe';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-obra-detalle',
@@ -14,6 +15,9 @@ import { TranslatePipe } from '../../../pipe/translate.pipe';
   styleUrl: './obra-detalle.css',
 })
 export class ObraDetalle implements OnInit {
+  // Mejorar SEO
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
 
   readonly obra = signal<Obra | null>(null);
   readonly imagenes = signal<Imagen[]>([]);
@@ -30,6 +34,9 @@ export class ObraDetalle implements OnInit {
   readonly translate = inject(TranslateService);
 
   ngOnInit(): void {
+    this.title.setTitle('Detalle de Obra | Huellas de Asturias');
+    this.meta.updateTag({ name: 'description', content: `${this.obra()?.titulo} — ${this.obra()?.descripcion?.slice(0, 150)}` });
+
     const obraId = Number(this.route.snapshot.paramMap.get('id')) || 1;
 
     this.obraService.getById(obraId).subscribe({

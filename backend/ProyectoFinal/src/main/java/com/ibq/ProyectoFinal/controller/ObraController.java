@@ -20,7 +20,7 @@ public class ObraController {
     public ObraController(ObraService obraService) {
         this.obraService = obraService;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/obras")
     public ResponseEntity<ObraDTO> saveObra(@Valid @RequestBody ObraDTO obraDTO) {
         ObraDTO savedObra = obraService.saveObra(obraDTO);
@@ -39,7 +39,7 @@ public class ObraController {
         ObraDTO obra = obraService.findByTitulo(titulo);
         return ResponseEntity.ok(obra);
     }
-    //Buscar obras por técnica
+    //Buscar obras por tecnica
     @GetMapping("/obras/tecnica/{tecnica}")
     public ResponseEntity<List<ObraDTO>> findObrasPorTecnica(@PathVariable String tecnica) {
         List<ObraDTO> obras = obraService.findByTecnica(tecnica);
@@ -57,7 +57,7 @@ public class ObraController {
         List<ObraDTO> obras = obraService.findByMuseoNombre(nombreMuseo);
         return ResponseEntity.ok(obras);
     }
-    // Buscar obras por nombre de ÉPOCA
+    // Buscar obras por nombre de EPOCA
     @GetMapping("/obras/epoca/nombre/{nombreEpoca}")
     public ResponseEntity<List<ObraDTO>> findObrasPorEpocaNombre(@PathVariable String nombreEpoca) {
         List<ObraDTO> obras = obraService.findByEpocaNombre(nombreEpoca);
@@ -69,13 +69,13 @@ public class ObraController {
         List<ObraDTO> obras = obraService.listAll();
         return ResponseEntity.ok(obras);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/obras/{id}")
     public ResponseEntity<ObraDTO> updateObra(@RequestBody ObraDTO obraDTO, @PathVariable("id") Long idObra) {
         ObraDTO updatedObra = obraService.updateObra(obraDTO, idObra);
         return ResponseEntity.ok(updatedObra);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @DeleteMapping("/obras/{id}")
     public ResponseEntity<String> deleteObra(@PathVariable("id") Long idObra) {
         try {

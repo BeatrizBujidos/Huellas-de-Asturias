@@ -4,6 +4,8 @@
 -- ============================================
 
 USE arte_asturiano;
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 UPDATE artistas SET biografia_en = 'Spanish painter specializing in still lifes, flower arrangements, and hunting scenes, who also cultivated landscape and portraiture. She began her training in Madrid under Manuel Ramírez, a teacher at the School of Arts and Crafts. She took part in the National Fine Arts Exhibitions, winning a third-place medal in the 1892 and 1895 editions.' WHERE id = 1;
 

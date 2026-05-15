@@ -117,7 +117,7 @@
     overflow: hidden;
     border-radius: 1rem;
     box-shadow: var(--shadow-sm);
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
 }
 
 .foto-artista-img {
@@ -269,6 +269,7 @@
 .obra-card-img-wrapper {
     position: relative;
     overflow: hidden;
+    aspect-ratio: 1 / 1;
 }
 
 .obra-card-img {

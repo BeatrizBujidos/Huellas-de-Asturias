@@ -20,7 +20,7 @@ public class ArtistaController {
         this.artistaService = artistaService;
     }
 
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/artistas")
     public ResponseEntity<ArtistaDTO> saveArtista(@Valid @RequestBody ArtistaDTO artistaDTO) {
         ArtistaDTO savedArtista = artistaService.saveArtista(artistaDTO);
@@ -53,7 +53,7 @@ public class ArtistaController {
         List<ArtistaDTO> artistas = artistaService.findByEstilo(estilo);
         return ResponseEntity.ok(artistas);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/artistas/{id}")
     public ResponseEntity<ArtistaDTO> updateArtista(
             @RequestBody ArtistaDTO artistaDTO,
@@ -61,7 +61,7 @@ public class ArtistaController {
         ArtistaDTO updatedArtista = artistaService.updateArtista(artistaDTO, idArtista);
         return ResponseEntity.ok(updatedArtista);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @DeleteMapping("/artistas/{id}")
     public ResponseEntity<Void> deleteArtistaId(@PathVariable("id") Long idArtista) {
         try {

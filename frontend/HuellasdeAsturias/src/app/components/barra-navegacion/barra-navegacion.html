@@ -23,7 +23,7 @@
     </ul>
     <!-- Botón de idioma -->
     <button class="btn-lang" (click)="toggleLang()" [title]="'NAV.LANG' | translate">
-      <img [src]="currentFlag" alt="Bandera" class="lang-flag-img">
+      <img [src]="currentFlag" alt="Bandera" class="lang-flag-img" width="25px" height="15px" loading="lazy">
       <span class="lang-label">{{ 'NAV.LANG' | translate }}</span>
     </button>
   </div>

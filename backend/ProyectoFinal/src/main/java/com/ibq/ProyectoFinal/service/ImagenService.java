@@ -44,7 +44,7 @@ public class ImagenService {
         imagen.setOrden(dto.getOrden() != null ? dto.getOrden() : 1);
         return imagen;
     }
-    // Operación CREATE
+    // Operacion CREATE
     @Transactional
     public ImagenDTO saveImagen(ImagenDTO imagenDTO) {
         Imagen imagen = mapToEntity(imagenDTO);
@@ -89,7 +89,7 @@ public class ImagenService {
         return findImagenPrincipal(tipoEntidad, idEntidad)
                 .map(ImagenDTO::getUrl);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @Transactional
     public ImagenDTO updateImagen(ImagenDTO imagenDTO, Long idImagen) {
         Imagen imagenDB = imagenRepository.findById(idImagen)
@@ -119,7 +119,7 @@ public class ImagenService {
     public void setImagenPrincipal(Long idImagen, String tipoEntidad, Long idEntidad) {
         Imagen.TipoEntidad tipo = Imagen.TipoEntidad.valueOf(tipoEntidad.toUpperCase());
 
-        // Desmarcar todas las imágenes principales de esta entidad
+        // Desmarcar todas las imagenes principales de esta entidad
         List<Imagen> imagenes = imagenRepository.findByTipoEntidadAndIdEntidad(tipo, idEntidad);
         imagenes.forEach(img -> img.setEsPrincipal(false));
         imagenRepository.saveAll(imagenes);

@@ -1,0 +1,472 @@
+{
+  "info": {
+    "name": "Proyecto - Huellas de Asturias",
+    "description": "Colección completa de endpoints para probar la API del proyecto final. Base URL: http://localhost:8080/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Artistas",
+      "item": [
+        {
+          "name": "POST - Crear Artista",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/artistas", "host": ["{{baseUrl}}"], "path": ["artistas"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Francisco\",\n  \"apellidos\": \"Goya y Lucientes\",\n  \"fechaNacimiento\": \"1746-03-30\",\n  \"fechaMuerte\": \"1828-04-16\",\n  \"lugarNacimiento\": \"Fuendetodos, Zaragoza\",\n  \"biografia\": \"Francisco José de Goya y Lucientes fue un pintor y grabador español considerado el padre del arte moderno. Su obra abarca desde los cartones para tapices hasta los dramáticos grabados de Los desastres de la guerra.\",\n  \"biografiaEn\": \"Francisco José de Goya y Lucientes was a Spanish painter and printmaker considered the father of modern art. His work ranges from tapestry cartoons to dramatic war etchings.\",\n  \"estilo\": \"Romanticismo\",\n  \"imagen\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Goya_Autoportrait_1783.jpg/400px-Goya_Autoportrait_1783.jpg\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Artista por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/artistas/1", "host": ["{{baseUrl}}"], "path": ["artistas", "1"] }
+          }
+        },
+        {
+          "name": "GET - Listar Todos los Artistas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/artistas", "host": ["{{baseUrl}}"], "path": ["artistas"] }
+          }
+        },
+        {
+          "name": "GET - Buscar por Nombre y Apellidos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/artistas/nombreYapellidos?nombre=Francisco&apellidos=Goya y Lucientes",
+              "host": ["{{baseUrl}}"],
+              "path": ["artistas", "nombreYapellidos"],
+              "query": [
+                { "key": "nombre", "value": "Francisco" },
+                { "key": "apellidos", "value": "Goya y Lucientes" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar por Estilo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/artistas/estilo?estilo=Romanticismo",
+              "host": ["{{baseUrl}}"],
+              "path": ["artistas", "estilo"],
+              "query": [{ "key": "estilo", "value": "Romanticismo" }]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Artista",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/artistas/1", "host": ["{{baseUrl}}"], "path": ["artistas", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"biografia\": \"Francisco José de Goya y Lucientes (1746-1828) fue un pintor y grabador español, considerado tanto el último gran maestro de la pintura española del siglo XVIII como el primero de los grandes maestros del siglo XIX. Retratista de la familia real española y crítico de la sociedad de su época.\",\n  \"estilo\": \"Neoclasicismo, Romanticismo\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Artista",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/artistas/1", "host": ["{{baseUrl}}"], "path": ["artistas", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Épocas",
+      "item": [
+        {
+          "name": "POST - Crear Época",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/epocas", "host": ["{{baseUrl}}"], "path": ["epocas"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Renacimiento\",\n  \"descripcion\": \"Movimiento cultural y artístico europeo surgido en Italia en el siglo XIV que se extendió hasta el siglo XVII, caracterizado por el redescubrimiento del arte y la cultura clásica grecolatina.\",\n  \"fechaInicio\": \"1400\",\n  \"fechaFin\": \"1600\",\n  \"caracteristicas\": \"Perspectiva lineal, humanismo, uso de la luz y sombra (claroscuro), equilibrio y armonía en la composición, temática religiosa y mitológica\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Época por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/epocas/1", "host": ["{{baseUrl}}"], "path": ["epocas", "1"] }
+          }
+        },
+        {
+          "name": "GET - Buscar Época por Nombre",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/epocas/nombre?nombre=Renacimiento",
+              "host": ["{{baseUrl}}"],
+              "path": ["epocas", "nombre"],
+              "query": [{ "key": "nombre", "value": "Renacimiento" }]
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Todas las Épocas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/epocas/listado", "host": ["{{baseUrl}}"], "path": ["epocas", "listado"] }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Época",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/epocas/1", "host": ["{{baseUrl}}"], "path": ["epocas", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"El Renacimiento fue un florecimiento cultural e intelectual que comenzó en Italia y se extendió por toda Europa. Supuso el redescubrimiento del legado clásico grecolatino y el nacimiento del humanismo.\",\n  \"caracteristicas\": \"Perspectiva lineal, humanismo, claroscuro, equilibrio, armonía compositiva, temática religiosa, mitológica y retratos\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Época",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/epocas/1", "host": ["{{baseUrl}}"], "path": ["epocas", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Obras",
+      "item": [
+        {
+          "name": "POST - Crear Obra",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/obras", "host": ["{{baseUrl}}"], "path": ["obras"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"La maja desnuda\",\n  \"fechaCreacion\": \"1800\",\n  \"tecnica\": \"Óleo sobre lienzo\",\n  \"descripcion\": \"Obra de Francisco de Goya que representa a una mujer desnuda recostada sobre cojines. Es una de las pocas representaciones del desnudo femenino en la pintura española anterior al siglo XIX.\",\n  \"descripcionEn\": \"A work by Francisco de Goya depicting a naked woman reclining on cushions. It is one of the few representations of the female nude in Spanish painting prior to the 19th century.\",\n  \"dimensiones\": \"97 x 190 cm\",\n  \"artistaId\": 1,\n  \"museoId\": 1,\n  \"epocaId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Obra por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/obras/1", "host": ["{{baseUrl}}"], "path": ["obras", "1"] }
+          }
+        },
+        {
+          "name": "GET - Buscar Obra por Título",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/obras/titulo/La maja desnuda",
+              "host": ["{{baseUrl}}"],
+              "path": ["obras", "titulo", "La maja desnuda"]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar Obras por Técnica",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/obras/tecnica/Óleo sobre lienzo",
+              "host": ["{{baseUrl}}"],
+              "path": ["obras", "tecnica", "Óleo sobre lienzo"]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar Obras por Nombre de Artista",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/obras/artista/nombre/Francisco",
+              "host": ["{{baseUrl}}"],
+              "path": ["obras", "artista", "nombre", "Francisco"]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar Obras por Nombre de Museo",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/obras/museo/nombre/Museo del Prado",
+              "host": ["{{baseUrl}}"],
+              "path": ["obras", "museo", "nombre", "Museo del Prado"]
+            }
+          }
+        },
+        {
+          "name": "GET - Buscar Obras por Nombre de Época",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/obras/epoca/nombre/Renacimiento",
+              "host": ["{{baseUrl}}"],
+              "path": ["obras", "epoca", "nombre", "Renacimiento"]
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Todas las Obras",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/obras", "host": ["{{baseUrl}}"], "path": ["obras"] }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Obra",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/obras/1", "host": ["{{baseUrl}}"], "path": ["obras", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Obra maestra de Francisco de Goya conservada en el Museo del Prado. Representa a una mujer desnuda recostada con una actitud directa y desafiante hacia el espectador, inusual para la época.\",\n  \"dimensiones\": \"97 x 190 cm\",\n  \"tecnica\": \"Óleo sobre lienzo\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Obra",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/obras/1", "host": ["{{baseUrl}}"], "path": ["obras", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Museos",
+      "item": [
+        {
+          "name": "POST - Crear Museo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/museos", "host": ["{{baseUrl}}"], "path": ["museos"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Museo del Prado\",\n  \"direccion\": \"Calle Ruiz de Alarcón, 23\",\n  \"ciudad\": \"Madrid\",\n  \"latitud\": 40.4138,\n  \"longitud\": -3.6921,\n  \"horario\": \"Lunes a sábado: 10:00 - 20:00 | Domingos y festivos: 10:00 - 19:00\",\n  \"web\": \"https://www.museodelprado.es\",\n  \"imagen\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Edificio_del_Museo_del_Prado.jpg/400px-Edificio_del_Museo_del_Prado.jpg\"\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Museo por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/museos/1", "host": ["{{baseUrl}}"], "path": ["museos", "1"] }
+          }
+        },
+        {
+          "name": "GET - Buscar Museos por Ciudad",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/museos/Madrid", "host": ["{{baseUrl}}"], "path": ["museos", "Madrid"] }
+          }
+        },
+        {
+          "name": "GET - Listar Todos los Museos",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/museos/listado", "host": ["{{baseUrl}}"], "path": ["museos", "listado"] }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Museo",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/museos/1", "host": ["{{baseUrl}}"], "path": ["museos", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"horario\": \"Lunes a sábado: 10:00 - 20:00 | Domingos y festivos: 10:00 - 19:00 | Lunes: cerrado\",\n  \"web\": \"https://www.museodelprado.es\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Museo",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/museos/1", "host": ["{{baseUrl}}"], "path": ["museos", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🗿 Monumentos",
+      "item": [
+        {
+          "name": "POST - Crear Monumento",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/monumentos", "host": ["{{baseUrl}}"], "path": ["monumentos"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"La Sagrada Familia\",\n  \"descripcion\": \"Basílica de estilo modernista diseñada por el arquitecto Antoni Gaudí, cuya construcción comenzó en 1882 y sigue en curso. Es el monumento más visitado de España y Patrimonio de la Humanidad por la UNESCO.\",\n  \"fechaConstruccion\": \"1882\",\n  \"latitud\": 41.4036,\n  \"longitud\": 2.1744,\n  \"epocaId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Monumento por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/monumentos/1", "host": ["{{baseUrl}}"], "path": ["monumentos", "1"] }
+          }
+        },
+        {
+          "name": "GET - Buscar Monumentos por Época",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/monumentos/epoca/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["monumentos", "epoca", "1"]
+            }
+          }
+        },
+        {
+          "name": "GET - Listar Todos los Monumentos",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/monumentos/listado", "host": ["{{baseUrl}}"], "path": ["monumentos", "listado"] }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Monumento",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/monumentos/1", "host": ["{{baseUrl}}"], "path": ["monumentos", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descripcion\": \"Icónica basílica modernista de Antoni Gaudí en Barcelona. Declarada Patrimonio de la Humanidad por la UNESCO en 2010. Con más de 4,5 millones de visitantes anuales, es el lugar más visitado de España.\",\n  \"fechaConstruccion\": \"1882 - actualidad\"\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Monumento",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/monumentos/1", "host": ["{{baseUrl}}"], "path": ["monumentos", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Imágenes",
+      "item": [
+        {
+          "name": "POST - Crear Imagen (Obra)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/imagenes", "host": ["{{baseUrl}}"], "path": ["imagenes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/La_maja_desnuda%2C_by_Francisco_de_Goya.jpg/800px-La_maja_desnuda%2C_by_Francisco_de_Goya.jpg\",\n  \"tipoEntidad\": \"OBRA\",\n  \"idEntidad\": 1,\n  \"esPrincipal\": true,\n  \"orden\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "POST - Crear Imagen (Monumento)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/imagenes", "host": ["{{baseUrl}}"], "path": ["imagenes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Sagrada-Familia-2022.jpg/400px-Sagrada-Familia-2022.jpg\",\n  \"tipoEntidad\": \"MONUMENTO\",\n  \"idEntidad\": 1,\n  \"esPrincipal\": false,\n  \"orden\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "GET - Obtener Imagen por ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/imagenes/1", "host": ["{{baseUrl}}"], "path": ["imagenes", "1"] }
+          }
+        },
+        {
+          "name": "GET - Buscar Imagen por URL",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/imagenes/url?url=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/La_maja_desnuda%2C_by_Francisco_de_Goya.jpg/800px-La_maja_desnuda%2C_by_Francisco_de_Goya.jpg",
+              "host": ["{{baseUrl}}"],
+              "path": ["imagenes", "url"],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/La_maja_desnuda%2C_by_Francisco_de_Goya.jpg/800px-La_maja_desnuda%2C_by_Francisco_de_Goya.jpg"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Imágenes de una Entidad (OBRA id=1)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/imagenes/entidad/OBRA/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["imagenes", "entidad", "OBRA", "1"]
+            }
+          }
+        },
+        {
+          "name": "PUT - Actualizar Imagen",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/imagenes/1", "host": ["{{baseUrl}}"], "path": ["imagenes", "1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/La_maja_desnuda%2C_by_Francisco_de_Goya.jpg/1024px-La_maja_desnuda%2C_by_Francisco_de_Goya.jpg\",\n  \"esPrincipal\": true,\n  \"orden\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Imagen por ID",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/imagenes/1", "host": ["{{baseUrl}}"], "path": ["imagenes", "1"] }
+          }
+        },
+        {
+          "name": "DELETE - Eliminar Todas las Imágenes de una Entidad",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/imagenes/entidad/OBRA/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["imagenes", "entidad", "OBRA", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

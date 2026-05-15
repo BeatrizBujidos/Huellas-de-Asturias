@@ -21,7 +21,7 @@ public class MuseoController {
         this.museoService = museoService;
     }
 
-    // Operación CREATE
+    // Operacion CREATE
     @PostMapping("/museos")
     public ResponseEntity<MuseoDTO> saveMuseo(@Valid @RequestBody MuseoDTO museoDTO) {
         MuseoDTO savedMuseo = museoService.saveMuseo(museoDTO);
@@ -29,13 +29,13 @@ public class MuseoController {
     }
     // Operaciones READ
     //Buscar por id
-    @GetMapping("/museos/{id}")
+    @GetMapping("/museos/id/{id}")
     public ResponseEntity<MuseoDTO> findById(@PathVariable Long id){
         MuseoDTO museo = museoService.findById(id);
         return ResponseEntity.ok(museo);
     }
     //Buscar museos por ciudad
-    @GetMapping("/museos/{ciudad}")
+    @GetMapping("/museos/ciudad/{ciudad}")
     public ResponseEntity<List<MuseoDTO>> buscarMuseosPorCiudad(@PathVariable String ciudad) {
         List<MuseoDTO> museos = museoService.findByCiudad(ciudad);
         return ResponseEntity.ok(museos);
@@ -46,7 +46,7 @@ public class MuseoController {
         List<MuseoDTO> museos = museoService.listarMuseos();
         return ResponseEntity.ok(museos);
     }
-    // Operación UPDATE
+    // Operacion UPDATE
     @PutMapping("/museos/{id}")
     public ResponseEntity<MuseoDTO> updateMuseo(
             @RequestBody MuseoDTO museoDTO,
@@ -54,7 +54,7 @@ public class MuseoController {
         MuseoDTO updatedMuseo = museoService.updateMuseo(museoDTO, idMuseo);
         return ResponseEntity.ok(updatedMuseo);
     }
-    // Operación DELETE
+    // Operacion DELETE
     @DeleteMapping("/museos/{id}")
     public ResponseEntity<String> deleteMuseo(@PathVariable("id") Long idMuseo) {
         try {

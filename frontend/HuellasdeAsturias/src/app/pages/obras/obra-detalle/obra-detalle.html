@@ -36,7 +36,7 @@
       <div class="obra-img-principal" (click)="abrirLightbox(imagenIndice())" title="Ver imagen completa">
         <img [src]="imagenSeleccionada()" [alt]="obra.titulo" class="obra-img-principal-img" />
         <div class="obra-img-zoom-hint">
-          <span class="material-icons">zoom_in</span>
+          <i class="bi bi-arrows-fullscreen"></i>
         </div>
       </div>
 
@@ -106,9 +106,9 @@
       @for (img of imagenes(); track img.id; let i = $index) {
       <div class="miniatura-wrapper" [class.activa]="imagenSeleccionada() === img.url"
         (click)="seleccionarImagen(img.url, i)">
-        <img [src]="img.url" [alt]="obra.titulo" class="miniatura-img" />
+        <img [src]="img.url" [alt]="obra.titulo" class="miniatura-img" loading="lazy" />
         <div class="miniatura-zoom">
-          <span class="material-icons">zoom_in</span>
+          <i class="bi bi-arrows-fullscreen"></i>
         </div>
       </div>
       }
@@ -129,17 +129,17 @@
 <div class="lightbox-overlay" (click)="cerrarLightbox()" (keydown.escape)="cerrarLightbox()">
 
   <button class="lightbox-cerrar" (click)="cerrarLightbox()" aria-label="Cerrar">
-    <span class="material-icons">close</span>
+    <i class="bi bi-x-circle"></i>
   </button>
 
   @if (imagenes().length > 1) {
   <button class="lightbox-nav lightbox-prev" (click)="$event.stopPropagation(); navLightbox(-1)" aria-label="Anterior">
-    <span class="material-icons">chevron_left</span>
+    <i class="bi bi-chevron-left"></i>
   </button>
   }
 
   <div class="lightbox-contenido" (click)="$event.stopPropagation()">
-    <img [src]="imagenes()[lightboxIndice()].url" [alt]="obra()?.titulo" class="lightbox-img" />
+    <img [src]="imagenes()[lightboxIndice()].url" [alt]="obra()?.titulo" class="lightbox-img" loading="lazy" />
     @if (imagenes().length > 1) {
     <p class="lightbox-contador">{{ lightboxIndice() + 1 }} / {{ imagenes().length }}</p>
     }
@@ -147,7 +147,7 @@
 
   @if (imagenes().length > 1) {
   <button class="lightbox-nav lightbox-next" (click)="$event.stopPropagation(); navLightbox(1)" aria-label="Siguiente">
-    <span class="material-icons">chevron_right</span>
+    <i class="bi bi-chevron-right"></i>
   </button>
   }
 

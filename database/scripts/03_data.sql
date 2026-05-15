@@ -6,6 +6,8 @@
 
 -- Usar la base de datos
 USE arte_asturiano;
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 
 -- ============================================
 -- 1. Insertar Épocas históricas

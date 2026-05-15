@@ -8,7 +8,7 @@ import { Monumento } from '../model/monumento';
 })
 export class MonumentoService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/monumentos';
+  private readonly apiUrl = '/api/monumentos';
 
   constructor(private http: HttpClient) {}
   
