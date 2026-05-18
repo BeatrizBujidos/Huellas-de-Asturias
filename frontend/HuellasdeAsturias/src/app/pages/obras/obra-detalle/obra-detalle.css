@@ -1,7 +1,7 @@
 /* Varribles */
 :root,
 :host {
-  --color-primary: #125700;
+  --color-primary: #0F4D00;
   --color-border: #F5F5F5;
   --shadow-sm: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
   --shadow-md: 0 1rem 3rem rgba(0, 0, 0, 0.14);
@@ -72,7 +72,7 @@
 .titulo-principal {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #125700;
+  color: #0F4D00;
   line-height: 1.15;
   margin: 0 0 0.5rem;
 }
@@ -103,9 +103,9 @@
 .epoca-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background-color: rgba(18, 87, 0, 0.1);
+  background-color: rgba(15, 77, 0, 0.1);
   color: var(--color-primary);
-  border: 1px solid rgba(18, 87, 0, 0.25);
+  border: 1px solid rgba(15, 77, 0, 0.25);
   border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
@@ -202,7 +202,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #125700;
+  color: #0F4D00;
 }
 
 .barra-titulo {
@@ -319,7 +319,7 @@
   grid-column: 1 / -1;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #125700;
+  color: #0F4D00;
   margin: 0 0 0.25rem;
 }
 
@@ -507,7 +507,7 @@
 .titulo-relacionadas {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #125700;
+  color: #0F4D00;
   margin-bottom: 1.5rem;
 }
 

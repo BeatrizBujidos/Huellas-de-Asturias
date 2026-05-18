@@ -1,6 +1,6 @@
 /* Variables */
 :host {
-  --color-primary: #125700;
+  --color-primary: #0F4D00;
   --color-text: #202020;
   --color-text-muted: #2e2e2e;
   --color-border: #F5F5F5;
@@ -229,7 +229,7 @@
 
 .galeria-item-activo {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(18, 87, 0, 0.15);
+  box-shadow: 0 0 0 3px rgba(15, 77, 0, 0.15);
 }
 
 .galeria-item-img {
