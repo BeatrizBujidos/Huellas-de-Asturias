@@ -21,7 +21,7 @@ cd huellas-Asturias
 
 ##### 2\. Construir y levantar todos los servicios
 
-docker-compose up –build -d
+docker-compose up -–build
 
 
 
