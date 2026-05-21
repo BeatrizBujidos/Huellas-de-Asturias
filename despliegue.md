@@ -13,7 +13,7 @@
 
 1. ##### Clonar repositorio
 
-git clone https://github.com/tu-usuario/huellas-asturias.git
+git clone https://github.com/BeatrizBujidos/Huellas-de-Asturias.git
 
 cd huellas-Asturias
 
@@ -21,7 +21,7 @@ cd huellas-Asturias
 
 ##### 2\. Construir y levantar todos los servicios
 
-docker-compose up –build -d
+docker-compose up -–build
 
 
 
