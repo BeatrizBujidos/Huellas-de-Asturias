@@ -22,7 +22,7 @@ public class Imagen {
     private TipoEntidad tipoEntidad;
 
     @NotNull(message = "El ID de la entidad es obligatorio")
-    @Column(name = "idEntidad")
+    @Column(name = "id_entidad")
     private Long idEntidad;
 
     @Column(name = "es_principal")

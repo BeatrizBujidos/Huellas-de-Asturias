@@ -8,7 +8,7 @@ USE arte_asturiano;
 
 -- Tabla: epocas
 CREATE TABLE IF NOT EXISTS epocas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(168) NOT NULL,
     descripcion TEXT,
     fecha_inicio INT,
@@ -21,7 +21,7 @@ COMMENT = 'Tabla de épocas históricas';
 
 -- Tabla: artistas
 CREATE TABLE IF NOT EXISTS artistas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     apellidos VARCHAR(255) NOT NULL,
     fecha_nacimiento DATE,
@@ -37,7 +37,7 @@ COMMENT = 'Tabla de artistas';
 
 -- Tabla: museos
 CREATE TABLE IF NOT EXISTS museos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     direccion VARCHAR(580),
     ciudad VARCHAR(200),
@@ -53,10 +53,10 @@ COMMENT = 'Tabla de museos';
 
 -- Tabla: obras
 CREATE TABLE IF NOT EXISTS obras (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_artista INT NOT NULL,
-    id_museo INT,
-    id_epoca INT NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id_artista BIGINT NOT NULL,
+    id_museo BIGINT,
+    id_epoca BIGINT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     fecha_creacion INT,
     tecnica VARCHAR(168),
@@ -69,8 +69,8 @@ COMMENT = 'Tabla de obras de arte';
 
 -- Tabla: monumentos
 CREATE TABLE IF NOT EXISTS monumentos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_epoca INT NOT NULL,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id_epoca BIGINT NOT NULL,
     nombre VARCHAR(255) NOT NULL,
     fecha_construccion VARCHAR(100),
     descripcion TEXT,
@@ -83,10 +83,10 @@ COMMENT = 'Tabla de monumentos';
 
 -- Tabla: imagenes
 CREATE TABLE IF NOT EXISTS imagenes (
-    id_imagen INT AUTO_INCREMENT PRIMARY KEY,
+    id_imagen BIGINT AUTO_INCREMENT PRIMARY KEY,
     url VARCHAR(500) NOT NULL,
     tipo_entidad ENUM('OBRA', 'MONUMENTO'),
-    id_entidad INT NOT NULL,
+    id_entidad BIGINT NOT NULL,
     es_principal BOOLEAN DEFAULT TRUE,
     orden INT DEFAULT 1,
     fecha_creacion_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
